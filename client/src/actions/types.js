@@ -1,0 +1,6 @@
+// authentication
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const SAVE_REGISTER_ERRORS = "SAVE_REGISTER_ERRORS";
+
+// customHeader
+export const UPDATE_WINDOW_DIMENSIONS = "UPDATE_WINDOW_DIMENSIONS";

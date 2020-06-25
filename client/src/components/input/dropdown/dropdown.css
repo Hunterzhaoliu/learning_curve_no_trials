@@ -1,0 +1,36 @@
+.ant-select-selection__rendered {
+  line-height: 40px;
+}
+
+.ant-select-selection {
+  height: 40px;
+}
+
+.ant-select-selection {
+  border-width: 0px 0px 3px 0px;
+  border-radius: 0px;
+  border-color: grey;
+}
+
+.ant-select {
+  font-size: 16px;
+  font-family: "Roboto";
+}
+
+.ant-select-selection:hover {
+  border-color: grey;
+  border-right-width: 0px !important;
+}
+
+.ant-select-selection:active,
+.ant-select-selection:focus {
+  border-color: grey;
+  border-right-width: 0px !important;
+  box-shadow: none;
+}
+
+.ant-select-open .ant-select-selection {
+  border-color: grey;
+  border-right-width: 0px !important;
+  box-shadow: none;
+}
