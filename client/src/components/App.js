@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Landing from "./Landing";
 import history from "./history";
 import { Layout } from "antd";
-import "./main.css";
+import "./app.css";
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +15,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.initializeApp();
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
   }
@@ -46,9 +45,6 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    initializeApp: () => {
-      initializeDispatchers.initializeApp();
-    },
     updateWindowDimensions: (newWindowWidth, newWindowHeight) => {
       initializeDispatchers.updateWindowDimensions(
         newWindowWidth,

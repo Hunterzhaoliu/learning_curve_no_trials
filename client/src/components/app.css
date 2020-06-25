@@ -1,5 +1,9 @@
+body {
+  font-family: "Nunito", sans-serif;
+}
+
 .content {
-  padding: 60px 0px 60px 0px;
+  padding: 60px;
   background-color: white;
 }
 

@@ -1,21 +1,18 @@
-import { UPDATE_WINDOW_DIMENSIONS } from "../actions/types";
+import { SAVE_REGISTER_ERRORS } from "../actions/types";
 
 let cloneObject = object => {
   return JSON.parse(JSON.stringify(object));
 };
 
 let initialState = {
-  step: 0,
-  windowWidth: null,
-  windowHeight: null
+  registerErrors: {}
 };
 
 export default function(state = initialState, action) {
   let newState = cloneObject(state);
   switch (action.type) {
-    case UPDATE_WINDOW_DIMENSIONS:
-      newState.windowWidth = action.newWindowWidth;
-      newState.windowHeight = action.newWindowHeight;
+    case SAVE_REGISTER_ERRORS:
+      newState.registerErrors = action.registerErrors;
       return newState;
     default:
       return state;
