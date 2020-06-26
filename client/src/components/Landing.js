@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Layout } from "antd";
-import Password from "./Password";
+import Code from "./Code";
+
 const { Content } = Layout;
 
 class Landing extends Component {
@@ -9,12 +10,12 @@ class Landing extends Component {
     const { step } = this.props;
     switch (step) {
       case 0:
-        return <Password />;
+        return <Code />;
         break;
       default:
-        return <Password />;
+        return <Code />;
     }
-    // Step 0: Password
+    // Step 0: Code
     // Step 1: Consent
     // Step 2: Information
     // Step 3: Practice Instructions

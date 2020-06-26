@@ -1,5 +1,9 @@
 // initialize
 export const UPDATE_WINDOW_DIMENSIONS = "UPDATE_WINDOW_DIMENSIONS";
 
-// registration
+// register
 export const SAVE_REGISTER_ERRORS = "SAVE_REGISTER_ERRORS";
+
+export const SAVE_WRONG_CODE_ERROR = "SAVE_WRONG_CODE_ERROR";
+export const NEXT_STEP = "NEXT_STEP";
+export const SAVE_CORRECT_CODE = "SAVE_CORRECT_CODE";

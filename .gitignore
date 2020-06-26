@@ -2,3 +2,6 @@ node_modules
 config/dev.js
 
 .DS_Store
+
+client/.env.development
+client/.env.production

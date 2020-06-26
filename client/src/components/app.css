@@ -3,8 +3,18 @@ body {
 }
 
 .content {
-  padding: 60px;
   background-color: white;
+  text-align: center;
+}
+
+.screen-edge-padding {
+  padding: 60px;
+}
+
+@media only screen and (max-width: 576px) {
+  .screen-edge-padding {
+    padding: 45px;
+  }
 }
 
 h1,
@@ -14,9 +24,19 @@ h4,
 h5,
 h6,
 p {
-  font-family: "Roboto";
-  line-height: 1;
   margin: 0;
+}
+
+h1 {
+  font-size: 46px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 24px;
 }
 
 h4 {
@@ -24,11 +44,19 @@ h4 {
 }
 
 h5 {
-  font-size: 24px;
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
 }
 
 p {
   font-size: 16px;
+}
+
+.row-upper-15-padding {
+  padding-top: 15px;
 }
 
 .row-upper-30-padding {

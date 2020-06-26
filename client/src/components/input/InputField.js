@@ -6,32 +6,18 @@ import "./input-field.css";
 
 class InputField extends Component {
   render() {
-    const {
-      value,
-      label,
-      hasError,
-      errorMessage,
-      width,
-      id,
-      type
-    } = this.props;
+    const { label, hasError, errorMessage, width, id, type } = this.props;
 
-    let finalValue = value;
-    // input cannot have value as `null` or `undefined`, need to change to empty string
-    if (finalValue === null || finalValue === undefined) {
-      finalValue = "";
-    }
+    let value = this.props.value;
 
     return (
       <div>
-        <Row type="flex" justify="start" align="bottom">
-          <Col span={7}>
-            <h4 className="h4-label">{label}</h4>
-          </Col>
-          <Col offset={1}>
+        <Row type="flex" justify="start">
+          <Col span={24}>
             <input
               className="input-input-field"
-              value={finalValue}
+              placeholder={label}
+              value={value}
               onChange={this.props.onChange}
               style={{ width: width }}
               id={id}
