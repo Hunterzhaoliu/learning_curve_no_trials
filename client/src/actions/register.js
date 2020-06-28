@@ -1,20 +1,18 @@
-import { SAVE_WRONG_CODE_ERROR, NEXT_STEP, SAVE_CORRECT_CODE } from "./types";
+import { SAVE_CODE_ERROR, NEXT_STEP, REMOVE_CODE_ERROR } from "./types";
 // import history from "../components/history";
 
 export const checkCode = userCode => async dispatch => {
-  console.log("userCode = ", userCode);
-  console.log("process.env = ", process.env);
-  if (userCode === process.env.CODE) {
+  if (userCode === process.env.REACT_APP_CODE) {
     dispatch({
       type: NEXT_STEP
     });
 
     dispatch({
-      type: SAVE_CORRECT_CODE
+      type: REMOVE_CODE_ERROR
     });
   } else {
     dispatch({
-      type: SAVE_WRONG_CODE_ERROR
+      type: SAVE_CODE_ERROR
     });
   }
 };

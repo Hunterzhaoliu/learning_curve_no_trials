@@ -11,14 +11,12 @@ class Code extends Component {
   constructor() {
     super();
     this.state = {
-      code: "hello",
+      code: "",
       codeError: false
     };
   }
 
   componentDidUpdate(previousProps) {
-    console.log("this.props.codeError = ", this.props.codeError);
-
     if (this.props.codeError !== previousProps.codeError) {
       this.setState({
         codeError: this.props.codeError
@@ -26,13 +24,17 @@ class Code extends Component {
     }
   }
 
+  onSubmitCode = e => {
+    // prevent cleaning the form
+    e.preventDefault();
+    this.props.checkCode(this.state.code);
+  };
+
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
   render() {
-    console.log("process.env render = ", process.env);
-
     return (
       <div className="screen-edge-padding">
         <Row type="flex" justify="center">
@@ -53,33 +55,41 @@ class Code extends Component {
         </Row>
         <Row className="row-upper-15-padding" type="flex" justify="start">
           <Col span={24}>
-            <InputField
-              value={this.state.code}
-              label="Code:"
-              errorMessage="That doesn't seem to be a valid code."
-              hasError={this.state.codeError}
-              onChange={this.onChange}
-              width={"100%"}
-              id="code"
-              type="text"
-            />
+            <form onSubmit={this.onSubmitCode}>
+              <InputField
+                value={this.state.code}
+                label="Code:"
+                errorMessage="That doesn't seem to be a valid code."
+                hasError={this.state.codeError}
+                onChange={this.onChange}
+                width={"100%"}
+                id="code"
+                type="text"
+              />
+            </form>
           </Col>
         </Row>
         <Row
-          style={{ padding: "60px 0px 0px" }}
+          className="row-upper-30-padding"
           type="flex"
           justify="center"
           align="middle"
         >
           <Col>
-            <button
-              className="button-main"
-              type="submit"
-              disabled={false}
-              onClick={() => this.props.checkCode(this.state.code)}
-            >
+            <button className="button-main" type="submit" disabled={false}>
               Submit
             </button>
+          </Col>
+        </Row>
+        <Row className="row-upper-30-padding" type="flex" justify="start">
+          <Col>
+            <h6 className="h5-align-left">
+              Interested in participating? Click{" "}
+              <a target="_blank" href="http://www.allysonmackey.com/">
+                here
+              </a>
+              .
+            </h6>
           </Col>
         </Row>
       </div>
