@@ -8,12 +8,7 @@ class ErrorMessage extends Component {
     const { message, hasError } = this.props;
     if (hasError) {
       return (
-        <Row
-          className="row-error-message-padding"
-          type="flex"
-          justify="start"
-          align="middle"
-        >
+        <Row type="flex" justify="start">
           <Col>
             <p className="p-error-message">{message}</p>
           </Col>

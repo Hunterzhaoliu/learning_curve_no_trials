@@ -3,8 +3,11 @@ const { Schema } = mongoose;
 
 const subjectSchema = new Schema(
   {
-    email: String,
-    step: { type: Number, default: 0 }
+    childName: String,
+    childBirthDate: Date,
+    signature: String,
+    signatureDate: Date,
+    videoPermission: { type: Number, default: 0 }
   },
   {
     // allows for request.subject.save()

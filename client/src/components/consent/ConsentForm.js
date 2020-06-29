@@ -20,9 +20,6 @@ class ConsentForm extends Component {
       signature: "",
       signatureDate: date,
       videoPermission: 0,
-      phoneNumber: "",
-      email: "",
-      mailingAddress: "",
       consentError: {}
     };
   }
@@ -40,7 +37,7 @@ class ConsentForm extends Component {
     e.preventDefault();
     // need to create a copy of the state to allow for errors to be removed in
     // the actions
-    this.props.register(JSON.parse(JSON.stringify(this.state)));
+    this.props.registerConsent(JSON.parse(JSON.stringify(this.state)));
   };
 
   onChange = e => {
@@ -78,7 +75,7 @@ class ConsentForm extends Component {
                 value={this.state.childName}
                 label="Child's Name:"
                 errorMessage="That doesn't seem to be a valid name."
-                hasError={this.state.consentError.childNameError}
+                hasError={this.state.consentError.childName}
                 onChange={this.onChange}
                 width={"100%"}
                 id="childName"
@@ -109,7 +106,7 @@ class ConsentForm extends Component {
                 value={this.state.signature}
                 label="Signature:"
                 errorMessage="That doesn't seem to be a valid signature."
-                hasError={this.state.consentError.signatureError}
+                hasError={this.state.consentError.signature}
                 onChange={this.onChange}
                 width={"100%"}
                 id="signature"
@@ -224,8 +221,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    register: registerInfo => {
-      registerDispatchers.register(registerInfo);
+    registerConsent: registerInfo => {
+      registerDispatchers.registerConsent(registerInfo);
     }
   };
 }

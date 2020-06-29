@@ -38,7 +38,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-require("./routes/initializeRoutes")(app);
+require("./routes/registerRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   // Express will serve up production assets like our main.js or main.css file

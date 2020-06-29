@@ -1,12 +1,12 @@
 // https://stackoverflow.com/questions/14088714/regular-expression-for-name-field-in-javascript-validation
 // this valid string also includes _
-const isValidStringRegex = /^[a-zA-Z_ ]{0,30}$/;
+const isValidStringRegex = /^[a-zA-Z ]{0,30}$/;
 
 export const isValidString = string => {
   return isValidStringRegex.test(string);
 };
 
-const isValidFilledStringRegex = /^[a-zA-Z_ ]{1,30}$/;
+const isValidFilledStringRegex = /^[a-zA-Z ]{1,30}$/;
 
 export const isValidFilledString = string => {
   return isValidFilledStringRegex.test(string);
