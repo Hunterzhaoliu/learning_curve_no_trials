@@ -17,8 +17,8 @@ export const checkCode = userCode => async dispatch => {
   }
 };
 
-export const register = (signature, date) => async dispatch => {
-  console.log("signature = ", signature);
+export const register = registerInfo => async dispatch => {
+  console.log("registerInfo = ", registerInfo);
   // const registerResponse = await axios.post("/api/register", subject);
   //
   // const registerResponseData = registerResponse.data;

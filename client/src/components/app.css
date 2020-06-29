@@ -25,6 +25,7 @@ h5,
 h6,
 p {
   margin: 0;
+  display: inline-block;
 }
 
 h1 {

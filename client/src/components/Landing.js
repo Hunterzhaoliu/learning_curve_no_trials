@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Layout } from "antd";
 import Code from "./Code";
-import ConsentForm from "./ConsentForm";
+import ConsentForm from "./consent/ConsentForm";
 
 const { Content } = Layout;
 

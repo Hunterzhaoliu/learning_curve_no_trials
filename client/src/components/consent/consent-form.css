@@ -24,3 +24,11 @@
 .ant-calendar-picker-input {
   outline: none;
 }
+
+.ant-radio-wrapper {
+  white-space: normal;
+}
+
+.float-left {
+  float: left;
+}

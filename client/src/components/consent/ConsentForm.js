@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as registerActionCreators from "../actions/register";
+import * as registerActionCreators from "../../actions/register";
 import { bindActionCreators } from "redux";
-import { Row, Col, DatePicker } from "antd";
-import InputField from "./input/InputField";
+import { Row, Col, DatePicker, Radio } from "antd";
+import ConsentInformation from "./ConsentInformation";
+import InputField from "../input/InputField";
 import "./consent-form.css";
 
 class ConsentForm extends Component {
@@ -18,7 +19,7 @@ class ConsentForm extends Component {
       childBirthDate: "",
       signature: "",
       signatureDate: date,
-      videoPermission: 1,
+      videoPermission: 0,
       phoneNumber: "",
       email: "",
       mailingAddress: "",
@@ -53,10 +54,6 @@ class ConsentForm extends Component {
   };
 
   render() {
-    console.log(
-      "String(this.props.windowWidth) + 'px' = ",
-      String(this.props.windowWidth) + "px"
-    );
     document.documentElement.style.setProperty(
       "--window-width",
       String(this.props.windowWidth - 40) + "px"
@@ -71,7 +68,7 @@ class ConsentForm extends Component {
         </Row>
         <Row className="row-upper-30-padding" type="flex" justify="start">
           <Col>
-            <p>Consent information</p>
+            <ConsentInformation />
           </Col>
         </Row>
         <form onSubmit={this.onSubmit}>
@@ -124,6 +121,78 @@ class ConsentForm extends Component {
             </Col>
           </Row>
           <Row
+            className="row-upper-30-padding text-align-left"
+            type="flex"
+            justify="start"
+          >
+            <Col span={24}>
+              <h6>
+                <b>Video Permissions</b>
+              </h6>
+            </Col>
+          </Row>
+          <Row className="row-upper-15-padding" type="flex" justify="start">
+            <Col span={24}>
+              <Radio.Group
+                onChange={this.onChange}
+                value={this.state.videoPermission}
+              >
+                <Radio
+                  id="videoPermission"
+                  value={1}
+                  className="text-align-left"
+                >
+                  <h6>
+                    <b>Level 1: Private</b>
+                  </h6>
+                  <p>
+                    This privacy level ensures that your video clips will be
+                    viewed only be authorized members of our lab.
+                  </p>
+                </Radio>
+                <Radio
+                  id="videoPermission"
+                  className="text-align-left"
+                  value={2}
+                >
+                  <h6>
+                    <b>Level 2: Scientific and Educational</b>
+                  </h6>
+                  <p>
+                    This privacy level gives permission to share your video
+                    clips with other researchers or students for scientific or
+                    educational purposes, for example, we might show a video
+                    clip in a talk in a scientific conference or in an
+                    undergraduate class about cognitive development. Selecting
+                    this option includes level 1 permissions.
+                  </p>
+                </Radio>
+                <Radio
+                  id="videoPermission"
+                  className="text-align-left"
+                  value={3}
+                >
+                  <h6>
+                    <b>Level 3: Publicity</b>
+                  </h6>
+                  <p>
+                    This privacy level gives permission to use your video clips
+                    to communicate about developmental students to the public,
+                    for example, we may use your video in a press release or on
+                    our website. This video will never be used for commercial
+                    purposes. Selecting this option includes level 1 and level 2
+                    permissions.
+                  </p>
+                </Radio>
+                <Radio id="videoPermission" className="float-left" value={4}>
+                  <h6>
+                    <b>No Video</b>
+                  </h6>
+                </Radio>
+              </Radio.Group>
+            </Col>
+          </Row>
+          <Row
             className="row-upper-30-padding"
             type="flex"
             justify="center"
@@ -155,8 +224,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    register: (signature, date) => {
-      registerDispatchers.register(signature, date);
+    register: registerInfo => {
+      registerDispatchers.register(registerInfo);
     }
   };
 }
