@@ -2,10 +2,6 @@
   width: 50%;
 }
 
-.h5-align-left {
-  text-align: left;
-}
-
 @media only screen and (max-width: 576px) {
   .img-lab-logo {
     width: 100%;

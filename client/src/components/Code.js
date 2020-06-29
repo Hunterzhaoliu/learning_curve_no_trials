@@ -48,14 +48,14 @@ class Code extends Component {
         </Row>
         <Row className="row-upper-30-padding" type="flex" justify="start">
           <Col>
-            <h5 className="h5-align-left">
+            <h5 className="text-align-left">
               Please enter the code you received in your email:
             </h5>
           </Col>
         </Row>
-        <Row className="row-upper-15-padding" type="flex" justify="start">
-          <Col span={24}>
-            <form onSubmit={this.onSubmitCode}>
+        <form onSubmit={this.onSubmitCode}>
+          <Row className="row-upper-15-padding" type="flex" justify="start">
+            <Col span={24}>
               <InputField
                 value={this.state.code}
                 label="Code:"
@@ -66,26 +66,30 @@ class Code extends Component {
                 id="code"
                 type="text"
               />
-            </form>
-          </Col>
-        </Row>
-        <Row
-          className="row-upper-30-padding"
-          type="flex"
-          justify="center"
-          align="middle"
-        >
-          <Col>
-            <button className="button-main" type="submit" disabled={false}>
-              Submit
-            </button>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+          <Row
+            className="row-upper-30-padding"
+            type="flex"
+            justify="center"
+            align="middle"
+          >
+            <Col>
+              <button className="button-main" type="submit" disabled={false}>
+                Submit
+              </button>
+            </Col>
+          </Row>
+        </form>
         <Row className="row-upper-30-padding" type="flex" justify="start">
           <Col>
-            <h6 className="h5-align-left">
+            <h6 className="text-align-left">
               Interested in participating? Click{" "}
-              <a target="_blank" href="http://www.allysonmackey.com/">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="http://www.allysonmackey.com/"
+              >
                 here
               </a>
               .
@@ -99,7 +103,6 @@ class Code extends Component {
 
 function mapStateToProps(state) {
   return {
-    step: state.initialize.step,
     codeError: state.register.codeError
   };
 }

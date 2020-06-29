@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Layout } from "antd";
 import Code from "./Code";
+import ConsentForm from "./ConsentForm";
 
 const { Content } = Layout;
 
@@ -11,7 +12,8 @@ class Landing extends Component {
     switch (step) {
       case 0:
         return <Code />;
-        break;
+      case 1:
+        return <ConsentForm />;
       default:
         return <Code />;
     }

@@ -5,7 +5,7 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  step: 0,
+  step: 1,
   windowWidth: null,
   windowHeight: null
 };

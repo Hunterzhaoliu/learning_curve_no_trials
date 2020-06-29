@@ -12,3 +12,7 @@
 .input-input-field:focus {
   outline: none;
 }
+
+.input-input-field::placeholder {
+  color: rgb(191, 191, 191);
+}

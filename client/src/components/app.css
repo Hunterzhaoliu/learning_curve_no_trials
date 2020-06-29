@@ -13,7 +13,7 @@ body {
 
 @media only screen and (max-width: 576px) {
   .screen-edge-padding {
-    padding: 45px;
+    padding: 45px 20px;
   }
 }
 
@@ -55,6 +55,10 @@ p {
   font-size: 16px;
 }
 
+.text-align-left {
+  text-align: left;
+}
+
 .row-upper-15-padding {
   padding-top: 15px;
 }
@@ -72,6 +76,7 @@ p {
   -webkit-transition: 0.5s all ease;
   transition: 0.5s all ease;
   background-color: rgba(0, 0, 0, 0.65);
+  border-color: rgba(0, 0, 0, 0.65);
   cursor: pointer;
 }
 
@@ -117,4 +122,16 @@ p {
   cursor: pointer;
   color: white;
   background-color: black;
+}
+
+.ant-input:focus {
+  border-color: inherit;
+  border-right-width: 2px !important;
+  box-shadow: none;
+}
+
+.ant-input:hover {
+  border-color: inherit;
+  border-right-width: 2px !important;
+  box-shadow: none;
 }

@@ -17,15 +17,16 @@ export const checkCode = userCode => async dispatch => {
   }
 };
 
-// export const register = newUser => async dispatch => {
-//   const registerResponse = await axios.post("/api/register", newUser);
-//
-//   const registerResponseData = registerResponse.data;
-//   if (registerResponseData !== "success") {
-//     // user sign up has errors
-//     dispatch({
-//       type: SAVE_REGISTER_ERRORS,
-//       registerErrors: registerResponseData
-//     });
-//   }
-// };
+export const register = (signature, date) => async dispatch => {
+  console.log("signature = ", signature);
+  // const registerResponse = await axios.post("/api/register", subject);
+  //
+  // const registerResponseData = registerResponse.data;
+  // if (registerResponseData !== "success") {
+  //   // user sign up has errors
+  //   dispatch({
+  //     type: SAVE_REGISTER_ERRORS,
+  //     registerErrors: registerResponseData
+  //   });
+  // }
+};

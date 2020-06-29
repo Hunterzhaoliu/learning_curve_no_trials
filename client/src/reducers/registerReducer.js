@@ -6,7 +6,8 @@ let cloneObject = object => {
 
 let initialState = {
   codeError: false,
-  registerErrors: {}
+  signatureError: false,
+  questionnaireErrors: {}
 };
 
 export default function(state = initialState, action) {
