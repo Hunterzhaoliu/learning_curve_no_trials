@@ -7,7 +7,8 @@ const subjectSchema = new Schema(
     childBirthDate: Date,
     signature: String,
     signatureDate: Date,
-    videoPermission: { type: Number, default: 0 }
+    videoPermission: { type: Number, default: 0 },
+    condition: { type: String, default: "increasing" }
   },
   {
     // allows for request.subject.save()

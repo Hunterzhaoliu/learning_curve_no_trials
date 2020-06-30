@@ -49,7 +49,11 @@ export const registerConsent = registerInfo => async dispatch => {
     if (registerConsentResponse.status === 200) {
       dispatch({
         type: SUCCESSFULLY_REGISTERED_CONSENT,
-        foundAgents: registerConsentResponse.data
+        subjectDBInfo: registerConsentResponse.data
+      });
+
+      dispatch({
+        type: NEXT_STEP
       });
     } else {
       dispatch({ type: SAVE_REGISTER_CONSENT_ERRORS });

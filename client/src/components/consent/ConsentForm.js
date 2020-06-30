@@ -50,6 +50,10 @@ class ConsentForm extends Component {
     });
   };
 
+  onChangeVideoPermission = e => {
+    this.setState({ videoPermission: e.target.value });
+  };
+
   render() {
     document.documentElement.style.setProperty(
       "--window-width",
@@ -131,14 +135,10 @@ class ConsentForm extends Component {
           <Row className="row-upper-15-padding" type="flex" justify="start">
             <Col span={24}>
               <Radio.Group
-                onChange={this.onChange}
+                onChange={this.onChangeVideoPermission}
                 value={this.state.videoPermission}
               >
-                <Radio
-                  id="videoPermission"
-                  value={1}
-                  className="text-align-left"
-                >
+                <Radio value={1} className="text-align-left">
                   <h6>
                     <b>Level 1: Private</b>
                   </h6>
@@ -147,11 +147,7 @@ class ConsentForm extends Component {
                     viewed only be authorized members of our lab.
                   </p>
                 </Radio>
-                <Radio
-                  id="videoPermission"
-                  className="text-align-left"
-                  value={2}
-                >
+                <Radio className="text-align-left" value={2}>
                   <h6>
                     <b>Level 2: Scientific and Educational</b>
                   </h6>
@@ -164,11 +160,7 @@ class ConsentForm extends Component {
                     this option includes level 1 permissions.
                   </p>
                 </Radio>
-                <Radio
-                  id="videoPermission"
-                  className="text-align-left"
-                  value={3}
-                >
+                <Radio className="text-align-left" value={3}>
                   <h6>
                     <b>Level 3: Publicity</b>
                   </h6>

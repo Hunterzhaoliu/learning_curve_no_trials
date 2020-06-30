@@ -17,7 +17,9 @@ let initialState = {
     signature: false,
     videoPermission: false
   },
-  questionnaireErrors: {}
+  questionnaireErrors: {},
+  dBID: null,
+  condition: null
 };
 
 export default function(state = initialState, action) {
@@ -31,6 +33,10 @@ export default function(state = initialState, action) {
       return newState;
     case SAVE_REGISTER_CONSENT_ERRORS:
       newState.consentError.signature = action.errors.signature;
+      return newState;
+    case SUCCESSFULLY_REGISTERED_CONSENT:
+      newState.dBID = action.subjectDBInfo.dBID;
+      newState.condition = action.subjectDBInfo.condition;
       return newState;
     default:
       return state;

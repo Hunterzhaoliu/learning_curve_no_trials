@@ -12,8 +12,14 @@ module.exports = app => {
           return response.json("You have already completed this study.");
         } else {
           const newSubject = new SubjectCollection(request.body);
+          // Also need to determine what condition the subject should be in by
+          // looking at the condition of previous children and their birth days
           newSubject.save();
-          response.send("registered subject consent");
+          subjectDBInfo = {
+            dBID: newSubject._id,
+            condition: newSubject.condition
+          };
+          response.send(subjectDBInfo);
         }
       }
     );
