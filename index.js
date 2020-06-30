@@ -8,7 +8,7 @@ require("./models/Subject");
 mongoose.Promise = global.Promise;
 mongoose.connect(
   keys.mongoURI,
-  { useNewUrlParser: true }
+  { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
 // gives deprecation warning if not included: mongoose findOneAndUpdate uses

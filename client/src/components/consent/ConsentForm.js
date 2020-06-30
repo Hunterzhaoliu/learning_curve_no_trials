@@ -56,7 +56,7 @@ class ConsentForm extends Component {
 
   render() {
     document.documentElement.style.setProperty(
-      "--window-width",
+      "--window-width-minus-padding",
       String(this.props.windowWidth - 40) + "px"
     );
 

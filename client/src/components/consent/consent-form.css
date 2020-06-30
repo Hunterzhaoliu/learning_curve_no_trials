@@ -1,13 +1,13 @@
 .ant-calendar {
-  width: var(--window-width);
+  width: var(--window-width-minus-padding);
 }
 
 .ant-calendar-picker-container {
-  width: var(--window-width);
+  width: var(--window-width-minus-padding);
 }
 
 .ant-calendar-picker {
-  width: var(--window-width);
+  width: var(--window-width-minus-padding);
 }
 
 .ant-calendar-picker-input {
