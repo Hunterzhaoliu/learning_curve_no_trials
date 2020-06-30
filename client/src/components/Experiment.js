@@ -10,7 +10,7 @@ class Experiment extends Component {
   constructor() {
     super();
     this.state = {
-      height: 0
+      eggHeight: 0
     };
   }
 
@@ -19,16 +19,32 @@ class Experiment extends Component {
   };
 
   render() {
-    // const { windowHeight } = this.props;
+    const { windowWidth } = this.props;
+
+    const eggPlatformWidth = 100;
+    document.documentElement.style.setProperty(
+      "--egg-platform-width",
+      String(eggPlatformWidth) + "px"
+    );
+
+    const sliderLeft = (windowWidth - eggPlatformWidth) / 2;
     return (
       <div>
         <Row type="flex" justify="center">
           <Col>
             <img className="img-background" src={background} alt="" />
+            <div style={{ left: sliderLeft }} className="slider-container">
+              <input
+                onChange={this.onChange}
+                type="range"
+                min="1"
+                max="100"
+                value={this.state.eggHeight}
+                className="slider"
+                id="eggHeight"
+              />
+            </div>
           </Col>
-        </Row>
-        <Row type="flex" justify="center">
-          <Col>hello </Col>
         </Row>
       </div>
     );
@@ -37,7 +53,7 @@ class Experiment extends Component {
 
 function mapStateToProps(state) {
   return {
-    windowHeight: state.initialize.windowHeight
+    windowWidth: state.initialize.windowWidth
   };
 }
 //

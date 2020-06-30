@@ -3,3 +3,29 @@
   height: 100vh;
   width: 100vw;
 }
+
+.slider-container {
+  position: absolute;
+  top: 9%;
+}
+
+.slider {
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical;
+  width: var(--egg-platform-width);
+  height: 73vh;
+  /* background: red; */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--egg-platform-width);
+  height: 25px;
+}
+
+.slider::-moz-range-thumb {
+  width: var(--egg-platform-width);
+  height: 25px;
+}
