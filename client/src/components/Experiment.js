@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import * as experimentActionCreators from "../actions/experiment";
 // import { bindActionCreators } from "redux";
-import { Row, Col } from "antd";
 import "./experiment.css";
 import background from "../images/background.png";
 
@@ -30,22 +29,18 @@ class Experiment extends Component {
     const sliderLeft = (windowWidth - eggPlatformWidth) / 2;
     return (
       <div>
-        <Row type="flex" justify="center">
-          <Col>
-            <img className="img-background" src={background} alt="" />
-            <div style={{ left: sliderLeft }} className="slider-container">
-              <input
-                onChange={this.onChange}
-                type="range"
-                min="1"
-                max="100"
-                value={this.state.eggHeight}
-                className="slider"
-                id="eggHeight"
-              />
-            </div>
-          </Col>
-        </Row>
+        <img className="img-background" src={background} alt="" />
+        <div style={{ left: sliderLeft }} className="slider-container">
+          <input
+            onChange={this.onChange}
+            type="range"
+            min="1"
+            max="100"
+            value={this.state.eggHeight}
+            className="slider"
+            id="eggHeight"
+          />
+        </div>
       </div>
     );
   }
