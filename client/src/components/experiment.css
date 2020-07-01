@@ -2,30 +2,50 @@
   object-fit: cover;
   height: 100vh;
   width: 100vw;
+  z-index: 0;
 }
 
 .slider-container {
   position: absolute;
   top: 9%;
+  height: var(--ladder-height);
+  width: var(--egg-platform-width);
 }
 
 .slider {
   writing-mode: bt-lr; /* IE */
   -webkit-appearance: slider-vertical;
-  width: var(--egg-platform-width);
-  height: 73vh;
+  /* uncomment below to see the slider */
+  /* -webkit-appearance: none; */
+  height: 100%;
+  width: 100%;
   /* background: red; */
+  position: relative;
+  z-index: 2;
 }
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
+  /* background: blue; */
   width: var(--egg-platform-width);
-  height: 25px;
+  height: var(--egg-platform-height);
+  position: relative;
+  z-index: 2;
 }
 
 .slider::-moz-range-thumb {
   width: var(--egg-platform-width);
-  height: 25px;
+  height: var(--egg-platform-height);
+  position: relative;
+  z-index: 2;
+}
+
+.img-egg-platform {
+  position: absolute;
+  left: 0;
+  width: var(--egg-platform-width);
+  height: var(--egg-platform-height);
+  z-index: 1;
 }
