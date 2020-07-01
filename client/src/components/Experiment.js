@@ -11,23 +11,55 @@ class Experiment extends Component {
   constructor() {
     super();
     this.state = {
-      eggHeight: 0
+      eggHeight: 0,
+      platformHeight: 0,
+      eggAnimation: "none",
+      eggFalling: false
     };
   }
 
   onChange = e => {
-    // console.log("e.target.value = ", e.target.value);
-    this.setState({ [e.target.id]: e.target.value });
+    if (this.state.eggAnimation === "none") {
+      this.setState({ eggAnimation: "shake 0.5s infinite" });
+    }
+    this.setState({ eggHeight: e.target.value });
+    this.setState({ platformHeight: e.target.value });
   };
+
+  onChangeEnd = () => {
+    this.setState({ eggAnimation: "none" });
+  };
+
+  componentDidUpdate(_) {
+    const eggFallPercentage = 80;
+    if (
+      this.state.eggAnimation !== "fall 2.0s ease-in 1" &&
+      this.state.eggFalling
+    ) {
+      this.setState({ eggAnimation: "fall 2.0s ease-in 1" });
+      console.log("trial completed");
+      // this.props.trialCompleted()
+    } else if (
+      !this.state.eggFalling &&
+      this.state.eggHeight > eggFallPercentage
+    ) {
+      // egg needs to fall
+      this.setState({ eggFalling: true });
+    }
+  }
 
   render() {
     const { windowWidth, windowHeight } = this.props;
 
+    const ladderHeight = 0.72 * windowHeight;
+
     const eggPlatformWidth = 150;
     const eggPlatformHeight = 20;
 
-    const ladderHeight = 0.74 * windowHeight;
-
+    document.documentElement.style.setProperty(
+      "--ladder-height",
+      String(ladderHeight) + "px"
+    );
     document.documentElement.style.setProperty(
       "--egg-platform-width",
       String(eggPlatformWidth) + "px"
@@ -36,15 +68,16 @@ class Experiment extends Component {
       "--egg-platform-height",
       String(eggPlatformHeight) + "px"
     );
-    document.documentElement.style.setProperty(
-      "--ladder-height",
-      String(ladderHeight) + "px"
-    );
 
     const sliderLeft = (windowWidth - eggPlatformWidth) / 2;
 
-    const platformHeight =
+    const platformTop =
       (1 - this.state.eggHeight * 0.01) * ladderHeight - eggPlatformHeight / 2;
+
+    const eggHeight = 75;
+    const eggWidth = 57;
+    const eggTop = platformTop - eggHeight;
+    const eggLeft = (eggPlatformWidth - eggWidth) / 2;
 
     return (
       <div>
@@ -58,11 +91,25 @@ class Experiment extends Component {
             value={this.state.eggHeight}
             className="slider"
             id="eggHeight"
+            onMouseUp={this.onChangeEnd}
+            onTouchEnd={this.onChangeEnd}
+            disabled={this.state.eggFalling}
           />
           <img
-            style={{ top: platformHeight }}
+            style={{ top: platformTop }}
             className="img-egg-platform"
             src={egg_platform}
+            alt=""
+          />
+          <img
+            style={{
+              height: String(eggHeight) + "px",
+              top: eggTop,
+              left: eggLeft,
+              animation: this.state.eggAnimation
+            }}
+            className="img-egg"
+            src={egg}
             alt=""
           />
         </div>
