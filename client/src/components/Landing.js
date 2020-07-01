@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Layout } from "antd";
 import Code from "./Code";
 import ConsentForm from "./consent/ConsentForm";
-import Experiment from "./Experiment";
+import Experiment from "./experiment/Experiment";
 
 const { Content } = Layout;
 

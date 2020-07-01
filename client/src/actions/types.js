@@ -8,3 +8,6 @@ export const SUCCESSFULLY_REGISTERED_CONSENT =
 export const SAVE_CODE_ERROR = "SAVE_CODE_ERROR";
 export const NEXT_STEP = "NEXT_STEP";
 export const REMOVE_CODE_ERROR = "REMOVE_CODE_ERROR";
+
+// experiment
+export const COMPLETED_TRIAL = "COMPLETED_TRIAL";

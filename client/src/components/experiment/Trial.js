@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import * as experimentActionCreators from "../actions/experiment";
-// import { bindActionCreators } from "redux";
-import "./experiment.css";
-import background from "../images/background.png";
-import egg_platform from "../images/egg_platform.png";
-import egg from "../images/egg.png";
+import * as experimentActionCreators from "../../actions/experiment";
+import { bindActionCreators } from "redux";
+import "./trial.css";
+import background from "../../images/background.png";
+import egg_platform from "../../images/egg_platform.png";
+import egg from "../../images/egg.png";
 
-class Experiment extends Component {
+class Trial extends Component {
   constructor() {
     super();
     this.state = {
@@ -31,14 +31,21 @@ class Experiment extends Component {
   };
 
   componentDidUpdate(_) {
-    const eggFallPercentage = 80;
+    const { eggFallPercentage } = this.props;
+    // Animation details: https://www.w3schools.com/css/css3_animations.asp
     if (
-      this.state.eggAnimation !== "fall 2.0s ease-in 1" &&
+      this.state.eggAnimation !== "fall 2.0s ease-in 1 forwards" &&
       this.state.eggFalling
     ) {
-      this.setState({ eggAnimation: "fall 2.0s ease-in 1" });
-      console.log("trial completed");
-      // this.props.trialCompleted()
+      this.setState({ eggAnimation: "fall 2.0s ease-in 1 forwards" });
+      // this.props.completedTrial();
+      // // reset state
+      // this.setState({
+      //   eggHeight: 0,
+      //   platformHeight: 0,
+      //   eggAnimation: "none",
+      //   eggFalling: false
+      // });
     } else if (
       !this.state.eggFalling &&
       this.state.eggHeight > eggFallPercentage
@@ -124,26 +131,21 @@ function mapStateToProps(state) {
     windowHeight: state.initialize.windowHeight
   };
 }
-//
-// function mapDispatchToProps(dispatch) {
-//   const experimentDispatchers = bindActionCreators(
-//     experimentActionCreators,
-//     dispatch
-//   );
-//
-//   return {
-//     checkCode: userCode => {
-//       experimentDispatchers.checkCode(userCode);
-//     }
-//   };
-// }
-//
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Experiment);
+
+function mapDispatchToProps(dispatch) {
+  const experimentDispatchers = bindActionCreators(
+    experimentActionCreators,
+    dispatch
+  );
+
+  return {
+    completedTrial: userCode => {
+      experimentDispatchers.completedTrial(userCode);
+    }
+  };
+}
 
 export default connect(
   mapStateToProps,
-  null
-)(Experiment);
+  mapDispatchToProps
+)(Trial);

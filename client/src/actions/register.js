@@ -9,7 +9,7 @@ import axios from "axios";
 import { isValidFilledString } from "../utils/ValidateRegistration";
 // import history from "../components/history";
 
-export const checkCode = userCode => async dispatch => {
+export const checkCode = userCode => dispatch => {
   if (userCode === process.env.REACT_APP_CODE) {
     dispatch({
       type: NEXT_STEP
