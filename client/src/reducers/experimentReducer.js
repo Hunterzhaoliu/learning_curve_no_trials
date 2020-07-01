@@ -5,7 +5,7 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  trial: 0
+  trial: 1
 };
 
 export default function(state = initialState, action) {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
+import Markers from "./Markers";
 import "./trial.css";
 import background from "../../images/background.png";
 import egg_platform from "../../images/egg_platform.png";
@@ -30,7 +31,7 @@ class Trial extends Component {
     this.setState({ eggAnimation: "none" });
   };
 
-  componentDidUpdate(_) {
+  componentDidUpdate() {
     const { eggFallPercentage } = this.props;
     // Animation details: https://www.w3schools.com/css/css3_animations.asp
     if (
@@ -38,6 +39,15 @@ class Trial extends Component {
       this.state.eggFalling
     ) {
       this.setState({ eggAnimation: "fall 2.0s ease-in 1 forwards" });
+
+      // play audio
+      const markTrialAudio = document.getElementById("markTrialAudio");
+      setTimeout(function() {
+        markTrialAudio.play();
+      }, 1000);
+
+      // mark location
+
       // this.props.completedTrial();
       // // reset state
       // this.setState({
@@ -120,6 +130,7 @@ class Trial extends Component {
             alt=""
           />
         </div>
+        <Markers />
       </div>
     );
   }

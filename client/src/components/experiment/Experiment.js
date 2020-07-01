@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import {  } from "antd";
 import Trial from "./Trial";
+// import "./experiment.css";
 
 class Experiment extends Component {
   render() {
-    console.log("Experiment render");
     const { condition, trial } = this.props;
 
     let eggFallPercentage;
@@ -17,7 +17,7 @@ class Experiment extends Component {
 
     return (
       <div>
-        <Trial eggFallPercentage={eggFallPercentage} />{" "}
+        <Trial eggFallPercentage={eggFallPercentage} />
       </div>
     );
   }
