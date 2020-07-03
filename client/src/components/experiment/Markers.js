@@ -1,31 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as experimentActionCreators from "../../actions/experiment";
-import { bindActionCreators } from "redux";
+// import * as experimentActionCreators from "../../actions/experiment";
+// import { bindActionCreators } from "redux";
+import _ from "lodash";
 import "./markers.css";
-import one from "../../images/numbers/one.png";
 import markTrialAudio from "../../audio/bell.mp3";
+import one from "../../images/numbers/one.png";
+// import two from "../../images/numbers/two.png";
+// import three from "../../images/numbers/three.png";
+// import four from "../../images/numbers/four.png";
 
 class Markers extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     eggHeight: 0,
-  //     platformHeight: 0,
-  //     eggAnimation: "none",
-  //     eggFalling: false
-  //   };
-  // }
+  renderMarkers = () => {
+    // const { condition, trial } = this.props;
 
-  render() {
-    const { condition, trial } = this.props;
-
-    let eggFallPercentage;
-    if (condition === 1) {
-      eggFallPercentage = 80;
-    } else if (condition === 2) {
-      eggFallPercentage = trial * 20;
-    }
+    // let eggFallPercentage;
+    // if (condition === 1) {
+    //   eggFallPercentage = 80;
+    // } else if (condition === 2) {
+    //   eggFallPercentage = trial * 20;
+    // }
     // const { windowWidth, windowHeight } = this.props;
     //
     // const ladderHeight = 0.72 * windowHeight;
@@ -43,12 +37,25 @@ class Markers extends Component {
     // const eggTop = platformTop - eggHeight;
     // const eggLeft = (eggPlatformWidth - eggWidth) / 2;
 
+    // return _.map(dropdownOptions[id], (option, optionIndex) => {
+    //   return (
+    //     <Option key={optionIndex} value={option}>
+    //       {option}
+    //     </Option>
+    //   );
+    // });
+    for (let i = 0; i < 4; i++) {
+      return <img style={{}} className="img-number" src={one} alt="" />;
+    }
+  };
+
+  render() {
     return (
       <div>
         <audio id="markTrialAudio">
           <source src={markTrialAudio} type="audio/mpeg" />
         </audio>
-        <img style={{}} className="img-number" src={one} alt="" />
+        {this.renderMarkers()}
       </div>
     );
   }

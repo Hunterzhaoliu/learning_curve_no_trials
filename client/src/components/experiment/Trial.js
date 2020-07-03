@@ -15,7 +15,8 @@ class Trial extends Component {
       eggHeight: 0,
       platformHeight: 0,
       eggAnimation: "none",
-      eggFalling: false
+      eggFalling: false,
+      eggFell: false
     };
   }
 
@@ -34,9 +35,11 @@ class Trial extends Component {
   componentDidUpdate() {
     const { eggFallPercentage } = this.props;
     // Animation details: https://www.w3schools.com/css/css3_animations.asp
+
     if (
       this.state.eggAnimation !== "fall 2.0s ease-in 1 forwards" &&
-      this.state.eggFalling
+      this.state.eggFalling &&
+      !this.state.eggFell
     ) {
       this.setState({ eggAnimation: "fall 2.0s ease-in 1 forwards" });
 
@@ -45,6 +48,12 @@ class Trial extends Component {
       setTimeout(function() {
         markTrialAudio.play();
       }, 1000);
+
+      setTimeout(() => {
+        // need to remove the egg or else it will make the page longer
+        document.getElementById("egg").style.display = "none";
+        this.setState({ eggFell: true });
+      }, 2000);
 
       // mark location
 
@@ -68,11 +77,20 @@ class Trial extends Component {
   render() {
     const { windowWidth, windowHeight } = this.props;
 
-    const ladderHeight = 0.72 * windowHeight;
+    // percentage of top padding for the ladder
+    const sliderTopPercent = 11;
+    // percentage of windowHeight to bottom of ladder
+    const screenPercentLadderBottom = 83;
+    const ladderHeight =
+      (screenPercentLadderBottom - sliderTopPercent) * 0.01 * windowHeight;
 
     const eggPlatformWidth = 150;
     const eggPlatformHeight = 20;
 
+    document.documentElement.style.setProperty(
+      "--ladder-top",
+      String(sliderTopPercent) + "%"
+    );
     document.documentElement.style.setProperty(
       "--ladder-height",
       String(ladderHeight) + "px"
@@ -88,6 +106,7 @@ class Trial extends Component {
 
     const sliderLeft = (windowWidth - eggPlatformWidth) / 2;
 
+    // amount of top padding within the slider div
     const platformTop =
       (1 - this.state.eggHeight * 0.01) * ladderHeight - eggPlatformHeight / 2;
 
@@ -126,6 +145,7 @@ class Trial extends Component {
               animation: this.state.eggAnimation
             }}
             className="img-egg"
+            id="egg"
             src={egg}
             alt=""
           />

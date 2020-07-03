@@ -7,7 +7,7 @@
 
 .slider-container {
   position: absolute;
-  top: 11%;
+  top: var(--ladder-top);
   height: var(--ladder-height);
   width: var(--egg-platform-width);
 }
@@ -97,10 +97,7 @@
 }
 
 @keyframes fall {
-  0% {
-    transform: translate(0px, 0px);
-  }
   100% {
-    transform: translate(-100px, 2000px) rotate(-30deg);
+    transform: translate(-100px, 1000px) rotate(-30deg);
   }
 }
