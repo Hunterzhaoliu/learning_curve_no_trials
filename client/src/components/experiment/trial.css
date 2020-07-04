@@ -7,8 +7,6 @@
 
 .slider-container {
   position: absolute;
-  top: var(--ladder-top);
-  height: var(--ladder-height);
   width: var(--egg-platform-width);
 }
 

@@ -13,7 +13,6 @@ class Trial extends Component {
     super();
     this.state = {
       eggHeight: 0,
-      platformHeight: 0,
       eggAnimation: "none",
       eggFalling: false,
       eggFell: false
@@ -25,7 +24,6 @@ class Trial extends Component {
       this.setState({ eggAnimation: "shake 0.5s infinite" });
     }
     this.setState({ eggHeight: e.target.value });
-    this.setState({ platformHeight: e.target.value });
   };
 
   onChangeEnd = () => {
@@ -59,7 +57,6 @@ class Trial extends Component {
       // // reset state
       // this.setState({
       //   eggHeight: 0,
-      //   platformHeight: 0,
       //   eggAnimation: "none",
       //   eggFalling: false
       // });
@@ -75,24 +72,18 @@ class Trial extends Component {
   render() {
     const { windowWidth, windowHeight } = this.props;
 
-    // percentage of top padding for the ladder
+    // slider and ladder should be in very similar positions
+    // percent of windowHeight to top of ladder
     const sliderTopPercent = 11;
-    // percentage of windowHeight to bottom of ladder
-    const screenPercentLadderBottom = 83;
+    // percent of windowHeight to bottom of ladder
+    const screenToLadderBottomPercent = 83;
+    // const ladderHeight = screenToLadderBottomPercent - sliderTopPercent;
     const ladderHeight =
-      (screenPercentLadderBottom - sliderTopPercent) * 0.01 * windowHeight;
+      (screenToLadderBottomPercent - sliderTopPercent) * 0.01 * windowHeight;
 
     const eggPlatformWidth = 150;
     const eggPlatformHeight = 20;
 
-    document.documentElement.style.setProperty(
-      "--ladder-top",
-      String(sliderTopPercent) + "%"
-    );
-    document.documentElement.style.setProperty(
-      "--ladder-height",
-      String(ladderHeight) + "px"
-    );
     document.documentElement.style.setProperty(
       "--egg-platform-width",
       String(eggPlatformWidth) + "px"
@@ -105,22 +96,36 @@ class Trial extends Component {
     const sliderLeft = (windowWidth - eggPlatformWidth) / 2;
 
     // amount of top padding within the slider div
+    // const platformTop =
+    //   "calc(" +
+    //   String(100 - this.state.eggHeight) +
+    //   "% - " +
+    //   String(eggPlatformHeight) +
+    //   "px)";
     const platformTop =
       (1 - this.state.eggHeight * 0.01) * ladderHeight - eggPlatformHeight / 2;
 
     const eggHeight = 75;
     const eggWidth = 57;
+
     const eggTop = platformTop - eggHeight;
     const eggLeft = (eggPlatformWidth - eggWidth) / 2;
 
     return (
       <div>
         <img className="img-background" src={background} alt="" />
-        <div style={{ left: sliderLeft }} className="slider-container">
+        <div
+          style={{
+            height: ladderHeight,
+            top: String(sliderTopPercent) + "%",
+            left: sliderLeft
+          }}
+          className="slider-container"
+        >
           <input
             onChange={this.onChange}
             type="range"
-            min="1"
+            min="0"
             max="100"
             value={this.state.eggHeight}
             className="slider"
@@ -137,7 +142,7 @@ class Trial extends Component {
           />
           <img
             style={{
-              height: String(eggHeight) + "px",
+              height: eggHeight,
               top: eggTop,
               left: eggLeft,
               animation: this.state.eggAnimation
