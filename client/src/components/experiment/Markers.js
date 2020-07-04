@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import * as experimentActionCreators from "../../actions/experiment";
 // import { bindActionCreators } from "redux";
-import _ from "lodash";
 import "./markers.css";
 import markTrialAudio from "../../audio/bell.mp3";
 import one from "../../images/numbers/one.png";
@@ -12,7 +11,7 @@ import one from "../../images/numbers/one.png";
 
 class Markers extends Component {
   renderMarkers = () => {
-    // const { condition, trial } = this.props;
+    const { condition, ladderHeight, trial } = this.props;
 
     // let eggFallPercentage;
     // if (condition === 1) {
@@ -44,9 +43,28 @@ class Markers extends Component {
     //     </Option>
     //   );
     // });
-    for (let i = 0; i < 4; i++) {
-      return <img style={{}} className="img-number" src={one} alt="" />;
-    }
+    const markerList = ["one", "two", "three", "four"];
+    const markerHeight = 30;
+    console.log("trial = ", trial);
+    return markerList.slice(0, trial - 1).map(marker => {
+      // const markerTop = 0;
+      console.log("marker = ", marker);
+      const markerTop = (1 - 0.2 * marker) * ladderHeight;
+
+      // const markerTop = (1 - 0.2 * marker) * ladderHeight - markerHeight / 2;
+      return (
+        <img
+          key={marker}
+          style={{
+            top: String(markerTop) + "px",
+            height: String(markerHeight) + "px"
+          }}
+          className="img-number"
+          src={one}
+          alt=""
+        />
+      );
+    });
   };
 
   render() {

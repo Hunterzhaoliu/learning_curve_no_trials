@@ -55,9 +55,7 @@ class Trial extends Component {
         this.setState({ eggFell: true });
       }, 2000);
 
-      // mark location
-
-      // this.props.completedTrial();
+      this.props.completedTrial();
       // // reset state
       // this.setState({
       //   eggHeight: 0,
@@ -149,8 +147,8 @@ class Trial extends Component {
             src={egg}
             alt=""
           />
+          <Markers ladderHeight={ladderHeight} />
         </div>
-        <Markers />
       </div>
     );
   }
