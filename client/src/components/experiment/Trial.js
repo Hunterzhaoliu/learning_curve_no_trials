@@ -27,20 +27,16 @@ class Trial extends Component {
   };
 
   onChangeEnd = () => {
-    this.setState({ eggAnimation: "none" });
+    // when the egg begins to fall, already changed to falling animation
+    if (this.state.eggAnimation === "shake 0.5s infinite") {
+      this.setState({ eggAnimation: "none" });
+    }
   };
 
   componentDidUpdate() {
     const { eggFallPercentage } = this.props;
-    // Animation details: https://www.w3schools.com/css/css3_animations.asp
 
-    if (
-      this.state.eggAnimation !== "fall 2.0s ease-in 1 forwards" &&
-      this.state.eggFalling &&
-      !this.state.eggFell
-    ) {
-      this.setState({ eggAnimation: "fall 2.0s ease-in 1 forwards" });
-
+    if (this.state.eggFalling && !this.state.eggFell) {
       // play audio
       const markTrialAudio = document.getElementById("markTrialAudio");
       setTimeout(function() {
@@ -50,10 +46,10 @@ class Trial extends Component {
       setTimeout(() => {
         // need to remove the egg or else it will make the page longer
         document.getElementById("egg").style.display = "none";
-        this.setState({ eggFell: true });
+        this.setState({ eggFalling: false, eggFell: true });
+        this.props.completedTrial();
       }, 2000);
 
-      this.props.completedTrial();
       // // reset state
       // this.setState({
       //   eggHeight: 0,
@@ -61,11 +57,15 @@ class Trial extends Component {
       //   eggFalling: false
       // });
     } else if (
+      this.state.eggHeight > eggFallPercentage &&
       !this.state.eggFalling &&
-      this.state.eggHeight > eggFallPercentage
+      !this.state.eggFell
     ) {
       // egg needs to fall
-      this.setState({ eggFalling: true });
+      this.setState({
+        eggFalling: true,
+        eggAnimation: "fall 2.0s ease-in 1 forwards"
+      });
     }
   }
 
@@ -152,7 +152,7 @@ class Trial extends Component {
             src={egg}
             alt=""
           />
-          <Markers ladderHeight={ladderHeight} />
+          <Markers />
         </div>
       </div>
     );

@@ -11,53 +11,27 @@ import one from "../../images/numbers/one.png";
 
 class Markers extends Component {
   renderMarkers = () => {
-    const { condition, ladderHeight, trial } = this.props;
-
-    // let eggFallPercentage;
-    // if (condition === 1) {
-    //   eggFallPercentage = 80;
-    // } else if (condition === 2) {
-    //   eggFallPercentage = trial * 20;
-    // }
-    // const { windowWidth, windowHeight } = this.props;
-    //
-    // const ladderHeight = 0.72 * windowHeight;
-    //
-    // const eggPlatformWidth = 150;
-    // const eggPlatformHeight = 20;
-    //
-    // const sliderLeft = (windowWidth - eggPlatformWidth) / 2;
-    //
-    // const platformTop =
-    //   (1 - this.state.eggHeight * 0.01) * ladderHeight - eggPlatformHeight / 2;
-    //
-    // const eggHeight = 75;
-    // const eggWidth = 57;
-    // const eggTop = platformTop - eggHeight;
-    // const eggLeft = (eggPlatformWidth - eggWidth) / 2;
-
-    // return _.map(dropdownOptions[id], (option, optionIndex) => {
-    //   return (
-    //     <Option key={optionIndex} value={option}>
-    //       {option}
-    //     </Option>
-    //   );
-    // });
+    const { condition, trial } = this.props;
     const markerList = ["one", "two", "three", "four"];
     const markerHeight = 30;
-    console.log("trial = ", trial);
-    return markerList.slice(0, trial - 1).map(marker => {
-      // const markerTop = 0;
-      console.log("marker = ", marker);
-      const markerTop = (1 - 0.2 * marker) * ladderHeight;
+    // need to subtract 1 from trial because once a trial finishes, the trial
+    // count in props gets incremented, so need to display markers for previous
+    // trials and trial that just finished
+    return markerList.slice(0, trial - 1).map((marker, index) => {
+      const markerTop =
+        "calc(" +
+        String(80 - 20 * index) +
+        "% - " +
+        String(1.1 * markerHeight) + // 1.1 was made up
+        "px)";
 
-      // const markerTop = (1 - 0.2 * marker) * ladderHeight - markerHeight / 2;
       return (
         <img
           key={marker}
           style={{
-            top: String(markerTop) + "px",
-            height: String(markerHeight) + "px"
+            top: markerTop,
+            left: "110%",
+            height: markerHeight
           }}
           className="img-number"
           src={one}
@@ -81,8 +55,6 @@ class Markers extends Component {
 
 function mapStateToProps(state) {
   return {
-    windowWidth: state.initialize.windowWidth,
-    windowHeight: state.initialize.windowHeight,
     condition: state.register.condition,
     trial: state.experiment.trial
   };

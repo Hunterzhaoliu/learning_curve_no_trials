@@ -58,6 +58,7 @@
   transform-origin: bottom center;
 }
 
+/* Animation details: https://www.w3schools.com/css/css3_animations.asp */
 @keyframes shake {
   0% {
     transform: rotate(0deg);

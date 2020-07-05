@@ -27,6 +27,18 @@ class App extends Component {
     window.removeEventListener("resize", this.updateWindowDimensions);
   }
 
+  // allows to check for why component is re rendering
+  //   componentDidUpdate(prevProps, prevState) {
+  //   Object.entries(this.props).forEach(([key, val]) =>
+  //     prevProps[key] !== val && console.log(`Prop '${key}' changed`)
+  //   );
+  //   if (this.state) {
+  //     Object.entries(this.state).forEach(([key, val]) =>
+  //       prevState[key] !== val && console.log(`State '${key}' changed`)
+  //     );
+  //   }
+  // }
+
   render() {
     return (
       <Router history={history}>
