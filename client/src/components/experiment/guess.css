@@ -1,0 +1,9 @@
+.img-guess-star {
+  position: absolute;
+}
+
+.button-confirm-guess {
+  border-color: rgb(244, 115, 93) !important;
+  color: rgb(244, 115, 93) !important;
+  background-color: rgb(171, 197, 87) !important;
+}

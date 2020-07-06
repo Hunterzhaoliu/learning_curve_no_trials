@@ -8,6 +8,8 @@
 .slider-container {
   position: absolute;
   width: var(--egg-platform-width);
+  height: var(--ladder-height);
+  top: var(--slider-top-percent);
 }
 
 .slider {

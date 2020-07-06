@@ -10,4 +10,5 @@ export const NEXT_STEP = "NEXT_STEP";
 export const REMOVE_CODE_ERROR = "REMOVE_CODE_ERROR";
 
 // experiment
+export const SAVE_GUESS = "SAVE_GUESS";
 export const COMPLETED_TRIAL = "COMPLETED_TRIAL";

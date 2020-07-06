@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
+import Guess from "./Guess";
 import Markers from "./Markers";
 import "./trial.css";
 import background from "../../images/background.png";
@@ -15,7 +16,8 @@ class Trial extends Component {
       eggHeight: 0,
       eggAnimation: "none",
       eggFalling: false,
-      eggFell: false
+      eggFell: false,
+      hasGuessed: false
     };
   }
 
@@ -34,7 +36,11 @@ class Trial extends Component {
   };
 
   componentDidUpdate() {
-    const { eggFallPercentage } = this.props;
+    const { guesses, trial, eggFallPercentage } = this.props;
+    if (!this.state.hasGuessed && trial === guesses.length) {
+      this.setState({ hasGuessed: true });
+      console.log("this.state.hasGuessed = ", this.state.hasGuessed);
+    }
 
     if (this.state.eggFalling && !this.state.eggFell) {
       // play audio
@@ -48,6 +54,8 @@ class Trial extends Component {
         document.getElementById("egg").style.display = "none";
         this.setState({ eggFalling: false, eggFell: true });
         this.props.completedTrial();
+        // document.getElementById("egg").style.display = "block";
+        // document.getElementById("egg").style.animation = "none";
         // // reset state
         // this.setState({
         //   eggHeight: 0,
@@ -80,9 +88,17 @@ class Trial extends Component {
     const ladderHeight =
       (screenToLadderBottomPercent - sliderTopPercent) * 0.01 * windowHeight;
 
-    const eggPlatformWidth = 150;
+    const eggPlatformWidth = 125;
     const eggPlatformHeight = 20;
 
+    document.documentElement.style.setProperty(
+      "--slider-top-percent",
+      String(sliderTopPercent) + "%"
+    );
+    document.documentElement.style.setProperty(
+      "--ladder-height",
+      String(ladderHeight) + "px"
+    );
     document.documentElement.style.setProperty(
       "--egg-platform-width",
       String(eggPlatformWidth) + "px"
@@ -103,17 +119,16 @@ class Trial extends Component {
     const eggTop = platformTop - eggHeight;
     const eggLeft = (eggPlatformWidth - eggWidth) / 2;
 
+    const isEggSliderDisabled =
+      !this.state.hasGuessed || this.state.eggFalling || this.state.eggFell;
     return (
       <div>
         <img className="img-background" src={background} alt="" />
-        <div
-          style={{
-            height: ladderHeight,
-            top: String(sliderTopPercent) + "%",
-            left: sliderLeft
-          }}
-          className="slider-container"
-        >
+        <Guess
+          ladderWidth={eggPlatformWidth}
+          hasGuessed={this.state.hasGuessed}
+        />
+        <div style={{ left: sliderLeft }} className="slider-container">
           <input
             onChange={this.onChange}
             type="range"
@@ -124,7 +139,7 @@ class Trial extends Component {
             id="eggHeight"
             onMouseUp={this.onChangeEnd}
             onTouchEnd={this.onChangeEnd}
-            disabled={this.state.eggFalling || this.state.eggFell}
+            disabled={isEggSliderDisabled}
           />
           <img
             style={{ top: platformTop }}
@@ -154,7 +169,9 @@ class Trial extends Component {
 function mapStateToProps(state) {
   return {
     windowWidth: state.initialize.windowWidth,
-    windowHeight: state.initialize.windowHeight
+    windowHeight: state.initialize.windowHeight,
+    trial: state.experiment.trial,
+    guesses: state.experiment.guesses
   };
 }
 
