@@ -48,14 +48,14 @@ class Trial extends Component {
         document.getElementById("egg").style.display = "none";
         this.setState({ eggFalling: false, eggFell: true });
         this.props.completedTrial();
+        // // reset state
+        // this.setState({
+        //   eggHeight: 0,
+        //   eggAnimation: "none",
+        //   eggFalling: false,
+        //   eggFell: false
+        // });
       }, 2000);
-
-      // // reset state
-      // this.setState({
-      //   eggHeight: 0,
-      //   eggAnimation: "none",
-      //   eggFalling: false
-      // });
     } else if (
       this.state.eggHeight > eggFallPercentage &&
       !this.state.eggFalling &&
@@ -71,7 +71,6 @@ class Trial extends Component {
 
   render() {
     const { windowWidth, windowHeight } = this.props;
-
     // slider and ladder should be in very similar positions
     // percent of windowHeight to top of ladder
     const sliderTopPercent = 11;
@@ -95,13 +94,6 @@ class Trial extends Component {
 
     const sliderLeft = (windowWidth - eggPlatformWidth) / 2;
 
-    // amount of top padding within the slider div
-    // const platformTop =
-    //   "calc(" +
-    //   String(100 - this.state.eggHeight) +
-    //   "% - " +
-    //   String(eggPlatformHeight) +
-    //   "px)";
     const platformTop =
       (1 - this.state.eggHeight * 0.01) * ladderHeight - eggPlatformHeight / 2;
 
@@ -132,7 +124,7 @@ class Trial extends Component {
             id="eggHeight"
             onMouseUp={this.onChangeEnd}
             onTouchEnd={this.onChangeEnd}
-            disabled={this.state.eggFalling}
+            disabled={this.state.eggFalling || this.state.eggFell}
           />
           <img
             style={{ top: platformTop }}
