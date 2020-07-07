@@ -22,11 +22,18 @@ class Markers extends Component {
 
     let markerImages = [];
     for (let i = 0; i < trial - 1; i++) {
-      // preset constant condition 1 where egg gets 80% up ladder
-      let eggFallPercentage = "20";
-      if (condition === 2) {
+      let eggFallPercentage;
+      let markerLeft;
+
+      if (condition === 1) {
+        // condition 1: Constant condition where egg gets 80% up ladder
+        eggFallPercentage = "20";
+        markerLeft = "calc(110% + " + String(20 * i) + "px)";
+      } else {
         eggFallPercentage = String(80 - 20 * i);
+        markerLeft = "110%";
       }
+
       const markerTop =
         "calc(" +
         eggFallPercentage +
@@ -39,7 +46,7 @@ class Markers extends Component {
           key={i}
           style={{
             top: markerTop,
-            left: "110%",
+            left: markerLeft,
             height: markerHeight
           }}
           className="img-number"

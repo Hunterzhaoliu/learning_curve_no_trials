@@ -19,7 +19,7 @@ let initialState = {
   },
   questionnaireErrors: {},
   dBID: null,
-  condition: 2
+  condition: 1
 };
 
 export default function(state = initialState, action) {

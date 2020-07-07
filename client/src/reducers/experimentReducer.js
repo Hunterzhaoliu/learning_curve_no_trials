@@ -5,7 +5,7 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  trial: 1,
+  trial: 3,
   guesses: []
 };
 
