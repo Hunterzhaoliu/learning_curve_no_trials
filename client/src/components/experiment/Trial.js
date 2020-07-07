@@ -8,6 +8,7 @@ import "./trial.css";
 import background from "../../images/background.png";
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
+import startTrialAudio from "../../audio/bell.mp3";
 
 class Trial extends Component {
   constructor() {
@@ -39,11 +40,13 @@ class Trial extends Component {
     const { guesses, trial, eggFallPercentage } = this.props;
     if (!this.state.hasGuessed && trial === guesses.length) {
       this.setState({ hasGuessed: true });
-      console.log("this.state.hasGuessed = ", this.state.hasGuessed);
+      const startTrialAudio = document.getElementById("startTrialAudio");
+      setTimeout(function() {
+        startTrialAudio.play();
+      }, 1000);
     }
 
     if (this.state.eggFalling && !this.state.eggFell) {
-      // play audio
       const markTrialAudio = document.getElementById("markTrialAudio");
       setTimeout(function() {
         markTrialAudio.play();
@@ -54,16 +57,27 @@ class Trial extends Component {
         document.getElementById("egg").style.display = "none";
         this.setState({ eggFalling: false, eggFell: true });
         this.props.completedTrial();
-        // document.getElementById("egg").style.display = "block";
-        // document.getElementById("egg").style.animation = "none";
-        // // reset state
-        // this.setState({
-        //   eggHeight: 0,
-        //   eggAnimation: "none",
-        //   eggFalling: false,
-        //   eggFell: false
-        // });
       }, 2000);
+
+      // reset trial to begin again
+      setTimeout(() => {
+        // reset the egg
+        document.getElementById("egg").style.display = "block";
+        document.getElementById("egg").style.animation = "none";
+        // reset state
+        this.setState({
+          eggHeight: 0,
+          eggAnimation: "none",
+          eggFalling: false,
+          eggFell: false,
+          hasGuessed: false
+        });
+
+        // in Guess component, the make guess audio is played in componentDidMount
+        // which won't run again for the next trial, so need to start audio here
+        const makeGuessAudio = document.getElementById("makeGuessAudio");
+        makeGuessAudio.play();
+      }, 3000);
     } else if (
       this.state.eggHeight > eggFallPercentage &&
       !this.state.eggFalling &&
@@ -123,6 +137,9 @@ class Trial extends Component {
       !this.state.hasGuessed || this.state.eggFalling || this.state.eggFell;
     return (
       <div>
+        <audio id="startTrialAudio">
+          <source src={startTrialAudio} type="audio/mpeg" />
+        </audio>
         <img className="img-background" src={background} alt="" />
         <Guess
           ladderWidth={eggPlatformWidth}

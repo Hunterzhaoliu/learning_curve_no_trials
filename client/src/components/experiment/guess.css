@@ -1,9 +1,16 @@
 .img-guess-star {
   position: absolute;
+  height: var(--star-height);
+  top: var(--star-top);
+  left: var(--star-left);
 }
 
 .button-confirm-guess {
   border-color: rgb(244, 115, 93) !important;
   color: rgb(244, 115, 93) !important;
   background-color: rgb(171, 197, 87) !important;
+}
+
+.div-guess-slider {
+  height: 100%;
 }

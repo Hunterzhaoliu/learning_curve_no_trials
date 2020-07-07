@@ -39,6 +39,7 @@ class Guess extends Component {
     if (e.target.value === "yes") {
       // successfully made guess, need to save into redux state and move on
       // with trial
+      this.setState({ guessHeight: 0, gavePotentialGuess: false });
       this.props.saveGuess(this.state.guessHeight);
     } else {
       this.setState({ gavePotentialGuess: false });
@@ -58,17 +59,18 @@ class Guess extends Component {
       String(starHeight / 2) +
       "px)";
 
+    const starLeft = "calc(50% - " + String(starHeight / 2) + "px)";
+
+    document.documentElement.style.setProperty(
+      "--star-height",
+      String(starHeight) + "px"
+    );
+    document.documentElement.style.setProperty("--star-top", starTop);
+    document.documentElement.style.setProperty("--star-left", starLeft);
+
     return (
       <div>
-        <img
-          style={{
-            height: starHeight,
-            top: starTop
-          }}
-          className="img-guess-star"
-          src={star}
-          alt=""
-        />
+        <img className="img-guess-star" src={star} alt="" />
         <button
           value="yes"
           onClick={this.onClick}
@@ -108,64 +110,53 @@ class Guess extends Component {
     }
   }
 
-  renderGuessSlider() {
+  renderGuess() {
+    const { hasGuessed } = this.props;
+    if (hasGuessed) {
+      return <img className="img-guess-star" src={star} alt="" />;
+    } else {
+      // render slider on tree to allow subject to guess
+      return (
+        <div className="div-guess-slider">
+          <audio id="makeGuessAudio">
+            <source src={makeGuessAudio} type="audio/mpeg" />
+          </audio>
+          <input
+            onChange={this.onChange}
+            type="range"
+            min="0"
+            max="100"
+            value={this.state.guessHeight}
+            className="slider"
+            onMouseUp={this.onChangeEnd}
+            onTouchEnd={this.onChangeEnd}
+          />
+          {this.renderConfirmGuess()}
+          <audio id="confirmGuessAudio">
+            <source src={confirmGuessAudio} type="audio/mpeg" />
+          </audio>
+          <audio id="confirmTopGuessAudio">
+            <source src={confirmTopGuessAudio} type="audio/mpeg" />
+          </audio>
+          <audio id="guessAgainAudio">
+            <source src={guessAgainAudio} type="audio/mpeg" />
+          </audio>
+        </div>
+      );
+    }
+  }
+
+  render() {
     const { ladderWidth } = this.props;
 
     const guessSliderLeft = "calc(50% + " + String(ladderWidth / 2) + "px)";
     return (
       <div style={{ left: guessSliderLeft }} className="slider-container">
-        <audio id="makeGuessAudio">
-          <source src={makeGuessAudio} type="audio/mpeg" />
-        </audio>
-        <input
-          onChange={this.onChange}
-          type="range"
-          min="0"
-          max="100"
-          value={this.state.guessHeight}
-          className="slider"
-          onMouseUp={this.onChangeEnd}
-          onTouchEnd={this.onChangeEnd}
-        />
-
-        {this.renderConfirmGuess()}
-        <audio id="confirmGuessAudio">
-          <source src={confirmGuessAudio} type="audio/mpeg" />
-        </audio>
-        <audio id="confirmTopGuessAudio">
-          <source src={confirmTopGuessAudio} type="audio/mpeg" />
-        </audio>
-        <audio id="guessAgainAudio">
-          <source src={guessAgainAudio} type="audio/mpeg" />
-        </audio>
+        {this.renderGuess()}
       </div>
     );
   }
-
-  render() {
-    const { hasGuessed } = this.props;
-    console.log("hasGuessed = ", hasGuessed);
-    if (hasGuessed) {
-      return (
-        <img
-          style={{ top: this.state.guessHeight }}
-          className="img-guess-star"
-          src={star}
-          alt=""
-        />
-      );
-    } else {
-      // render slider on tree to allow subject to guess
-      return this.renderGuessSlider();
-    }
-  }
 }
-
-// function mapStateToProps(state) {
-//   return {
-//     experiment: state.experiment
-//   };
-// }
 
 function mapDispatchToProps(dispatch) {
   const experimentDispatchers = bindActionCreators(
