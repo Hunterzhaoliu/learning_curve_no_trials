@@ -40,16 +40,14 @@ class Trial extends Component {
     const { guesses, trial, eggFallPercentage } = this.props;
     if (!this.state.hasGuessed && trial === guesses.length) {
       this.setState({ hasGuessed: true });
-      const startTrialAudio = document.getElementById("startTrialAudio");
       setTimeout(function() {
-        startTrialAudio.play();
+        document.getElementById("startTrialAudio").play();
       }, 1000);
     }
 
     if (this.state.eggFalling && !this.state.eggFell) {
-      const markTrialAudio = document.getElementById("markTrialAudio");
       setTimeout(function() {
-        markTrialAudio.play();
+        document.getElementById("markTrialAudio").play();
       }, 1000);
 
       setTimeout(() => {
@@ -75,8 +73,7 @@ class Trial extends Component {
 
         // in Guess component, the make guess audio is played in componentDidMount
         // which won't run again for the next trial, so need to start audio here
-        const makeGuessAudio = document.getElementById("makeGuessAudio");
-        makeGuessAudio.play();
+        document.getElementById("makeGuessAudio").play();
       }, 3000);
     } else if (
       this.state.eggHeight > eggFallPercentage &&
@@ -98,11 +95,11 @@ class Trial extends Component {
     const sliderTopPercent = 11;
     // percent of windowHeight to bottom of ladder
     const screenToLadderBottomPercent = 83;
-    // const ladderHeight = screenToLadderBottomPercent - sliderTopPercent;
+    // need ladder height in pixels for latter calculations
     const ladderHeight =
       (screenToLadderBottomPercent - sliderTopPercent) * 0.01 * windowHeight;
 
-    const eggPlatformWidth = 125;
+    const eggPlatformWidth = 125; // value also in Summary.js file
     const eggPlatformHeight = 20;
 
     document.documentElement.style.setProperty(

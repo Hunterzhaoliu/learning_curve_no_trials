@@ -1,12 +1,17 @@
-import { SAVE_GUESS, COMPLETED_TRIAL } from "../actions/types";
+import {
+  SAVE_GUESS,
+  COMPLETED_TRIAL,
+  SAVE_TREE_CHOICE
+} from "../actions/types";
 
 let cloneObject = object => {
   return JSON.parse(JSON.stringify(object));
 };
 
 let initialState = {
-  trial: 3,
-  guesses: []
+  trial: 5,
+  guesses: [],
+  treeChoice: ""
 };
 
 export default function(state = initialState, action) {
@@ -17,6 +22,9 @@ export default function(state = initialState, action) {
       return newState;
     case COMPLETED_TRIAL:
       newState.trial++;
+      return newState;
+    case SAVE_TREE_CHOICE:
+      newState.treeChoice = action.treeChoice;
       return newState;
     default:
       return state;

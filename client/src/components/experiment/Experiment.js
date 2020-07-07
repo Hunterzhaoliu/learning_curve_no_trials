@@ -2,24 +2,27 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import {  } from "antd";
 import Trial from "./Trial";
+import Summary from "./Summary";
 // import "./experiment.css";
 
 class Experiment extends Component {
   render() {
     const { condition, trial } = this.props;
 
-    let eggFallPercentage;
-    if (condition === 1) {
-      eggFallPercentage = 80;
-    } else if (condition === 2) {
-      eggFallPercentage = trial * 20;
-    }
+    if (trial < 5) {
+      let eggFallPercentage;
+      if (condition === 1) {
+        eggFallPercentage = 80;
+      } else if (condition === 2) {
+        eggFallPercentage = trial * 20;
+      }
 
-    return (
-      <div>
-        <Trial eggFallPercentage={eggFallPercentage} />
-      </div>
-    );
+      return <Trial eggFallPercentage={eggFallPercentage} />;
+    } else {
+      // subject finished experiment, need to go over results and ask for desired
+      // tree
+      return <Summary />;
+    }
   }
 }
 

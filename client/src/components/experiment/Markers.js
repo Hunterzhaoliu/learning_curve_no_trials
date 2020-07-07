@@ -52,6 +52,7 @@ class Markers extends Component {
           className="img-number"
           src={markerImageList[i]}
           alt=""
+          id={"marker" + String(i)}
         />
       );
     }

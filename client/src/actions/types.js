@@ -12,3 +12,4 @@ export const REMOVE_CODE_ERROR = "REMOVE_CODE_ERROR";
 // experiment
 export const SAVE_GUESS = "SAVE_GUESS";
 export const COMPLETED_TRIAL = "COMPLETED_TRIAL";
+export const SAVE_TREE_CHOICE = "SAVE_TREE_CHOICE";

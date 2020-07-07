@@ -20,9 +20,8 @@ class Guess extends Component {
   }
 
   componentDidMount() {
-    const makeGuessAudio = document.getElementById("makeGuessAudio");
     setTimeout(function() {
-      makeGuessAudio.play();
+      document.getElementById("makeGuessAudio").play();
     }, 1000);
   }
 
@@ -43,9 +42,8 @@ class Guess extends Component {
       this.props.saveGuess(this.state.guessHeight);
     } else {
       this.setState({ gavePotentialGuess: false });
-      const guessAgainAudio = document.getElementById("guessAgainAudio");
       setTimeout(function() {
-        guessAgainAudio.play();
+        document.getElementById("guessAgainAudio").play();
       }, 1000);
     }
   };
@@ -92,18 +90,14 @@ class Guess extends Component {
   renderConfirmGuess() {
     if (this.state.gavePotentialGuess) {
       if (this.state.guessHeight < 97) {
-        const confirmGuessAudio = document.getElementById("confirmGuessAudio");
         setTimeout(function() {
-          confirmGuessAudio.play();
+          document.getElementById("confirmGuessAudio").play();
         }, 1000);
         return this.renderConfirmButtons();
       } else {
         // confirm that subject guessed at the top of the tree
-        const confirmTopGuessAudio = document.getElementById(
-          "confirmTopGuessAudio"
-        );
         setTimeout(function() {
-          confirmTopGuessAudio.play();
+          document.getElementById("confirmTopGuessAudio").play();
         }, 1000);
         return this.renderConfirmButtons();
       }

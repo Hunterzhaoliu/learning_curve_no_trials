@@ -1,0 +1,20 @@
+.button-tree {
+  background-color: inherit;
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 50vw;
+  padding: 0;
+  border: none;
+}
+
+.button-tree:focus {
+  outline: none;
+}
+
+.left-tree {
+  left: 0px;
+}
+.right-tree {
+  left: 50%;
+}
