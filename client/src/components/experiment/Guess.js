@@ -38,8 +38,8 @@ class Guess extends Component {
     if (e.target.value === "yes") {
       // successfully made guess, need to save into redux state and move on
       // with trial
-      this.setState({ guessHeight: 0, gavePotentialGuess: false });
       this.props.saveGuess(this.state.guessHeight);
+      this.setState({ guessHeight: 0, gavePotentialGuess: false });
     } else {
       this.setState({ gavePotentialGuess: false });
       setTimeout(function() {

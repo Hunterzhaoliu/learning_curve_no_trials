@@ -5,13 +5,12 @@ import congratulationsAudio from "../../audio/bell.mp3";
 class Congratulations extends Component {
   render() {
     const { showCongratulations } = this.props;
-    console.log("showCongratulations = ", showCongratulations);
     if (!showCongratulations) {
       return <div />;
     } else {
       return (
         <div>
-          <audio autoplay id="congratulationsAudio">
+          <audio autoPlay id="congratulationsAudio">
             <source src={congratulationsAudio} type="audio/mpeg" />
           </audio>
         </div>

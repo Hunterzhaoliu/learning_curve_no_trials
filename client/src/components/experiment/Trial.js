@@ -67,25 +67,27 @@ class Trial extends Component {
         this.props.completedTrial();
       }, 2000);
 
-      // reset trial to begin again
-      setTimeout(() => {
-        // reset the egg
-        document.getElementById("egg").style.display = "block";
-        document.getElementById("egg").style.animation = "none";
-        // reset state
-        this.setState({
-          eggHeight: 0,
-          eggAnimation: "none",
-          eggFalling: false,
-          eggFell: false,
-          hasGuessed: false,
-          showCongratulations: false
-        });
+      if (trial < 4) {
+        // reset trial to begin again
+        setTimeout(() => {
+          // reset the egg
+          document.getElementById("egg").style.display = "block";
+          document.getElementById("egg").style.animation = "none";
+          // reset state
+          this.setState({
+            eggHeight: 0,
+            eggAnimation: "none",
+            eggFalling: false,
+            eggFell: false,
+            hasGuessed: false,
+            showCongratulations: false
+          });
 
-        // in Guess component, the make guess audio is played in componentDidMount
-        // which won't run again for the next trial, so need to start audio here
-        document.getElementById("makeGuessAudio").play();
-      }, 3000);
+          // in Guess component, the make guess audio is played in componentDidMount
+          // which won't run again for the next trial, so need to start audio here
+          document.getElementById("makeGuessAudio").play();
+        }, 3000);
+      }
     } else if (
       this.state.eggHeight > eggFallPercentage &&
       !this.state.eggFalling &&
@@ -98,12 +100,10 @@ class Trial extends Component {
       });
     }
 
-    console.log("this.state.eggHeight = ", this.state.eggHeight);
-    console.log("treeChoice = ", treeChoice);
-
     if (
-      (treeChoice === "left" && this.state.eggHeight > 40) ||
-      (treeChoice === "right" && this.state.eggHeight > 95)
+      !this.state.showCongratulations &&
+      ((treeChoice === "left" && this.state.eggHeight > 50) ||
+        (treeChoice === "right" && this.state.eggHeight > 95))
     ) {
       // child successfully brought egg up tree
       this.setState({
@@ -168,7 +168,11 @@ class Trial extends Component {
     const eggLeft = (eggPlatformWidth - eggWidth) / 2;
 
     const isEggSliderDisabled =
-      !this.state.hasGuessed || this.state.eggFalling || this.state.eggFell;
+      !this.state.hasGuessed ||
+      this.state.eggFalling ||
+      this.state.eggFell ||
+      this.state.showCongratulations;
+
     return (
       <div>
         <audio id="startTrialAudio">
