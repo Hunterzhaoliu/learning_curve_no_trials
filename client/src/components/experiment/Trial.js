@@ -4,6 +4,7 @@ import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
 import Guess from "./Guess";
 import Markers from "./Markers";
+import Congratulations from "./Congratulations";
 import "./trial.css";
 import background from "../../images/background.png";
 import egg_platform from "../../images/egg_platform.png";
@@ -18,8 +19,17 @@ class Trial extends Component {
       eggAnimation: "none",
       eggFalling: false,
       eggFell: false,
-      hasGuessed: false
+      hasGuessed: false,
+      showCongratulations: false
     };
+  }
+
+  componentDidMount() {
+    const { treeChoice } = this.props;
+    if (treeChoice !== "") {
+      // ensure success, no need for subject to guess
+      this.setState({ hasGuessed: true });
+    }
   }
 
   onChange = e => {
@@ -37,7 +47,7 @@ class Trial extends Component {
   };
 
   componentDidUpdate() {
-    const { guesses, trial, eggFallPercentage } = this.props;
+    const { guesses, trial, eggFallPercentage, treeChoice } = this.props;
     if (!this.state.hasGuessed && trial === guesses.length) {
       this.setState({ hasGuessed: true });
       setTimeout(function() {
@@ -68,7 +78,8 @@ class Trial extends Component {
           eggAnimation: "none",
           eggFalling: false,
           eggFell: false,
-          hasGuessed: false
+          hasGuessed: false,
+          showCongratulations: false
         });
 
         // in Guess component, the make guess audio is played in componentDidMount
@@ -85,6 +96,32 @@ class Trial extends Component {
         eggFalling: true,
         eggAnimation: "fall 2.0s ease-in 1 forwards"
       });
+    }
+
+    console.log("this.state.eggHeight = ", this.state.eggHeight);
+    console.log("treeChoice = ", treeChoice);
+
+    if (
+      (treeChoice === "left" && this.state.eggHeight > 40) ||
+      (treeChoice === "right" && this.state.eggHeight > 95)
+    ) {
+      // child successfully brought egg up tree
+      this.setState({
+        showCongratulations: true
+      });
+    }
+  }
+
+  renderGuess(eggPlatformWidth) {
+    // don't need the Guess component for last trial when subject is
+    // guaranteed success
+    if (this.props.treeChoice === "") {
+      return (
+        <Guess
+          ladderWidth={eggPlatformWidth}
+          hasGuessed={this.state.hasGuessed}
+        />
+      );
     }
   }
 
@@ -138,10 +175,7 @@ class Trial extends Component {
           <source src={startTrialAudio} type="audio/mpeg" />
         </audio>
         <img className="img-background" src={background} alt="" />
-        <Guess
-          ladderWidth={eggPlatformWidth}
-          hasGuessed={this.state.hasGuessed}
-        />
+        {this.renderGuess(eggPlatformWidth)}
         <div style={{ left: sliderLeft }} className="slider-container">
           <input
             onChange={this.onChange}
@@ -175,6 +209,7 @@ class Trial extends Component {
           />
           <Markers />
         </div>
+        <Congratulations showCongratulations={this.state.showCongratulations} />
       </div>
     );
   }

@@ -9,15 +9,29 @@ import "./summary.css";
 import "./trial.css";
 
 class Summary extends Component {
+  constructor() {
+    super();
+    this.state = {
+      treeChoice: ""
+    };
+  }
+
   componentDidMount() {
     setTimeout(function() {
       document.getElementById("summaryAudio").play();
     }, 1000);
 
     const markerHighlightDelay = [1000, 2000, 3000, 4000];
-    for (let i = 0; i < 4; i++) {
-      // need to highlight each marker as the audio walks through them
+    // highlight the first marker so the for loop can remove the previous
+    // marker's highlight in the same iteration
+    setTimeout(function() {
+      document.getElementById("marker0").style.border = "2px solid #639a3b";
+    }, markerHighlightDelay[0]);
+    for (let i = 1; i < 4; i++) {
+      // need to highlight each marker as the audio walks through them and
+      // unhighlight the previous marker
       setTimeout(function() {
+        document.getElementById("marker" + String(i - 1)).style.border = "none";
         document.getElementById("marker" + String(i)).style.border =
           "2px solid #639a3b";
       }, markerHighlightDelay[i]);
@@ -25,16 +39,33 @@ class Summary extends Component {
 
     // highlight the two tree choices
     setTimeout(function() {
+      // unhighlight the last marker
+      document.getElementById("marker3").style.border = "none";
+
+      // display and highlight left tree
+      document.getElementById("buttonLeftTree").style.display = "block";
       document.getElementById("buttonLeftTree").style.border =
         "2px solid #639a3b";
     }, 6000);
     setTimeout(function() {
+      // unhighlight the left tree
+      document.getElementById("buttonLeftTree").style.border = "none";
+
+      // display and highlight right tree
+      document.getElementById("buttonRightTree").style.display = "block";
       document.getElementById("buttonRightTree").style.border =
         "2px solid #639a3b";
+
+      // unhighlight the last tree
+      setTimeout(function() {
+        document.getElementById("buttonRightTree").style.border = "none";
+      }, 1000);
     }, 8000);
   }
 
   onClick = e => {
+    // this.setState({ treeChoice: e.target.value });
+    // ask comprehension questions
     this.props.saveTreeChoice(e.target.value);
   };
 

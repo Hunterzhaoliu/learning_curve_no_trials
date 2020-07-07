@@ -6,6 +6,7 @@
   width: 50vw;
   padding: 0;
   border: none;
+  display: none;
 }
 
 .button-tree:focus {

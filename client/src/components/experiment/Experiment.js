@@ -7,17 +7,21 @@ import Summary from "./Summary";
 
 class Experiment extends Component {
   render() {
-    const { condition, trial } = this.props;
+    const { condition, trial, treeChoice } = this.props;
 
-    if (trial < 5) {
+    if (trial < 5 || treeChoice !== "") {
       let eggFallPercentage;
-      if (condition === 1) {
+      if (treeChoice !== "") {
+        eggFallPercentage = 110;
+      } else if (condition === 1) {
         eggFallPercentage = 80;
       } else if (condition === 2) {
         eggFallPercentage = trial * 20;
       }
 
-      return <Trial eggFallPercentage={eggFallPercentage} />;
+      return (
+        <Trial eggFallPercentage={eggFallPercentage} treeChoice={treeChoice} />
+      );
     } else {
       // subject finished experiment, need to go over results and ask for desired
       // tree
@@ -33,7 +37,8 @@ This function gives the UI the parts of the state it will need to display.
 function mapStateToProps(state) {
   return {
     condition: state.register.condition,
-    trial: state.experiment.trial
+    trial: state.experiment.trial,
+    treeChoice: state.experiment.treeChoice
   };
 }
 
