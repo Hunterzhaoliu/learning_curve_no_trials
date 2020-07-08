@@ -1,15 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import congratulationsAudio from "../../audio/bell.mp3";
+// import $ from "jquery";
+import congratulationsAudio from "../../audio/congratulations.mp3";
+import "./congratulations.css";
 
 class Congratulations extends Component {
   render() {
     const { showCongratulations } = this.props;
+
     if (!showCongratulations) {
       return <div />;
     } else {
       return (
-        <div>
+        <div className="confetti">
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
+          <div className="confetti-piece" />
           <audio autoPlay id="congratulationsAudio">
             <source src={congratulationsAudio} type="audio/mpeg" />
           </audio>
