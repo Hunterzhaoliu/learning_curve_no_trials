@@ -22,6 +22,7 @@ class Guess extends Component {
   componentDidMount() {
     setTimeout(function() {
       document.getElementById("makeGuessAudio").play();
+      console.log("makeGuessAudio");
     }, 1000);
   }
 
@@ -92,12 +93,14 @@ class Guess extends Component {
       if (this.state.guessHeight < 97) {
         setTimeout(function() {
           document.getElementById("confirmGuessAudio").play();
+          console.log("confirmGuessAudio");
         }, 1000);
         return this.renderConfirmButtons();
       } else {
         // confirm that subject guessed at the top of the tree
         setTimeout(function() {
           document.getElementById("confirmTopGuessAudio").play();
+          console.log("confirmTopGuessAudio");
         }, 1000);
         return this.renderConfirmButtons();
       }

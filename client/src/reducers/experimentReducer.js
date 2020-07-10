@@ -9,9 +9,9 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  trial: 5,
+  trial: 1,
   guesses: [],
-  treeChoice: "left"
+  treeChoice: ""
 };
 
 export default function(state = initialState, action) {

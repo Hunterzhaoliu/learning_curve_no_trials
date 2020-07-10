@@ -11,6 +11,15 @@ import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
 import startTrialAudio from "../../audio/bell.mp3";
 
+import {
+  SCREEN_TO_LADDER_BOTTOM_PERCENT,
+  SLIDER_TOP_PERCENT,
+  EGG_PLATFORM_WIDTH,
+  EGG_PLATFORM_HEIGHT,
+  EGG_HEIGHT,
+  EGG_WIDTH
+} from "./constants";
+
 class Trial extends Component {
   constructor() {
     super();
@@ -25,6 +34,7 @@ class Trial extends Component {
   }
 
   componentDidMount() {
+    console.log("trial componentDidMount");
     const { treeChoice } = this.props;
     if (treeChoice !== "") {
       // ensure success, no need for subject to guess
@@ -53,12 +63,14 @@ class Trial extends Component {
       this.setState({ hasGuessed: true });
       setTimeout(function() {
         document.getElementById("startTrialAudio").play();
+        console.log("startTrialAudio");
       }, 1000);
     }
 
     if (this.state.eggFalling && !this.state.eggFell) {
       setTimeout(function() {
         document.getElementById("markTrialAudio").play();
+        console.log("markTrialAudio");
       }, 1000);
 
       setTimeout(() => {
@@ -87,6 +99,7 @@ class Trial extends Component {
           // in Guess component, the make guess audio is played in componentDidMount
           // which won't run again for the next trial, so need to start audio here
           document.getElementById("makeGuessAudio").play();
+          console.log("makeGuessAudio");
         }, 3000);
       }
     } else if (
@@ -128,21 +141,15 @@ class Trial extends Component {
 
   render() {
     const { windowWidth, windowHeight } = this.props;
-    // slider and ladder should be in very similar positions
-    // percent of windowHeight to top of ladder
-    const sliderTopPercent = 11;
-    // percent of windowHeight to bottom of ladder
-    const screenToLadderBottomPercent = 83;
     // need ladder height in pixels for latter calculations
     const ladderHeight =
-      (screenToLadderBottomPercent - sliderTopPercent) * 0.01 * windowHeight;
-
-    const eggPlatformWidth = 125; // value also in Summary.js file
-    const eggPlatformHeight = 20;
+      (SCREEN_TO_LADDER_BOTTOM_PERCENT - SLIDER_TOP_PERCENT) *
+      0.01 *
+      windowHeight;
 
     document.documentElement.style.setProperty(
       "--slider-top-percent",
-      String(sliderTopPercent) + "%"
+      String(SLIDER_TOP_PERCENT) + "%"
     );
     document.documentElement.style.setProperty(
       "--ladder-height",
@@ -150,23 +157,21 @@ class Trial extends Component {
     );
     document.documentElement.style.setProperty(
       "--egg-platform-width",
-      String(eggPlatformWidth) + "px"
+      String(EGG_PLATFORM_WIDTH) + "px"
     );
     document.documentElement.style.setProperty(
       "--egg-platform-height",
-      String(eggPlatformHeight) + "px"
+      String(EGG_PLATFORM_HEIGHT) + "px"
     );
 
-    const sliderLeft = (windowWidth - eggPlatformWidth) / 2;
+    const sliderLeft = (windowWidth - EGG_PLATFORM_WIDTH) / 2;
 
     const platformTop =
-      (1 - this.state.eggHeight * 0.01) * ladderHeight - eggPlatformHeight / 2;
+      (1 - this.state.eggHeight * 0.01) * ladderHeight -
+      EGG_PLATFORM_HEIGHT / 2;
 
-    const eggHeight = 75;
-    const eggWidth = 57;
-
-    const eggTop = platformTop - eggHeight;
-    const eggLeft = (eggPlatformWidth - eggWidth) / 2;
+    const eggTop = platformTop - EGG_HEIGHT;
+    const eggLeft = (EGG_PLATFORM_WIDTH - EGG_WIDTH) / 2;
 
     const isEggSliderDisabled =
       !this.state.hasGuessed ||
@@ -180,7 +185,7 @@ class Trial extends Component {
           <source src={startTrialAudio} type="audio/mpeg" />
         </audio>
         <img className="img-background" src={background} alt="" />
-        {this.renderGuess(eggPlatformWidth)}
+        {this.renderGuess(EGG_PLATFORM_WIDTH)}
         <div style={{ left: sliderLeft }} className="slider-container">
           <input
             onChange={this.onChange}
@@ -202,7 +207,7 @@ class Trial extends Component {
           />
           <img
             style={{
-              height: eggHeight,
+              height: EGG_HEIGHT,
               top: eggTop,
               left: eggLeft,
               animation: this.state.eggAnimation
@@ -236,8 +241,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    completedTrial: userCode => {
-      experimentDispatchers.completedTrial(userCode);
+    completedTrial: () => {
+      experimentDispatchers.completedTrial();
     }
   };
 }

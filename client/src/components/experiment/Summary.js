@@ -8,6 +8,12 @@ import background from "../../images/background.png";
 import "./summary.css";
 import "./trial.css";
 
+import {
+  SLIDER_TOP_PERCENT,
+  SCREEN_TO_LADDER_BOTTOM_PERCENT,
+  EGG_PLATFORM_WIDTH
+} from "./constants";
+
 class Summary extends Component {
   constructor() {
     super();
@@ -19,6 +25,7 @@ class Summary extends Component {
   componentDidMount() {
     setTimeout(function() {
       document.getElementById("summaryAudio").play();
+      console.log("summaryAudio");
     }, 1000);
 
     const markerHighlightDelay = [1000, 2000, 3000, 4000];
@@ -70,21 +77,19 @@ class Summary extends Component {
   };
 
   render() {
-    // values also in Trial.js file
-    const sliderTopPercent = 11;
-    const ladderHeightPercent = 83 - 11;
-    const eggPlatformWidth = 125;
+    const ladderHeightPercent =
+      SCREEN_TO_LADDER_BOTTOM_PERCENT - SLIDER_TOP_PERCENT;
 
     // marker left is 110% of eggPlatformWidth in Markers.js
     // after reaching half screen, add an additional 60% of eggPlatformWidth
-    const sliderLeft = "calc(50% + " + String(eggPlatformWidth * 0.6) + "px)";
+    const sliderLeft = "calc(50% + " + String(EGG_PLATFORM_WIDTH * 0.6) + "px)";
     return (
       <div>
         <div
           style={{
             position: "absolute",
             left: sliderLeft,
-            top: String(sliderTopPercent) + "%",
+            top: String(SLIDER_TOP_PERCENT) + "%",
             height: String(ladderHeightPercent) + "%"
           }}
         >

@@ -1,0 +1,14 @@
+.tree-highlight {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 50vw;
+  display: none;
+}
+
+.left-tree {
+  left: 0px;
+}
+.right-tree {
+  left: 50%;
+}

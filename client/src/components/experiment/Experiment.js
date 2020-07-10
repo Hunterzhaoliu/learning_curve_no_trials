@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import {  } from "antd";
+import Introduction from "./Introduction";
 import Trial from "./Trial";
 import Summary from "./Summary";
-// import "./experiment.css";
 
 class Experiment extends Component {
   render() {
     const { condition, trial, treeChoice } = this.props;
 
-    if (trial < 5 || treeChoice !== "") {
+    if (trial === 0) {
+      return <Introduction />;
+    } else if (trial < 5 || treeChoice !== "") {
       let eggFallPercentage;
       if (treeChoice !== "") {
         eggFallPercentage = 110;
