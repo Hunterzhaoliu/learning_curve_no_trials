@@ -7,24 +7,32 @@
 
 .slider-container {
   position: absolute;
-  width: var(--egg-platform-width);
-  height: var(--ladder-height);
+  width: var(--ladder-height);
+  height: var(--egg-platform-width);
   top: var(--slider-top-percent);
 }
 
 .slider {
   writing-mode: bt-lr; /* IE */
-  -webkit-appearance: slider-vertical;
+  /* -webkit-appearance: slider-vertical; */
   /* uncomment below to see the slider */
-  /* -webkit-appearance: none; */
+  -webkit-appearance: none;
+  transform: rotate(270deg) translateX(-100%);
+  transform-origin: top left;
   height: 100%;
   width: 100%;
-  /* background: red; */
   position: relative;
   z-index: 3;
+  background: transparent;
   /* https://stackoverflow.com/questions/52639387/how-to-disable-touch-on-input-range-only-accept-drag-to-change-its-value*/
   /*  subject can only drag the slider */
   /* pointer-events: none; */
+}
+
+.slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 100%;
+  background: transparent;
 }
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
@@ -32,8 +40,8 @@
   -webkit-appearance: none;
   appearance: none;
   /* background: blue; */
-  width: var(--egg-platform-width);
-  height: var(--egg-platform-height);
+  width: var(--egg-platform-height);
+  height: var(--egg-platform-width);
   position: relative;
   z-index: 3;
   /* pointer-events: atuo; */
