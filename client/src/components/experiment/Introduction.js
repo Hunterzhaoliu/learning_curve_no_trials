@@ -21,7 +21,8 @@ class Introduction extends Component {
   constructor() {
     super();
     this.state = {
-      eggAnimation: "none"
+      eggAnimation: "none",
+      eggAndPlatformAnimation: "none"
     };
   }
 
@@ -64,6 +65,21 @@ class Introduction extends Component {
         document.getElementById("divRightTree").style.border = "none";
       }, 1000);
     }, 7000);
+
+    // show egg falling off platform
+    setTimeout(() => {
+      this.setState({
+        eggAnimation: "fall 2.0s ease-in 1 backwards"
+      });
+    }, 9000);
+
+    // make the egg and platform go up
+    setTimeout(() => {
+      this.setState({
+        eggAnimation: "shake 0.5s infinite",
+        eggAndPlatformAnimation: "rise 1s forwards"
+      });
+    }, 12000);
   }
 
   render() {
@@ -83,6 +99,11 @@ class Introduction extends Component {
       "px)";
     const eggLeft = "calc(50% - " + String(EGG_WIDTH / 2) + "px)";
 
+    document.documentElement.style.setProperty(
+      "--egg-and-platform-start-height",
+      String(SCREEN_TO_LADDER_BOTTOM_PERCENT - 100) + "vh"
+    );
+
     return (
       <div>
         <audio id="introductionAudio">
@@ -91,29 +112,31 @@ class Introduction extends Component {
         <img className="img-background" src={background} alt="" />
         <div id="divLeftTree" className="tree-highlight left-tree" />
         <div id="divRightTree" className="tree-highlight right-tree" />
-        <img
-          style={{
-            left: platformLeft,
-            top: platformTop,
-            width: EGG_PLATFORM_WIDTH,
-            height: EGG_PLATFORM_HEIGHT
-          }}
-          className="img-egg-platform"
-          src={egg_platform}
-          alt=""
-        />
-        <img
-          style={{
-            height: EGG_HEIGHT,
-            top: eggTop,
-            left: eggLeft,
-            animation: this.state.eggAnimation
-          }}
-          className="img-egg"
-          id="egg"
-          src={egg}
-          alt=""
-        />
+        <div style={{ animation: this.state.eggAndPlatformAnimation }}>
+          <img
+            style={{
+              left: platformLeft,
+              top: platformTop,
+              width: EGG_PLATFORM_WIDTH,
+              height: EGG_PLATFORM_HEIGHT
+            }}
+            className="img-egg-platform"
+            src={egg_platform}
+            alt=""
+          />
+          <img
+            style={{
+              height: EGG_HEIGHT,
+              top: eggTop,
+              left: eggLeft,
+              animation: this.state.eggAnimation
+            }}
+            className="img-egg"
+            id="egg"
+            src={egg}
+            alt=""
+          />
+        </div>
       </div>
     );
   }

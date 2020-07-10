@@ -12,3 +12,12 @@
 .right-tree {
   left: 50%;
 }
+
+@keyframes rise {
+  0% {
+    transform: translateY(var(--egg-and-platform-start-height));
+  }
+  100% {
+    transform: translateY(-40vh);
+  }
+}
