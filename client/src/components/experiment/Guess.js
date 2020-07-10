@@ -10,6 +10,8 @@ import confirmTopGuessAudio from "../../audio/bell.mp3";
 import guessAgainAudio from "../../audio/bell.mp3";
 import star from "../../images/star.png";
 
+import { EGG_PLATFORM_WIDTH } from "./constants";
+
 class Guess extends Component {
   constructor() {
     super();
@@ -50,6 +52,7 @@ class Guess extends Component {
   };
 
   renderConfirmButtons() {
+    console.log("this.state.guessHeight = ", this.state.guessHeight);
     const starHeight = 50;
     const starTop =
       "calc(" +
@@ -70,20 +73,22 @@ class Guess extends Component {
     return (
       <div>
         <img className="img-guess-star" src={star} alt="" />
-        <button
-          value="yes"
-          onClick={this.onClick}
-          className="button-main button-confirm-guess"
-        >
-          Yes
-        </button>
-        <button
-          value="no"
-          onClick={this.onClick}
-          className="button-main button-confirm-guess"
-        >
-          No
-        </button>
+        <div className="div-confirmation-buttons">
+          <button
+            value="yes"
+            onClick={this.onClick}
+            className="button-main button-confirm-guess"
+          >
+            Yes
+          </button>
+          <button
+            value="no"
+            onClick={this.onClick}
+            className="button-main button-confirm-guess"
+          >
+            No
+          </button>
+        </div>
       </div>
     );
   }
@@ -144,9 +149,8 @@ class Guess extends Component {
   }
 
   render() {
-    const { ladderWidth } = this.props;
-
-    const guessSliderLeft = "calc(50% + " + String(ladderWidth / 2) + "px)";
+    const guessSliderLeft =
+      "calc(50% + " + String(EGG_PLATFORM_WIDTH / 2) + "px)";
     return (
       <div style={{ left: guessSliderLeft }} className="slider-container">
         {this.renderGuess()}

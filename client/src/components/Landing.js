@@ -44,7 +44,7 @@ This function gives the UI the parts of the state it will need to display.
 */
 function mapStateToProps(state) {
   return {
-    step: state.initialize.step
+    step: state.register.step
   };
 }
 

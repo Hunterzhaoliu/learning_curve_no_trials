@@ -1,6 +1,7 @@
 import {
   SAVE_CODE_ERROR,
   REMOVE_CODE_ERROR,
+  NEXT_STEP,
   SUCCESSFULLY_REGISTERED_CONSENT,
   SAVE_REGISTER_CONSENT_ERRORS
 } from "../actions/types";
@@ -10,6 +11,7 @@ let cloneObject = object => {
 };
 
 let initialState = {
+  step: 2,
   codeError: false,
   consentError: {
     childName: false,
@@ -30,6 +32,9 @@ export default function(state = initialState, action) {
       return newState;
     case REMOVE_CODE_ERROR:
       newState.codeError = false;
+      return newState;
+    case NEXT_STEP:
+      newState.step = 1;
       return newState;
     case SAVE_REGISTER_CONSENT_ERRORS:
       newState.consentError.signature = action.errors.signature;

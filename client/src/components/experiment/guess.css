@@ -5,12 +5,20 @@
   left: var(--star-left);
 }
 
+.div-guess-slider {
+  height: 100%;
+}
+
 .button-confirm-guess {
   border-color: rgb(244, 115, 93) !important;
   color: rgb(244, 115, 93) !important;
   background-color: rgb(171, 197, 87) !important;
 }
 
-.div-guess-slider {
-  height: 100%;
+.div-confirmation-buttons {
+  position: absolute;
+  /* double the height of the button so that both buttons display below tree */
+  bottom: -80px;
+  /* confirm buttons need to be in front of slider */
+  z-index: 4;
 }

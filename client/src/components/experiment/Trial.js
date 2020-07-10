@@ -126,26 +126,17 @@ class Trial extends Component {
     }
   }
 
-  renderGuess(eggPlatformWidth) {
+  renderGuess() {
     // don't need the Guess component for last trial when subject is
     // guaranteed success
     if (this.props.treeChoice === "") {
-      return (
-        <Guess
-          ladderWidth={eggPlatformWidth}
-          hasGuessed={this.state.hasGuessed}
-        />
-      );
+      return <Guess hasGuessed={this.state.hasGuessed} />;
     }
   }
 
   render() {
-    const { windowWidth, windowHeight } = this.props;
-    // need ladder height in pixels for latter calculations
-    const ladderHeight =
-      (SCREEN_TO_LADDER_BOTTOM_PERCENT - SLIDER_TOP_PERCENT) *
-      0.01 *
-      windowHeight;
+    const ladderHeightPercent =
+      SCREEN_TO_LADDER_BOTTOM_PERCENT - SLIDER_TOP_PERCENT;
 
     document.documentElement.style.setProperty(
       "--slider-top-percent",
@@ -153,7 +144,7 @@ class Trial extends Component {
     );
     document.documentElement.style.setProperty(
       "--ladder-height",
-      String(ladderHeight) + "px"
+      String(ladderHeightPercent) + "vh"
     );
     document.documentElement.style.setProperty(
       "--egg-platform-width",
@@ -164,14 +155,21 @@ class Trial extends Component {
       String(EGG_PLATFORM_HEIGHT) + "px"
     );
 
-    const sliderLeft = (windowWidth - EGG_PLATFORM_WIDTH) / 2;
-
+    const sliderLeft = "calc(50% - " + String(EGG_PLATFORM_WIDTH / 2) + "px)";
     const platformTop =
-      (1 - this.state.eggHeight * 0.01) * ladderHeight -
-      EGG_PLATFORM_HEIGHT / 2;
+      "calc(" +
+      String(100 - this.state.eggHeight) +
+      "% - " +
+      String(EGG_PLATFORM_HEIGHT / 2) +
+      "px)";
 
-    const eggTop = platformTop - EGG_HEIGHT;
-    const eggLeft = (EGG_PLATFORM_WIDTH - EGG_WIDTH) / 2;
+    const eggTop =
+      "calc(" +
+      String(100 - this.state.eggHeight) +
+      "% - " +
+      String(EGG_PLATFORM_HEIGHT / 2 + EGG_HEIGHT) +
+      "px)";
+    const eggLeft = "calc(50% - " + String(EGG_WIDTH / 2) + "px)";
 
     const isEggSliderDisabled =
       !this.state.hasGuessed ||
@@ -185,7 +183,7 @@ class Trial extends Component {
           <source src={startTrialAudio} type="audio/mpeg" />
         </audio>
         <img className="img-background" src={background} alt="" />
-        {this.renderGuess(EGG_PLATFORM_WIDTH)}
+        {this.renderGuess()}
         <div style={{ left: sliderLeft }} className="slider-container">
           <input
             onChange={this.onChange}
@@ -227,8 +225,6 @@ class Trial extends Component {
 
 function mapStateToProps(state) {
   return {
-    windowWidth: state.initialize.windowWidth,
-    windowHeight: state.initialize.windowHeight,
     trial: state.experiment.trial,
     guesses: state.experiment.guesses
   };
