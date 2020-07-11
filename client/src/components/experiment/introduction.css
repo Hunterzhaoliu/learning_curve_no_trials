@@ -13,6 +13,11 @@
   left: 50%;
 }
 
+.img-hand {
+  position: absolute;
+  z-index: 2;
+}
+
 @keyframes rise {
   0% {
     transform: translateY(var(--egg-and-platform-start-height));

@@ -6,6 +6,7 @@ import introductionAudio from "../../audio/bell.mp3";
 import background from "../../images/background.png";
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
+import hand from "../../images/hand.png";
 import "./introduction.css";
 import "./trial.css";
 
@@ -72,13 +73,16 @@ class Introduction extends Component {
         eggAnimation: "fall 2.0s ease-in 1 backwards"
       });
     }, 9000);
-
     // make the egg and platform go up
     setTimeout(() => {
+      document.getElementById("hand").style.display = "block";
       this.setState({
         eggAnimation: "shake 0.5s infinite",
         eggAndPlatformAnimation: "rise 1s forwards"
       });
+      setTimeout(() => {
+        this.props.completedTrial();
+      }, 1500);
     }, 12000);
   }
 
@@ -103,6 +107,11 @@ class Introduction extends Component {
       "--egg-and-platform-start-height",
       String(SCREEN_TO_LADDER_BOTTOM_PERCENT - 100) + "vh"
     );
+
+    const handHeight = "100px";
+    const handTop = String(SCREEN_TO_LADDER_BOTTOM_PERCENT) + "%";
+    // subtract pixels from left edge of hand to index finger
+    const handLeft = "calc(50% - 20px)";
 
     return (
       <div>
@@ -134,6 +143,18 @@ class Introduction extends Component {
             className="img-egg"
             id="egg"
             src={egg}
+            alt=""
+          />
+          <img
+            style={{
+              height: handHeight,
+              top: handTop,
+              left: handLeft,
+              display: "none"
+            }}
+            className="img-hand"
+            src={hand}
+            id="hand"
             alt=""
           />
         </div>
