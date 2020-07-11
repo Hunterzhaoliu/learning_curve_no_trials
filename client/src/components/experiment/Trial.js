@@ -34,7 +34,6 @@ class Trial extends Component {
   }
 
   componentDidMount() {
-    console.log("trial componentDidMount");
     const { treeChoice } = this.props;
     if (treeChoice !== "") {
       // ensure success, no need for subject to guess
@@ -43,7 +42,7 @@ class Trial extends Component {
   }
 
   onChange = e => {
-    console.log("e.target.value = ", e.target.value);
+    // console.log("e.target.value = ", e.target.value);
     if (this.state.eggAnimation === "none") {
       this.setState({ eggAnimation: "shake 0.5s infinite" });
     }
