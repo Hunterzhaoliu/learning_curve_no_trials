@@ -22,3 +22,7 @@
   /* confirm buttons need to be in front of slider */
   z-index: 4;
 }
+
+.slider-guess {
+  pointer-events: auto;
+}

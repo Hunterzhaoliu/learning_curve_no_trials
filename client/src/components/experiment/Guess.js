@@ -29,7 +29,7 @@ class Guess extends Component {
   }
 
   onChange = e => {
-    // console.log("e.target.value = ", e.target.value);
+    console.log("guessHeight = ", e.target.value);
     this.setState({ guessHeight: e.target.value });
   };
 
@@ -114,6 +114,8 @@ class Guess extends Component {
 
   renderGuess() {
     const { hasGuessed } = this.props;
+    console.log("renderGuess");
+    console.log("hasGuessed = ", hasGuessed);
     if (hasGuessed) {
       return <img className="img-guess-star" src={star} alt="" />;
     } else {
@@ -129,7 +131,7 @@ class Guess extends Component {
             min="0"
             max="100"
             value={this.state.guessHeight}
-            className="slider"
+            className="slider slider-guess"
             onMouseUp={this.onChangeEnd}
             onTouchEnd={this.onChangeEnd}
           />
