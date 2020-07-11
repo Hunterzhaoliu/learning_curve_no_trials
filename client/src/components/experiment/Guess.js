@@ -29,7 +29,7 @@ class Guess extends Component {
   }
 
   onChange = e => {
-    console.log("guessHeight = ", e.target.value);
+    // console.log("guessHeight = ", e.target.value);
     this.setState({ guessHeight: e.target.value });
   };
 
@@ -47,12 +47,12 @@ class Guess extends Component {
       this.setState({ gavePotentialGuess: false });
       setTimeout(function() {
         document.getElementById("guessAgainAudio").play();
+        console.log("guessAgainAudio");
       }, 1000);
     }
   };
 
   renderConfirmButtons() {
-    console.log("this.state.guessHeight = ", this.state.guessHeight);
     const starHeight = 50;
     const starTop =
       "calc(" +
@@ -114,8 +114,6 @@ class Guess extends Component {
 
   renderGuess() {
     const { hasGuessed } = this.props;
-    console.log("renderGuess");
-    console.log("hasGuessed = ", hasGuessed);
     if (hasGuessed) {
       return <img className="img-guess-star" src={star} alt="" />;
     } else {
