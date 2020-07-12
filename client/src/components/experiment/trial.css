@@ -39,7 +39,8 @@
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  /* background: blue; */
+  background: transparent;
+  border: transparent;
   width: var(--egg-platform-height);
   height: var(--egg-platform-width);
   position: relative;

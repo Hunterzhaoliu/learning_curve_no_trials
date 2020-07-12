@@ -9,6 +9,12 @@ import axios from "axios";
 import { isValidFilledString } from "../utils/ValidateRegistration";
 // import history from "../components/history";
 
+export const startExperiment = () => dispatch => {
+  dispatch({
+    type: NEXT_STEP
+  });
+};
+
 export const checkCode = userCode => dispatch => {
   if (userCode === process.env.REACT_APP_CODE) {
     dispatch({

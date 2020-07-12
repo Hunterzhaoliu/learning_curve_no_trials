@@ -33,16 +33,9 @@ class ConsentForm extends Component {
     }
   }
 
-  // fullScreen = () => {
-  //
-  // };
-
   onSubmit = e => {
     // prevent cleaning the form
     e.preventDefault();
-
-    // // the trial needs to take up the entire screen
-    // this.fullScreen();
 
     // need to create a copy of the state to allow for errors to be removed in
     // the actions

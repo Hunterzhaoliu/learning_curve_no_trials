@@ -58,7 +58,6 @@ class Trial extends Component {
 
   componentDidUpdate() {
     const { guesses, trial, eggFallPercentage, treeChoice } = this.props;
-    console.log("eggFallPercentage = ", eggFallPercentage);
     if (!this.state.hasGuessed && trial === guesses.length) {
       this.setState({ hasGuessed: true });
       setTimeout(function() {
