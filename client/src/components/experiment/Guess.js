@@ -44,7 +44,7 @@ class Guess extends Component {
       this.props.saveGuess(this.state.guessHeight);
       this.setState({ guessHeight: 0, gavePotentialGuess: false });
     } else {
-      this.setState({ gavePotentialGuess: false });
+      this.setState({ guessHeight: 0, gavePotentialGuess: false });
       setTimeout(function() {
         document.getElementById("guessAgainAudio").play();
         console.log("guessAgainAudio");
