@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as registerActionCreators from "../../actions/register";
 import { bindActionCreators } from "redux";
+import screenfull from "screenfull";
 import { Row, Col, DatePicker, Radio } from "antd";
 import ConsentInformation from "./ConsentInformation";
 import InputField from "../input/InputField";
@@ -32,12 +33,24 @@ class ConsentForm extends Component {
     }
   }
 
+  // fullScreen = () => {
+  //
+  // };
+
   onSubmit = e => {
     // prevent cleaning the form
     e.preventDefault();
+
+    // // the trial needs to take up the entire screen
+    // this.fullScreen();
+
     // need to create a copy of the state to allow for errors to be removed in
     // the actions
     this.props.registerConsent(JSON.parse(JSON.stringify(this.state)));
+
+    if (screenfull.isEnabled) {
+      screenfull.request(document.documentElement);
+    }
   };
 
   onChange = e => {
@@ -57,7 +70,7 @@ class ConsentForm extends Component {
   render() {
     document.documentElement.style.setProperty(
       "--window-width-minus-padding",
-      String(this.props.windowWidth - 40) + "px"
+      "calc(100% - 40px)"
     );
 
     return (
@@ -201,7 +214,6 @@ class ConsentForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    windowWidth: state.initialize.windowWidth,
     consentError: state.register.consentError
   };
 }

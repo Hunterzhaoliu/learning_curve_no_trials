@@ -7,7 +7,7 @@ import Summary from "./Summary";
 class Experiment extends Component {
   render() {
     const { condition, trial, treeChoice } = this.props;
-
+    console.log("condition = ", condition);
     if (trial === 0) {
       return <Introduction />;
     } else if (trial < 5 || treeChoice !== "") {
@@ -19,7 +19,7 @@ class Experiment extends Component {
       } else if (condition === 2) {
         eggFallPercentage = trial * 20;
       }
-
+      console.log("Experiment eggFallPercentage = ", eggFallPercentage);
       return (
         <Trial eggFallPercentage={eggFallPercentage} treeChoice={treeChoice} />
       );

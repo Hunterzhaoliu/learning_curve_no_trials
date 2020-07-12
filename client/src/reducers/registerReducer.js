@@ -11,7 +11,7 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  step: 2,
+  step: 1,
   codeError: false,
   consentError: {
     childName: false,
@@ -34,14 +34,14 @@ export default function(state = initialState, action) {
       newState.codeError = false;
       return newState;
     case NEXT_STEP:
-      newState.step = 1;
+      newState.step += 1;
       return newState;
     case SAVE_REGISTER_CONSENT_ERRORS:
       newState.consentError.signature = action.errors.signature;
       return newState;
     case SUCCESSFULLY_REGISTERED_CONSENT:
-      newState.dBID = action.subjectDBInfo.dBID;
-      newState.condition = action.subjectDBInfo.condition;
+      // newState.dBID = action.subjectDBInfo.dBID;
+      // newState.condition = action.subjectDBInfo.condition;
       return newState;
     default:
       return state;
