@@ -67,13 +67,15 @@ class Guess extends Component {
       "--star-height",
       String(starHeight) + "px"
     );
+
+    // for the star display after confirmation
     document.documentElement.style.setProperty("--star-top", starTop);
     document.documentElement.style.setProperty("--star-left", starLeft);
 
     return (
-      <div>
-        <img className="img-guess-star" src={star} alt="" />
-        <div className="div-confirmation-buttons">
+      <div style={{ top: starTop }} className="star-and-buttons">
+        <img className="img-star" src={star} alt="" />
+        <div>
           <button
             value="yes"
             onClick={this.onClick}
@@ -115,7 +117,7 @@ class Guess extends Component {
   renderGuess() {
     const { hasGuessed } = this.props;
     if (hasGuessed) {
-      return <img className="img-guess-star" src={star} alt="" />;
+      return <img className="img-star img-guess-star" src={star} alt="" />;
     } else {
       // render slider on tree to allow subject to guess
       return (

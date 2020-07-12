@@ -1,28 +1,29 @@
 .img-guess-star {
   position: absolute;
-  height: var(--star-height);
   top: var(--star-top);
   left: var(--star-left);
+}
+
+.img-star {
+  height: var(--star-height);
 }
 
 .div-guess-slider {
   height: 100%;
 }
 
-.button-confirm-guess {
-  border-color: rgb(244, 115, 93) !important;
-  color: rgb(244, 115, 93) !important;
-  background-color: rgb(171, 197, 87) !important;
+.slider-guess {
+  pointer-events: auto;
 }
 
-.div-confirmation-buttons {
+.star-and-buttons {
   position: absolute;
-  /* double the height of the button so that both buttons display below tree */
-  bottom: -80px;
   /* confirm buttons need to be in front of slider */
   z-index: 4;
 }
 
-.slider-guess {
-  pointer-events: auto;
+.button-confirm-guess {
+  border-color: rgb(244, 115, 93) !important;
+  color: rgb(244, 115, 93) !important;
+  background-color: rgb(171, 197, 87) !important;
 }
