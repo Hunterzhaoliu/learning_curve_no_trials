@@ -134,8 +134,6 @@ class Trial extends Component {
   }
 
   render() {
-    document.getElementById("divTrial").requestFullscreen();
-
     const ladderHeightPercent =
       SCREEN_TO_LADDER_BOTTOM_PERCENT - SLIDER_TOP_PERCENT;
 
@@ -179,7 +177,7 @@ class Trial extends Component {
       this.state.showCongratulations;
 
     return (
-      <div id="divTrial">
+      <div>
         <audio id="startTrialAudio">
           <source src={startTrialAudio} type="audio/mpeg" />
         </audio>
