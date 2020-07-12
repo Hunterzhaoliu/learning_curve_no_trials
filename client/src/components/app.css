@@ -2,6 +2,11 @@ body {
   font-family: "Nunito", sans-serif;
 }
 
+.layout {
+  position: fixed;
+  height: 100vh;
+}
+
 .content {
   background-color: white;
   text-align: center;

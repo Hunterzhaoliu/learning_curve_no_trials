@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <Router history={history}>
-        <Layout style={{ height: "100vh" }}>
+        <Layout className="layout">
           <Route exact path="/" component={Landing} />
         </Layout>
       </Router>

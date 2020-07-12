@@ -11,7 +11,7 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  step: 1,
+  step: 2,
   codeError: false,
   consentError: {
     childName: false,

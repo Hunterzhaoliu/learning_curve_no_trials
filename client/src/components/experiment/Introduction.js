@@ -92,14 +92,14 @@ class Introduction extends Component {
       "calc(" +
       String(SCREEN_TO_LADDER_BOTTOM_PERCENT) +
       "% - " +
-      String(EGG_PLATFORM_HEIGHT / 2) +
+      String(EGG_PLATFORM_HEIGHT) +
       "px)";
 
     const eggTop =
       "calc(" +
       String(SCREEN_TO_LADDER_BOTTOM_PERCENT) +
       "% - " +
-      String(EGG_PLATFORM_HEIGHT / 2 + EGG_HEIGHT) +
+      String(EGG_PLATFORM_HEIGHT + EGG_HEIGHT) +
       "px)";
     const eggLeft = "calc(50% - " + String(EGG_WIDTH / 2) + "px)";
 

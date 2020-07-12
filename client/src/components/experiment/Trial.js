@@ -159,14 +159,14 @@ class Trial extends Component {
       "calc(" +
       String(100 - this.state.eggHeight) +
       "% - " +
-      String(EGG_PLATFORM_HEIGHT / 2) +
+      String(EGG_PLATFORM_HEIGHT) +
       "px)";
 
     const eggTop =
       "calc(" +
       String(100 - this.state.eggHeight) +
       "% - " +
-      String(EGG_PLATFORM_HEIGHT / 2 + EGG_HEIGHT) +
+      String(EGG_PLATFORM_HEIGHT + EGG_HEIGHT) +
       "px)";
     const eggLeft = "calc(50% - " + String(EGG_WIDTH / 2) + "px)";
 
