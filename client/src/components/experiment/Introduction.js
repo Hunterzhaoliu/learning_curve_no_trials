@@ -109,7 +109,6 @@ class Introduction extends Component {
     );
 
     const handHeight = "100px";
-    const handTop = String(SCREEN_TO_LADDER_BOTTOM_PERCENT) + "%";
     // subtract pixels from left edge of hand to index finger
     const handLeft = "calc(50% - 20px)";
 
@@ -148,7 +147,7 @@ class Introduction extends Component {
           <img
             style={{
               height: handHeight,
-              top: handTop,
+              top: platformTop,
               left: handLeft,
               display: "none"
             }}
