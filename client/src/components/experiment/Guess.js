@@ -87,6 +87,8 @@ class Guess extends Component {
   }
 
   renderConfirmGuess() {
+    console.log("renderConfirmGuess");
+
     if (this.state.gavePotentialGuess) {
       if (this.state.guessHeight < 97) {
         setTimeout(function() {
@@ -105,19 +107,11 @@ class Guess extends Component {
     }
   }
 
-  // onChange = e => {
-  //   // console.log("guessHeight = ", e.target.value);
-  //   this.setState({ guessHeight: e.target.value });
-  // };
-
   onGuess = e => {
     const rectangle = e.target.getBoundingClientRect();
     // determine how high (%) user guessed and save to state
-    console.log("e.clientY = ", e.clientY);
-    console.log("rectangle = ", rectangle);
-    const guess = (100 * (rectangle.bottom - e.clientY)) / rectangle.bottom;
-    console.log("guess = ", guess);
-    this.setState({ guessHeight: guess });
+    const guess = (100 * (rectangle.bottom - e.clientY)) / rectangle.height;
+    this.setState({ guessHeight: guess, gavePotentialGuess: true });
   };
 
   renderGuess() {
@@ -127,15 +121,16 @@ class Guess extends Component {
     } else {
       // render slider on tree to allow subject to guess
       return (
-        <div
-          className="div-guess-slider"
-          onClick={this.onGuess}
-          onMouseUp={this.onChangeEnd}
-          onTouchEnd={this.onChangeEnd}
-        >
+        <div className="div-guess">
           <audio id="makeGuessAudio">
             <source src={makeGuessAudio} type="audio/mpeg" />
           </audio>
+          <div
+            className="div-guess-slider"
+            onClick={this.onGuess}
+            onMouseUp={this.onChangeEnd}
+            onTouchEnd={this.onChangeEnd}
+          />
           {this.renderConfirmGuess()}
           <audio id="confirmGuessAudio">
             <source src={confirmGuessAudio} type="audio/mpeg" />

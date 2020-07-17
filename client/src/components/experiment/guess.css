@@ -8,13 +8,13 @@
   height: var(--star-height);
 }
 
-.div-guess-slider {
+.div-guess {
   height: 100%;
 }
 
-/* .div-slider {
-    height: 100%;
-} */
+.div-guess-slider {
+  height: 100%;
+}
 
 .star-and-buttons {
   position: absolute;
