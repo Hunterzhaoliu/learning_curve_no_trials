@@ -41,7 +41,7 @@
   appearance: none;
   background: transparent;
   border: transparent;
-  width: var(--egg-platform-height);
+  width: var(--slider-thumb-height);
   height: var(--egg-platform-width);
   position: relative;
   z-index: 3;

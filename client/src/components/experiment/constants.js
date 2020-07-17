@@ -8,3 +8,4 @@ export const EGG_PLATFORM_WIDTH = 125; // px
 export const EGG_PLATFORM_HEIGHT = 20; // px
 export const EGG_HEIGHT = 75; // px
 export const EGG_WIDTH = 57; // px
+export const SLIDER_THUMB_HEIGHT = EGG_PLATFORM_HEIGHT + EGG_HEIGHT; // px

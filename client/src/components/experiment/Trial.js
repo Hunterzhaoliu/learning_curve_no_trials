@@ -17,7 +17,8 @@ import {
   EGG_PLATFORM_WIDTH,
   EGG_PLATFORM_HEIGHT,
   EGG_HEIGHT,
-  EGG_WIDTH
+  EGG_WIDTH,
+  SLIDER_THUMB_HEIGHT
 } from "./constants";
 
 class Trial extends Component {
@@ -152,6 +153,10 @@ class Trial extends Component {
     document.documentElement.style.setProperty(
       "--egg-platform-height",
       String(EGG_PLATFORM_HEIGHT) + "px"
+    );
+    document.documentElement.style.setProperty(
+      "--slider-thumb-height",
+      String(SLIDER_THUMB_HEIGHT) + "px"
     );
 
     const sliderLeft = "calc(50% - " + String(EGG_PLATFORM_WIDTH / 2) + "px)";
