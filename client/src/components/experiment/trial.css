@@ -26,7 +26,7 @@
   left: 0;
   /* https://stackoverflow.com/questions/52639387/how-to-disable-touch-on-input-range-only-accept-drag-to-change-its-value*/
   /*  subject can only drag the slider */
-  /* pointer-events: none; */
+  pointer-events: none;
 }
 
 .slider::-webkit-slider-runnable-track {

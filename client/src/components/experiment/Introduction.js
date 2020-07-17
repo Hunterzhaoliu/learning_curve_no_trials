@@ -75,9 +75,6 @@ class Introduction extends Component {
     }, 9000);
     // make the egg and platform go up
     setTimeout(() => {
-      this.setState({
-        eggAnimation: "none"
-      });
       document.getElementById("hand").style.display = "block";
       this.setState({
         eggAnimation: "shake 0.5s infinite",

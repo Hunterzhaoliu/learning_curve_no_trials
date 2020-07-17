@@ -28,15 +28,6 @@ class Guess extends Component {
     }, 1000);
   }
 
-  onChange = e => {
-    // console.log("guessHeight = ", e.target.value);
-    this.setState({ guessHeight: e.target.value });
-  };
-
-  onChangeEnd = () => {
-    this.setState({ gavePotentialGuess: true });
-  };
-
   onClick = e => {
     if (e.target.value === "yes") {
       // successfully made guess, need to save into redux state and move on
@@ -114,6 +105,21 @@ class Guess extends Component {
     }
   }
 
+  // onChange = e => {
+  //   // console.log("guessHeight = ", e.target.value);
+  //   this.setState({ guessHeight: e.target.value });
+  // };
+
+  onGuess = e => {
+    const rectangle = e.target.getBoundingClientRect();
+    // determine how high (%) user guessed and save to state
+    console.log("e.clientY = ", e.clientY);
+    console.log("rectangle = ", rectangle);
+    const guess = (100 * (rectangle.bottom - e.clientY)) / rectangle.bottom;
+    console.log("guess = ", guess);
+    this.setState({ guessHeight: guess });
+  };
+
   renderGuess() {
     const { hasGuessed } = this.props;
     if (hasGuessed) {
@@ -121,20 +127,15 @@ class Guess extends Component {
     } else {
       // render slider on tree to allow subject to guess
       return (
-        <div className="div-guess-slider">
+        <div
+          className="div-guess-slider"
+          onClick={this.onGuess}
+          onMouseUp={this.onChangeEnd}
+          onTouchEnd={this.onChangeEnd}
+        >
           <audio id="makeGuessAudio">
             <source src={makeGuessAudio} type="audio/mpeg" />
           </audio>
-          <input
-            onChange={this.onChange}
-            type="range"
-            min="0"
-            max="100"
-            value={this.state.guessHeight}
-            className="slider slider-guess"
-            onMouseUp={this.onChangeEnd}
-            onTouchEnd={this.onChangeEnd}
-          />
           {this.renderConfirmGuess()}
           <audio id="confirmGuessAudio">
             <source src={confirmGuessAudio} type="audio/mpeg" />
@@ -151,8 +152,11 @@ class Guess extends Component {
   }
 
   render() {
+    //   const ladderHeightPercent = SCREEN_TO_LADDER_BOTTOM_PERCENT - SLIDER_TOP_PERCENT;
+    // const guessSliderTop = SLIDER_TOP_PERCENT;
     const guessSliderLeft =
       "calc(50% + " + String(EGG_PLATFORM_WIDTH / 2) + "px)";
+
     return (
       <div style={{ left: guessSliderLeft }} className="slider-container">
         {this.renderGuess()}

@@ -18,11 +18,11 @@
   z-index: 2;
 }
 
-@keyframes rise {
+@-webkit-keyframes rise {
   0% {
-    transform: translateY(var(--egg-and-platform-start-height));
+    -webkit-transform: translateY(var(--egg-and-platform-start-height));
   }
   100% {
-    transform: translateY(-40vh);
+    -webkit-transform: translateY(-40vh);
   }
 }
