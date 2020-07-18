@@ -14,8 +14,7 @@ import {
   SCREEN_TO_LADDER_BOTTOM_PERCENT,
   EGG_PLATFORM_WIDTH,
   EGG_PLATFORM_HEIGHT,
-  EGG_HEIGHT,
-  EGG_WIDTH
+  EGG_HEIGHT
 } from "./constants";
 
 class Introduction extends Component {
@@ -73,6 +72,7 @@ class Introduction extends Component {
         eggAnimation: "fall 2.0s ease-in 1 backwards"
       });
     }, 9000);
+
     // make the egg and platform go up
     setTimeout(() => {
       document.getElementById("hand").style.display = "block";
@@ -87,21 +87,14 @@ class Introduction extends Component {
   }
 
   render() {
-    const platformLeft = "calc(50% - " + String(EGG_PLATFORM_WIDTH / 2) + "px)";
-    const platformTop =
-      "calc(" +
-      String(SCREEN_TO_LADDER_BOTTOM_PERCENT) +
-      "% - " +
-      String(EGG_PLATFORM_HEIGHT) +
-      "px)";
-
-    const eggTop =
+    const eggAndPlatformTop =
       "calc(" +
       String(SCREEN_TO_LADDER_BOTTOM_PERCENT) +
       "% - " +
       String(EGG_PLATFORM_HEIGHT + EGG_HEIGHT) +
       "px)";
-    const eggLeft = "calc(50% - " + String(EGG_WIDTH / 2) + "px)";
+    const eggAndPlatformLeft =
+      "calc(50% - " + String(EGG_PLATFORM_WIDTH / 2) + "px)";
 
     document.documentElement.style.setProperty(
       "--egg-and-platform-start-height",
@@ -111,6 +104,7 @@ class Introduction extends Component {
     const handHeight = "100px";
     // subtract pixels from left edge of hand to index finger
     const handLeft = "calc(50% - 20px)";
+    const handTop = EGG_HEIGHT / 2;
 
     return (
       <div>
@@ -120,23 +114,19 @@ class Introduction extends Component {
         <img className="img-background" src={background} alt="" />
         <div id="divLeftTree" className="tree-highlight left-tree" />
         <div id="divRightTree" className="tree-highlight right-tree" />
-        <div style={{ animation: this.state.eggAndPlatformAnimation }}>
+        <div
+          className="div-egg-and-platform"
+          style={{
+            top: eggAndPlatformTop,
+            left: eggAndPlatformLeft,
+            width: EGG_PLATFORM_WIDTH,
+            animation: this.state.eggAndPlatformAnimation
+          }}
+        >
           <img
             style={{
-              left: platformLeft,
-              top: platformTop,
-              width: EGG_PLATFORM_WIDTH,
-              height: EGG_PLATFORM_HEIGHT
-            }}
-            className="img-egg-platform"
-            src={egg_platform}
-            alt=""
-          />
-          <img
-            style={{
+              position: "relative",
               height: EGG_HEIGHT,
-              top: eggTop,
-              left: eggLeft,
               animation: this.state.eggAnimation
             }}
             className="img-egg"
@@ -146,9 +136,19 @@ class Introduction extends Component {
           />
           <img
             style={{
+              top: 0,
+              width: EGG_PLATFORM_WIDTH,
+              height: EGG_PLATFORM_HEIGHT
+            }}
+            className="img-introduction-egg-platform"
+            src={egg_platform}
+            alt=""
+          />
+          <img
+            style={{
               height: handHeight,
-              top: platformTop,
               left: handLeft,
+              top: handTop,
               display: "none"
             }}
             className="img-hand"

@@ -13,15 +13,20 @@
   left: 50%;
 }
 
+.div-egg-and-platform {
+  position: absolute;
+}
+
+.img-introduction-egg-platform {
+  position: relative;
+}
+
 .img-hand {
   position: absolute;
   z-index: 2;
 }
 
 @-webkit-keyframes rise {
-  0% {
-    -webkit-transform: translateY(var(--egg-and-platform-start-height));
-  }
   100% {
     -webkit-transform: translateY(-40vh);
   }
