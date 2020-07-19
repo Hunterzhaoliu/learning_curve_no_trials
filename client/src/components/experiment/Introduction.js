@@ -34,7 +34,7 @@ class Introduction extends Component {
     setTimeout(function() {
       // display and highlight left tree
       document.getElementById("divLeftTree").style.display = "block";
-      document.getElementById("divLeftTree").style.border = "2px solid #639a3b";
+      document.getElementById("divLeftTree").style.border = "5px solid #639a3b";
     }, 2000);
 
     setTimeout(function() {
@@ -44,7 +44,7 @@ class Introduction extends Component {
       // display and highlight right tree
       document.getElementById("divRightTree").style.display = "block";
       document.getElementById("divRightTree").style.border =
-        "2px solid #639a3b";
+        "5px solid #639a3b";
 
       // unhighlight the last tree
       setTimeout(function() {
@@ -57,7 +57,7 @@ class Introduction extends Component {
       // display and highlight right tree
       document.getElementById("divRightTree").style.display = "block";
       document.getElementById("divRightTree").style.border =
-        "2px solid #639a3b";
+        "5px solid #639a3b";
 
       // unhighlight right tree
       setTimeout(function() {

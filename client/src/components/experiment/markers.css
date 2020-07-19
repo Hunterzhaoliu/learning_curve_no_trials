@@ -1,3 +1,4 @@
 .img-number {
   position: absolute;
+  box-sizing: content-box;
 }

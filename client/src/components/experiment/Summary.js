@@ -31,7 +31,7 @@ class Summary extends Component {
     // highlight the first marker so the for loop can remove the previous
     // marker's highlight in the same iteration
     setTimeout(function() {
-      document.getElementById("marker0").style.border = "2px solid #639a3b";
+      document.getElementById("marker0").style.border = "3px solid #639a3b";
     }, markerHighlightDelay[0]);
     for (let i = 1; i < 4; i++) {
       // need to highlight each marker as the audio walks through them and
@@ -39,7 +39,7 @@ class Summary extends Component {
       setTimeout(function() {
         document.getElementById("marker" + String(i - 1)).style.border = "none";
         document.getElementById("marker" + String(i)).style.border =
-          "2px solid #639a3b";
+          "3px solid #639a3b";
       }, markerHighlightDelay[i]);
     }
 
@@ -51,7 +51,7 @@ class Summary extends Component {
       // display and highlight left tree
       document.getElementById("buttonLeftTree").style.display = "block";
       document.getElementById("buttonLeftTree").style.border =
-        "2px solid #639a3b";
+        "5px solid #639a3b";
     }, 6000);
     setTimeout(function() {
       // unhighlight the left tree
@@ -60,7 +60,7 @@ class Summary extends Component {
       // display and highlight right tree
       document.getElementById("buttonRightTree").style.display = "block";
       document.getElementById("buttonRightTree").style.border =
-        "2px solid #639a3b";
+        "5px solid #639a3b";
 
       // unhighlight the last tree
       setTimeout(function() {
