@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
 import introductionAudio from "../../audio/bell.mp3";
-import background from "../../images/background.png";
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
 import hand from "../../images/hand.png";
@@ -111,7 +110,6 @@ class Introduction extends Component {
         <audio id="introductionAudio">
           <source src={introductionAudio} type="audio/mpeg" />
         </audio>
-        <img className="img-background" src={background} alt="" />
         <div id="divLeftTree" className="tree-highlight left-tree" />
         <div id="divRightTree" className="tree-highlight right-tree" />
         <div

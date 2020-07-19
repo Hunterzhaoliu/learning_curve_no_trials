@@ -1,10 +1,3 @@
-.img-background {
-  object-fit: cover;
-  height: 100vh;
-  width: 100vw;
-  z-index: 0;
-}
-
 .slider-container {
   position: absolute;
   width: var(--egg-platform-width);

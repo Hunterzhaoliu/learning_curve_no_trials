@@ -4,7 +4,6 @@ import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
 import Markers from "./Markers";
 import summaryAudio from "../../audio/bell.mp3";
-import background from "../../images/background.png";
 import "./summary.css";
 import "./trial.css";
 
@@ -98,7 +97,6 @@ class Summary extends Component {
         <audio id="summaryAudio">
           <source src={summaryAudio} type="audio/mpeg" />
         </audio>
-        <img className="img-background" src={background} alt="" />
         <button
           value="right"
           onClick={this.onClick}

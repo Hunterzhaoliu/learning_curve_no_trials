@@ -6,7 +6,6 @@ import Guess from "./Guess";
 import Markers from "./Markers";
 import Congratulations from "./Congratulations";
 import "./trial.css";
-import background from "../../images/background.png";
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
 import startTrialAudio from "../../audio/bell.mp3";
@@ -186,7 +185,6 @@ class Trial extends Component {
         <audio id="startTrialAudio">
           <source src={startTrialAudio} type="audio/mpeg" />
         </audio>
-        <img className="img-background" src={background} alt="" />
         {this.renderGuess()}
         <div style={{ left: sliderLeft }} className="slider-container">
           <input

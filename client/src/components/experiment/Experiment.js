@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import Introduction from "./Introduction";
 import Trial from "./Trial";
 import Summary from "./Summary";
+import background from "../../images/background.png";
+import "./experiment.css";
 
 class Experiment extends Component {
-  render() {
+  renderExperiment() {
     const { condition, trial, treeChoice } = this.props;
     if (trial === 0) {
       return <Introduction />;
@@ -26,6 +28,15 @@ class Experiment extends Component {
       // tree
       return <Summary />;
     }
+  }
+
+  render() {
+    return (
+      <div>
+        <img className="img-background" src={background} alt="" />
+        {this.renderExperiment()}
+      </div>
+    );
   }
 }
 
