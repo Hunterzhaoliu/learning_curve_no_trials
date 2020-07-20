@@ -1,33 +1,16 @@
-.tree-highlight {
+.div-absolute {
   position: absolute;
   top: 0;
-  height: 100vh;
-  width: 50vw;
+  height: 100%;
+  width: 100%;
+}
+
+.video-introduction {
   display: none;
 }
 
-.left-tree {
-  left: 0px;
-}
-.right-tree {
-  left: 50%;
-}
-
-.div-egg-and-platform {
-  position: absolute;
-}
-
-.img-introduction-egg-platform {
+.button-introduction {
   position: relative;
-}
-
-.img-hand {
-  position: absolute;
-  z-index: 2;
-}
-
-@-webkit-keyframes rise {
-  100% {
-    -webkit-transform: translateY(-40vh);
-  }
+  margin-top: 50%;
+  display: none;
 }

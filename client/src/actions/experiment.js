@@ -1,6 +1,17 @@
-import { SAVE_GUESS, COMPLETED_TRIAL, SAVE_TREE_CHOICE } from "./types";
+import {
+  SAVE_GUESS,
+  COMPLETED_TRIAL,
+  SAVE_TREE_CHOICE,
+  ADVANCE_PHASE
+} from "./types";
 // import axios from "axios";
 
+export const advancePhase = nextPhase => dispatch => {
+  dispatch({
+    type: ADVANCE_PHASE,
+    nextPhase: nextPhase
+  });
+};
 export const saveGuess = guessHeight => dispatch => {
   dispatch({
     type: SAVE_GUESS,

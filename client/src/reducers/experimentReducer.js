@@ -1,7 +1,8 @@
 import {
   SAVE_GUESS,
   COMPLETED_TRIAL,
-  SAVE_TREE_CHOICE
+  SAVE_TREE_CHOICE,
+  ADVANCE_PHASE
 } from "../actions/types";
 
 let cloneObject = object => {
@@ -9,7 +10,8 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  trial: 0,
+  phase: "introduction",
+  trial: 1,
   guesses: [],
   treeChoice: ""
 };
@@ -17,6 +19,9 @@ let initialState = {
 export default function(state = initialState, action) {
   let newState = cloneObject(state);
   switch (action.type) {
+    case ADVANCE_PHASE:
+      newState.phase = action.nextPhase;
+      return newState;
     case SAVE_GUESS:
       newState.guesses.push(action.guessHeight);
       return newState;

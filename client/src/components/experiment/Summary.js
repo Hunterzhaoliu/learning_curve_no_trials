@@ -31,7 +31,7 @@ class Summary extends Component {
     // highlight the first marker so the for loop can remove the previous
     // marker's highlight in the same iteration
     setTimeout(function() {
-      document.getElementById("marker0").style.border = "3px solid #639a3b";
+      document.getElementById("marker0").style.border = "3px solid yellow";
     }, markerHighlightDelay[0]);
     for (let i = 1; i < 4; i++) {
       // need to highlight each marker as the audio walks through them and
@@ -39,7 +39,7 @@ class Summary extends Component {
       setTimeout(function() {
         document.getElementById("marker" + String(i - 1)).style.border = "none";
         document.getElementById("marker" + String(i)).style.border =
-          "3px solid #639a3b";
+          "3px solid yellow";
       }, markerHighlightDelay[i]);
     }
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Introduction from "./Introduction";
+import Instruction from "./Instruction";
 import Trial from "./Trial";
 import Summary from "./Summary";
 import background from "../../images/background.png";
@@ -8,25 +9,47 @@ import "./experiment.css";
 
 class Experiment extends Component {
   renderExperiment() {
-    const { condition, trial, treeChoice } = this.props;
-    if (trial === 0) {
-      return <Introduction />;
-    } else if (trial < 5 || treeChoice !== "") {
-      let eggFallPercentage;
-      if (treeChoice !== "") {
-        eggFallPercentage = 110;
-      } else if (condition === 1) {
-        eggFallPercentage = 80;
-      } else if (condition === 2) {
-        eggFallPercentage = trial * 20;
-      }
-      return (
-        <Trial eggFallPercentage={eggFallPercentage} treeChoice={treeChoice} />
-      );
-    } else {
-      // subject finished experiment, need to go over results and ask for desired
-      // tree
-      return <Summary />;
+    const { condition, phase, trial, treeChoice } = this.props;
+    console.log("phase = ", phase);
+    switch (phase) {
+      case "introduction":
+        return <Introduction />;
+        break;
+      case "practice":
+        return <Trial eggFallPercentage={110} treeChoice={""} />;
+        break;
+      case "instruction":
+        return <Instruction />;
+        break;
+      case "trials":
+        let eggFallPercentage;
+        if (condition === 1) {
+          eggFallPercentage = 80;
+        } else if (condition === 2) {
+          eggFallPercentage = trial * 20;
+        }
+        return (
+          <Trial
+            eggFallPercentage={eggFallPercentage}
+            treeChoice={treeChoice}
+          />
+        );
+        break;
+      case "summary":
+        // subject finished experiment, need to go over results, ask for desired
+        // tree, and ask tree choice reasoning
+        return <Summary />;
+        break;
+      case "conclusion":
+        return (
+          <Trial
+            eggFallPercentage={eggFallPercentage}
+            treeChoice={treeChoice}
+          />
+        );
+        break;
+      default:
+        return <Introduction />;
     }
   }
 
@@ -47,7 +70,8 @@ This function gives the UI the parts of the state it will need to display.
 function mapStateToProps(state) {
   return {
     condition: state.register.condition,
-    trial: state.experiment.trial,
+    phase: state.experiment.phase,
+    experiment: state.experiment.experiment,
     treeChoice: state.experiment.treeChoice
   };
 }
