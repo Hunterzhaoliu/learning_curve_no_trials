@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Introduction from "./Introduction";
+import Practice from "./Practice";
 import Instruction from "./Instruction";
 import Trial from "./Trial";
 import Summary from "./Summary";
@@ -16,7 +17,7 @@ class Experiment extends Component {
         return <Introduction />;
         break;
       case "practice":
-        return <Trial eggFallPercentage={110} treeChoice={""} />;
+        return <Practice />;
         break;
       case "instruction":
         return <Instruction />;

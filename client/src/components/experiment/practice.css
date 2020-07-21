@@ -1,0 +1,11 @@
+.button-practice {
+  position: relative;
+  top: 90vh;
+  /* display: none; */
+  height: 60px !important;
+}
+
+.img-egg {
+  /* don't want to display egg while in practice */
+  display: none !important;
+}

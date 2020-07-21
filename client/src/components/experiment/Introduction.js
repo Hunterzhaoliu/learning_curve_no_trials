@@ -22,8 +22,11 @@ class Introduction extends Component {
     introductionVideo.play();
   }
 
+  onVideoEnd = () => {
+    this.props.advancePhase("practice");
+  };
+
   render() {
-    // this.props.advancePhase("practice")
     return (
       <div className="div-absolute">
         <audio id="introductionAudio">
@@ -32,7 +35,8 @@ class Introduction extends Component {
         <video
           id="introductionVideo"
           className="video-introduction"
-          height="100%"
+          width="100%"
+          onEnded={this.onVideoEnd}
         >
           <source src={introductionVideo} type="video/mp4" />
         </video>
@@ -41,7 +45,8 @@ class Introduction extends Component {
           id="buttonIntroduction"
           className="button-main button-introduction"
         >
-          Child Hands on Lap and Ready to Listen
+          Child Hands on Lap
+          <br /> and Ready to Listen
         </button>
       </div>
     );
