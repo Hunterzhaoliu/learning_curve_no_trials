@@ -1,29 +1,16 @@
-.tree-highlight {
-  position: absolute;
-  top: 0;
-  height: 100vh;
-  width: 50vw;
-  display: none;
-}
-
-.left-tree {
-  left: 0px;
-}
-.right-tree {
-  left: 50%;
-}
-
 .div-egg-and-platform {
   position: absolute;
 }
 
-.img-introduction-egg-platform {
+.img-egg {
+  display: inline-block;
   position: relative;
 }
 
 .img-hand {
   position: absolute;
   z-index: 2;
+  display: none;
 }
 
 @-webkit-keyframes rise {

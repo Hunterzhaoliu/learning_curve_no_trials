@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
 import hand from "../../images/hand.png";
+import instructionAudio from "../../audio/bell.mp3";
 import "./instruction.css";
 import "./trial.css";
 
@@ -24,26 +25,20 @@ class Instruction extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    document.getElementById("instructionAudio").play();
 
-  // // show egg falling off platform
-  // setTimeout(() => {
-  //   this.setState({
-  //     eggAnimation: "fall 2.0s ease-in 1 backwards"
-  //   });
-  // }, 9000);
-  //
-  // // make the egg and platform go up
-  // setTimeout(() => {
-  //   document.getElementById("hand").style.display = "block";
-  //   this.setState({
-  //     eggAnimation: "shake 0.5s infinite",
-  //     eggAndPlatformAnimation: "rise 1s forwards"
-  //   });
-  //   setTimeout(() => {
-  //     this.props.completedTrial();
-  //   }, 1500);
-  // }, 12000);
+    // show egg falling off platform
+    setTimeout(() => {
+      this.setState({
+        eggAnimation: "fall 2.0s ease-in 1 backwards"
+      });
+    }, 1000);
+
+    setTimeout(() => {
+      document.getElementById("hand").style.display = "inline-block";
+    }, 3000);
+  }
 
   render() {
     const eggAndPlatformTop =
@@ -60,15 +55,17 @@ class Instruction extends Component {
       String(SCREEN_TO_LADDER_BOTTOM_PERCENT - 100) + "vh"
     );
 
-    const handHeight = "100px";
-    // subtract pixels from left edge of hand to index finger
-    const handLeft = "calc(50% - 20px)";
-    const handTop = EGG_HEIGHT / 2;
+    // const handHeight = "100px";
+    // // subtract pixels from left edge of hand to index finger
+    // const handLeft = "calc(50% - 20px)";
+    // const handTop = EGG_HEIGHT / 2;
 
     return (
       <div>
-        <div id="divLeftTree" className="tree-highlight left-tree" />
-        <div id="divRightTree" className="tree-highlight right-tree" />
+        <img className="img-hand" src={hand} id="hand" alt="" />
+        <audio id="instructionAudio">
+          <source src={instructionAudio} type="audio/mpeg" />
+        </audio>
         <div
           className="div-egg-and-platform"
           style={{
@@ -80,7 +77,6 @@ class Instruction extends Component {
         >
           <img
             style={{
-              position: "relative",
               height: EGG_HEIGHT,
               animation: this.state.eggAnimation
             }}
@@ -91,24 +87,10 @@ class Instruction extends Component {
           />
           <img
             style={{
-              top: 0,
               width: EGG_PLATFORM_WIDTH,
               height: EGG_PLATFORM_HEIGHT
             }}
-            className="img-introduction-egg-platform"
             src={egg_platform}
-            alt=""
-          />
-          <img
-            style={{
-              height: handHeight,
-              left: handLeft,
-              top: handTop,
-              display: "none"
-            }}
-            className="img-hand"
-            src={hand}
-            id="hand"
             alt=""
           />
         </div>

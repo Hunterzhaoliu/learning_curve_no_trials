@@ -9,6 +9,10 @@ import "./practice.css";
 class Practice extends Component {
   componentDidMount() {
     document.getElementById("practiceAudio").play();
+
+    setTimeout(() => {
+      document.getElementById("buttonPractice").style.display = "inline-block";
+    }, 5000);
   }
 
   onClick = () => {
