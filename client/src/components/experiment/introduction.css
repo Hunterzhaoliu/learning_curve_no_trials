@@ -1,5 +1,7 @@
 .video-introduction {
   display: none;
+  object-fit: cover;
+  width: 100vw;
 }
 
 .button-introduction {

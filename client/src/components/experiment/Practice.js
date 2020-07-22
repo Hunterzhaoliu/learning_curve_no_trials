@@ -10,6 +10,9 @@ class Practice extends Component {
   componentDidMount() {
     document.getElementById("practiceAudio").play();
 
+    // don't want to display egg while in practice
+    document.getElementById("egg").style.display = "none";
+
     setTimeout(() => {
       document.getElementById("buttonPractice").style.display = "inline-block";
     }, 5000);

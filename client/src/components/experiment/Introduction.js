@@ -35,7 +35,6 @@ class Introduction extends Component {
         <video
           id="introductionVideo"
           className="video-introduction"
-          width="100%"
           onEnded={this.onVideoEnd}
         >
           <source src={introductionVideo} type="video/mp4" />
