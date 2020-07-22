@@ -77,8 +77,6 @@ class Guess extends Component {
   }
 
   renderConfirmGuess() {
-    console.log("renderConfirmGuess");
-
     if (this.state.gavePotentialGuess) {
       if (this.state.guessHeight < 97) {
         document.getElementById("confirmGuessAudio").play();

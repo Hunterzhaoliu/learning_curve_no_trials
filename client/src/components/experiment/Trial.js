@@ -64,22 +64,31 @@ class Trial extends Component {
       console.log("startTrialAudio");
     }
 
-    if (this.state.eggFalling && !this.state.eggFell) {
-      document.getElementById("markTrialAudio").play();
-      console.log("markTrialAudio");
+    if (this.state.eggHeight > eggFallPercentage && !this.state.eggFalling) {
+      // egg needs to fall
+      this.setState({
+        eggFalling: true,
+        eggAnimation: "fall 2.0s ease-in 1 forwards"
+      });
 
-      setTimeout(() => {
-        // need to remove the egg or else it will make the page longer
-        document.getElementById("egg").style.display = "none";
-        this.setState({ eggFalling: false, eggFell: true });
-      }, 2000);
+      // this increases the trial count and adds the marker
+      this.props.completedTrial();
 
       if (trial < 4) {
+        document.getElementById("markTrialAudio").play();
+        console.log("markTrialAudio");
+
+        setTimeout(() => {
+          // need to remove the egg or else it will make the page longer
+          document.getElementById("egg").style.display = "none";
+        }, 2000);
+
         // reset trial to begin again
         setTimeout(() => {
           // reset the egg
           document.getElementById("egg").style.display = "block";
           document.getElementById("egg").style.animation = "none";
+
           // reset state
           this.setState({
             eggHeight: 0,
@@ -89,23 +98,17 @@ class Trial extends Component {
             hasGuessed: false,
             showCongratulations: false
           });
-
-          this.props.completedTrial();
         }, 3000);
       } else {
         // just completed 4th trial, need to move to next phase
-        this.props.advancePhase("summary");
+        document.getElementById("markFinalTrialAudio").play();
+        console.log("markFinalTrialAudio");
+
+        // let the markFinalTrialAudio finish
+        setTimeout(() => {
+          this.props.advancePhase("summary");
+        }, 5000);
       }
-    } else if (
-      this.state.eggHeight > eggFallPercentage &&
-      !this.state.eggFalling &&
-      !this.state.eggFell
-    ) {
-      // egg needs to fall
-      this.setState({
-        eggFalling: true,
-        eggAnimation: "fall 2.0s ease-in 1 forwards"
-      });
     }
 
     if (
