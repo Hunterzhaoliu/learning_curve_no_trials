@@ -2,15 +2,17 @@
   position: absolute;
 }
 
-.img-egg {
-  display: inline-block;
-  position: relative;
-}
-
 .img-hand {
   position: absolute;
   z-index: 2;
   display: none;
+  height: 100px;
+}
+
+.img-hand-right {
+  left: 50%;
+  top: 50%;
+  transform: rotate(90deg);
 }
 
 @-webkit-keyframes rise {

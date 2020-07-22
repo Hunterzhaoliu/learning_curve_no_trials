@@ -10,8 +10,7 @@ import "./experiment.css";
 
 class Experiment extends Component {
   renderExperiment() {
-    const { condition, phase, trial, treeChoice } = this.props;
-    console.log("phase = ", phase);
+    const { phase } = this.props;
     switch (phase) {
       case "introduction":
         return <Introduction />;
@@ -23,6 +22,7 @@ class Experiment extends Component {
         return <Instruction />;
         break;
       case "trials":
+        const { condition, trial, treeChoice } = this.props;
         let eggFallPercentage;
         if (condition === 1) {
           eggFallPercentage = 80;
@@ -72,7 +72,7 @@ function mapStateToProps(state) {
   return {
     condition: state.register.condition,
     phase: state.experiment.phase,
-    experiment: state.experiment.experiment,
+    trial: state.experiment.trial,
     treeChoice: state.experiment.treeChoice
   };
 }

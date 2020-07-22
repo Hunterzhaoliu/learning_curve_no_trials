@@ -60,23 +60,18 @@ class Trial extends Component {
     const { guesses, trial, eggFallPercentage, treeChoice } = this.props;
     if (!this.state.hasGuessed && trial === guesses.length) {
       this.setState({ hasGuessed: true });
-      setTimeout(function() {
-        document.getElementById("startTrialAudio").play();
-        console.log("startTrialAudio");
-      }, 1000);
+      document.getElementById("startTrialAudio").play();
+      console.log("startTrialAudio");
     }
 
     if (this.state.eggFalling && !this.state.eggFell) {
-      setTimeout(function() {
-        document.getElementById("markTrialAudio").play();
-        console.log("markTrialAudio");
-      }, 1000);
+      document.getElementById("markTrialAudio").play();
+      console.log("markTrialAudio");
 
       setTimeout(() => {
         // need to remove the egg or else it will make the page longer
         document.getElementById("egg").style.display = "none";
         this.setState({ eggFalling: false, eggFell: true });
-        this.props.completedTrial();
       }, 2000);
 
       if (trial < 4) {
@@ -95,11 +90,11 @@ class Trial extends Component {
             showCongratulations: false
           });
 
-          // in Guess component, the make guess audio is played in componentDidMount
-          // which won't run again for the next trial, so need to start audio here
-          document.getElementById("makeGuessAudio").play();
-          console.log("makeGuessAudio");
+          this.props.completedTrial();
         }, 3000);
+      } else {
+        // just completed 4th trial, need to move to next phase
+        this.props.advancePhase("summary");
       }
     } else if (
       this.state.eggHeight > eggFallPercentage &&
@@ -241,6 +236,9 @@ function mapDispatchToProps(dispatch) {
   return {
     completedTrial: () => {
       experimentDispatchers.completedTrial();
+    },
+    advancePhase: nextPhase => {
+      experimentDispatchers.advancePhase(nextPhase);
     }
   };
 }

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 // import { bindActionCreators } from "redux";
 import "./markers.css";
 import markTrialAudio from "../../audio/bell.mp3";
+import markFinalTrialAudio from "../../audio/bell.mp3";
 import one from "../../images/numbers/one.png";
 import two from "../../images/numbers/two.png";
 import three from "../../images/numbers/three.png";
@@ -64,6 +65,9 @@ class Markers extends Component {
       <div>
         <audio id="markTrialAudio">
           <source src={markTrialAudio} type="audio/mpeg" />
+        </audio>
+        <audio id="markFinalTrialAudio">
+          <source src={markFinalTrialAudio} type="audio/mpeg" />
         </audio>
         {this.renderMarkers()}
       </div>

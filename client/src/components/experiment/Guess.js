@@ -4,7 +4,6 @@ import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
 import "./trial.css";
 import "./guess.css";
-import makeGuessAudio from "../../audio/bell.mp3";
 import confirmGuessAudio from "../../audio/bell.mp3";
 import confirmTopGuessAudio from "../../audio/bell.mp3";
 import guessAgainAudio from "../../audio/bell.mp3";
@@ -21,13 +20,6 @@ class Guess extends Component {
     };
   }
 
-  componentDidMount() {
-    setTimeout(function() {
-      document.getElementById("makeGuessAudio").play();
-      console.log("makeGuessAudio");
-    }, 1000);
-  }
-
   onClick = e => {
     if (e.target.value === "yes") {
       // successfully made guess, need to save into redux state and move on
@@ -36,10 +28,8 @@ class Guess extends Component {
       this.setState({ guessHeight: 0, gavePotentialGuess: false });
     } else {
       this.setState({ guessHeight: 0, gavePotentialGuess: false });
-      setTimeout(function() {
-        document.getElementById("guessAgainAudio").play();
-        console.log("guessAgainAudio");
-      }, 1000);
+      document.getElementById("guessAgainAudio").play();
+      console.log("guessAgainAudio");
     }
   };
 
@@ -91,17 +81,13 @@ class Guess extends Component {
 
     if (this.state.gavePotentialGuess) {
       if (this.state.guessHeight < 97) {
-        setTimeout(function() {
-          document.getElementById("confirmGuessAudio").play();
-          console.log("confirmGuessAudio");
-        }, 1000);
+        document.getElementById("confirmGuessAudio").play();
+        console.log("confirmGuessAudio");
         return this.renderConfirmButtons();
       } else {
         // confirm that subject guessed at the top of the tree
-        setTimeout(function() {
-          document.getElementById("confirmTopGuessAudio").play();
-          console.log("confirmTopGuessAudio");
-        }, 1000);
+        document.getElementById("confirmTopGuessAudio").play();
+        console.log("confirmTopGuessAudio");
         return this.renderConfirmButtons();
       }
     }
@@ -122,9 +108,6 @@ class Guess extends Component {
       // render slider on tree to allow subject to guess
       return (
         <div className="div-guess">
-          <audio id="makeGuessAudio">
-            <source src={makeGuessAudio} type="audio/mpeg" />
-          </audio>
           <div
             className="div-guess-slider"
             onClick={this.onGuess}

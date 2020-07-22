@@ -35,8 +35,13 @@ class Instruction extends Component {
       });
     }, 1000);
 
+    // point to the right tree
     setTimeout(() => {
-      document.getElementById("hand").style.display = "inline-block";
+      document.getElementById("hand").style.display = "block";
+
+      setTimeout(() => {
+        this.props.advancePhase("trials");
+      }, 1000);
     }, 3000);
   }
 
@@ -55,14 +60,9 @@ class Instruction extends Component {
       String(SCREEN_TO_LADDER_BOTTOM_PERCENT - 100) + "vh"
     );
 
-    // const handHeight = "100px";
-    // // subtract pixels from left edge of hand to index finger
-    // const handLeft = "calc(50% - 20px)";
-    // const handTop = EGG_HEIGHT / 2;
-
     return (
-      <div>
-        <img className="img-hand" src={hand} id="hand" alt="" />
+      <div className="div-absolute">
+        <img className="img-hand img-hand-right" src={hand} id="hand" alt="" />
         <audio id="instructionAudio">
           <source src={instructionAudio} type="audio/mpeg" />
         </audio>
@@ -106,8 +106,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    completedTrial: () => {
-      experimentDispatchers.completedTrial();
+    advancePhase: nextPhase => {
+      experimentDispatchers.advancePhase(nextPhase);
     }
   };
 }
