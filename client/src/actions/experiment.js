@@ -4,7 +4,6 @@ import {
   SAVE_TREE_CHOICE,
   ADVANCE_PHASE
 } from "./types";
-// import axios from "axios";
 
 export const advancePhase = nextPhase => dispatch => {
   dispatch({
@@ -25,9 +24,25 @@ export const completedTrial = () => dispatch => {
   });
 };
 
-export const saveTreeChoice = treeChoice => dispatch => {
+export const saveData = data => async dispatch => {
   dispatch({
     type: SAVE_TREE_CHOICE,
-    treeChoice: treeChoice
+    treeChoice: data.treeChoice
   });
+
+  dispatch({
+    type: ADVANCE_PHASE,
+    nextPhase: "conclusion"
+  });
+
+  // const saveDataResponse = await axios.put("/api/save-data", data);
+  //
+  // if (saveDataResponse.status === 200) {
+  //   dispatch({
+  //     type: ADVANCE_PHASE,
+  //     nextPhase: "conclusion"
+  //   });
+  // } else {
+  //   console.log("Unable to Save Data");
+  // }
 };

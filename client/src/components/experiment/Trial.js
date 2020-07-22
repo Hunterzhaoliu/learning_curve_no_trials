@@ -107,6 +107,10 @@ class Trial extends Component {
         // let the markFinalTrialAudio finish
         setTimeout(() => {
           this.props.advancePhase("summary");
+
+          // start the summary audio
+          document.getElementById("summaryAudio").play();
+          console.log("summaryAudio");
         }, 5000);
       }
     }

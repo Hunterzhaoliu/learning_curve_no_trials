@@ -7,11 +7,11 @@
   z-index: 2;
   display: none;
   height: 100px;
+  top: 50%;
 }
 
 .img-hand-right {
   left: 50%;
-  top: 50%;
   transform: rotate(90deg);
 }
 

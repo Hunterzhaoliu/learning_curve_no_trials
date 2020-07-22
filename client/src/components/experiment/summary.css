@@ -13,9 +13,15 @@
   outline: none;
 }
 
-.left-tree {
-  left: 0px;
+.img-hand-left {
+  left: 40%;
+  transform: rotate(-90deg);
 }
-.right-tree {
-  left: 50%;
+
+.button-reflection {
+  position: absolute;
+  height: 100vh !important;
+  width: 50vw;
+  top: 0;
+  display: none;
 }

@@ -8,7 +8,10 @@ const subjectSchema = new Schema(
     signature: String,
     signatureDate: Date,
     videoPermission: { type: Number, default: 0 },
-    condition: { type: String, default: "increasing" }
+    condition: { type: String, default: "increasing" },
+    guesses: [Number],
+    treeChoice: String,
+    reflection: String
   },
   {
     // allows for request.subject.save()
