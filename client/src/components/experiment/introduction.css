@@ -2,6 +2,7 @@
   display: none;
   object-fit: cover;
   width: 100vw;
+  height: 100vh;
 }
 
 .button-introduction {
@@ -9,4 +10,9 @@
   margin-top: 50%;
   display: none;
   height: 60px !important;
+  z-index: 5;
+}
+
+.button-right {
+  margin-left: 20px;
 }
