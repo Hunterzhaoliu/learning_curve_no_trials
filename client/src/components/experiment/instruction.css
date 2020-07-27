@@ -15,6 +15,10 @@
   transform: rotate(90deg);
 }
 
+.img-relative {
+  position: relative;
+}
+
 @-webkit-keyframes rise {
   100% {
     -webkit-transform: translateY(-40vh);

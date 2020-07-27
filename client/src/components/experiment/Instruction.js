@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
 import hand from "../../images/hand.png";
-import instructionAudio from "../../audio/bell.mp3";
+import instructionAudio from "../../audio/line5_6_7.mp3";
 import "./instruction.css";
 import "./trial.css";
 
@@ -33,16 +33,20 @@ class Instruction extends Component {
       this.setState({
         eggAnimation: "fall 2.0s ease-in 1 backwards"
       });
-    }, 1000);
+    }, 8000);
 
     // point to the right tree
     setTimeout(() => {
       document.getElementById("hand").style.display = "block";
 
       setTimeout(() => {
-        this.props.advancePhase("trials");
-      }, 1000);
-    }, 3000);
+        document.getElementById("hand").style.display = "none";
+      }, 1500);
+    }, 12000);
+
+    setTimeout(() => {
+      this.props.advancePhase("trial");
+    }, 22100);
   }
 
   render() {
@@ -64,7 +68,7 @@ class Instruction extends Component {
       <div className="div-absolute">
         <img className="img-hand img-hand-right" src={hand} id="hand" alt="" />
         <audio id="instructionAudio">
-          <source src={instructionAudio} type="audio/mpeg" />
+          <source src={instructionAudio} type="audio/wav" />
         </audio>
         <div
           className="div-egg-and-platform"
@@ -80,7 +84,7 @@ class Instruction extends Component {
               height: EGG_HEIGHT,
               animation: this.state.eggAnimation
             }}
-            className="img-egg"
+            className="img-egg img-relative"
             id="egg"
             src={egg}
             alt=""

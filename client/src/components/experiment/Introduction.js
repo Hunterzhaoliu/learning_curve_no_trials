@@ -23,7 +23,7 @@ class Introduction extends Component {
   }
 
   componentDidMount() {
-    // document.getElementById("introductionAudio").play();
+    document.getElementById("introductionAudio").play();
     setTimeout(function() {
       // first number is which introductionStep and second is within introductionStep
       document.getElementById("buttonIntroduction00").style.display =
@@ -103,7 +103,6 @@ class Introduction extends Component {
             </audio>
           </div>
         );
-        break;
       case 1:
         return (
           <div className="div-absolute">
@@ -144,7 +143,6 @@ class Introduction extends Component {
             </div>
           </div>
         );
-        break;
       default:
         return <div />;
     }

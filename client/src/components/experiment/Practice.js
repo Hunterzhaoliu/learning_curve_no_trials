@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
-import practiceAudio from "../../audio/bell.mp3";
+import line4 from "../../audio/line4.wav";
 import Trial from "./Trial";
 import "./practice.css";
 
 class Practice extends Component {
   componentDidMount() {
-    document.getElementById("practiceAudio").play();
+    // document.getElementById("line4").play();
 
     // don't want to display egg while in practice
     document.getElementById("egg").style.display = "none";
-
     setTimeout(() => {
       document.getElementById("buttonPractice").style.display = "inline-block";
     }, 5000);
@@ -26,8 +25,8 @@ class Practice extends Component {
     // using tree choice to determine whether to show Guess component
     return (
       <div className="div-absolute">
-        <audio id="practiceAudio">
-          <source src={practiceAudio} type="audio/mpeg" />
+        <audio id="line4">
+          <source src={line4} type="audio/mpeg" />
         </audio>
         <button
           onClick={this.onClick}

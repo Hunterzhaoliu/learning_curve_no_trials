@@ -11,16 +11,14 @@ import "./experiment.css";
 class Experiment extends Component {
   renderExperiment() {
     const { phase } = this.props;
+    console.log("phase = ", phase);
     switch (phase) {
       case "introduction":
         return <Introduction />;
-        break;
       case "practice":
         return <Practice />;
-        break;
       case "instruction":
         return <Instruction />;
-        break;
       case "trial":
         const { condition, trial, treeChoice } = this.props;
         let eggFallPercentage;
@@ -35,12 +33,10 @@ class Experiment extends Component {
             treeChoice={treeChoice}
           />
         );
-        break;
       case "summary":
         // subject finished experiment, need to go over results, ask for desired
         // tree, and ask tree choice reasoning
         return <Summary />;
-        break;
       case "conclusion":
         return (
           <Trial
@@ -48,7 +44,6 @@ class Experiment extends Component {
             treeChoice={treeChoice}
           />
         );
-        break;
       default:
         return <Introduction />;
     }
