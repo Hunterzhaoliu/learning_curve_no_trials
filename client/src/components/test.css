@@ -1,0 +1,7 @@
+.button-confirm-guess {
+  border-color: rgb(244, 115, 93) !important;
+  color: rgb(244, 115, 93) !important;
+  background-color: rgb(171, 197, 87) !important;
+  height: 60px !important;
+  font-size: 24px !important;
+}

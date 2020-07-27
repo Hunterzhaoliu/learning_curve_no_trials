@@ -21,7 +21,7 @@ class Experiment extends Component {
       case "instruction":
         return <Instruction />;
         break;
-      case "trials":
+      case "trial":
         const { condition, trial, treeChoice } = this.props;
         let eggFallPercentage;
         if (condition === 1) {

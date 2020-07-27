@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
-import line1 from "../../audio/line1.wav";
-import getParentAudio from "../../audio/bell.mp3";
-import introductionVideo from "../../audio/introduction.mp4";
 import "./introduction.css";
 
+import line1 from "../../audio/line1.wav";
+import line2_3 from "../../audio/line2_3.wav";
+import getParentAudio from "../../audio/bell.mp3";
+import introductionVideo from "../../audio/introduction.mp4";
+
 import parent_child from "../../images/parent_child.jpg";
+import button_press from "../../images/button_press.png";
 
 class Introduction extends Component {
   constructor() {
@@ -29,21 +32,26 @@ class Introduction extends Component {
   }
 
   onClickTrue = () => {
-    console.log("this.state.introductionStep = ", this.state.introductionStep);
-    // switch (this.state.introductionStep) {
-    //   case 0:
-    //     // confirmed parent is around
-    //     this.setState({ introductionStep: 1 });
-    //     break;
-    //   case 1:
-    //     // understands button press
-    //     this.setState({ introductionStep: 2 });
-    //     break;
-    //   case 2:
-    //     // understands button press
-    //     this.setState({ introductionStep: 3 });
-    //     break;
-    // }
+    switch (this.state.introductionStep) {
+      case 0:
+        // confirmed parent is around
+        this.setState({ introductionStep: 1 });
+        // document.getElementById("buttonIntroduction00").style.display =
+        //   "inline-block";
+        document.getElementById("line2_3").play();
+        break;
+      case 1:
+        // understands button press
+        this.setState({ introductionStep: 2 });
+        break;
+      case 2:
+        // understands button press
+        this.setState({ introductionStep: 3 });
+        break;
+      default:
+        return;
+    }
+
     // const introductionVideo = document.getElementById("introductionVideo");
     // // display and then play video
     // introductionVideo.style.display = "block";
@@ -73,7 +81,7 @@ class Introduction extends Component {
   //     <br /> and Ready to Listen
   //   </button>
 
-  render() {
+  renderIntroduction() {
     switch (this.state.introductionStep) {
       case 0:
         return (
@@ -104,9 +112,27 @@ class Introduction extends Component {
           </div>
         );
         break;
+      case 1:
+        return (
+          <div className="div-absolute">
+            <img className="img-background" src={button_press} alt="" />
+          </div>
+        );
+        break;
       default:
         return <div />;
     }
+  }
+
+  render() {
+    return (
+      <div className="div-absolute">
+        <audio id="line2_3">
+          <source src={line2_3} type="audio/wav" />
+        </audio>
+        {this.renderIntroduction()}
+      </div>
+    );
   }
 }
 
