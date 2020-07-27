@@ -16,3 +16,7 @@
 .button-right {
   margin-left: 20px;
 }
+
+.img-none {
+  display: none;
+}

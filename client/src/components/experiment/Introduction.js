@@ -9,8 +9,10 @@ import line2_3 from "../../audio/line2_3.wav";
 import getParentAudio from "../../audio/bell.mp3";
 import introductionVideo from "../../audio/introduction.mp4";
 
-import parent_child from "../../images/parent_child.jpg";
-import button_press from "../../images/button_press.png";
+import parentChild from "../../images/parent_child.png";
+import buttonPress from "../../images/button_press.png";
+import child from "../../images/child.png";
+import handsOnLap from "../../images/hands_on_lap.png";
 
 class Introduction extends Component {
   constructor() {
@@ -22,7 +24,7 @@ class Introduction extends Component {
 
   componentDidMount() {
     // document.getElementById("introductionAudio").play();
-    setTimeout(() => {
+    setTimeout(function() {
       // first number is which introductionStep and second is within introductionStep
       document.getElementById("buttonIntroduction00").style.display =
         "inline-block";
@@ -36,26 +38,31 @@ class Introduction extends Component {
       case 0:
         // confirmed parent is around
         this.setState({ introductionStep: 1 });
-        // document.getElementById("buttonIntroduction00").style.display =
-        //   "inline-block";
         document.getElementById("line2_3").play();
+        setTimeout(function() {
+          document.getElementById("buttonPress").style.display = "inline-block";
+        }, 5000);
+        setTimeout(function() {
+          document.getElementById("child").style.display = "inline-block";
+        }, 9000);
+        setTimeout(function() {
+          document.getElementById("handsOnLap").style.display = "inline-block";
+        }, 20000);
+        setTimeout(function() {
+          document.getElementById("buttonIntroduction10").style.display =
+            "inline-block";
+        }, 23000);
         break;
       case 1:
-        // understands button press
-        this.setState({ introductionStep: 2 });
-        break;
-      case 2:
-        // understands button press
-        this.setState({ introductionStep: 3 });
+        // understands button press; display and play video
+        document.getElementById("buttonIntroduction10").style.display = "none";
+        const video = document.getElementById("introductionVideo");
+        video.style.display = "inline-block";
+        video.play();
         break;
       default:
         return;
     }
-
-    // const introductionVideo = document.getElementById("introductionVideo");
-    // // display and then play video
-    // introductionVideo.style.display = "block";
-    // introductionVideo.play();
   };
 
   onClickFalse() {
@@ -65,21 +72,6 @@ class Introduction extends Component {
   onVideoEnd = () => {
     this.props.advancePhase("practice");
   };
-  //   <video
-  //     id="introductionVideo"
-  //     className="video-introduction"
-  //     onEnded={this.onVideoEnd}
-  //   >
-  //     <source src={introductionVideo} type="video/mp4" />
-  //   </video>
-  //   <button
-  //     onClick={this.onClick}
-  //     id="buttonIntroduction"
-  //     className="button-main button-introduction"
-  //   >
-  //     Child Hands on Lap
-  //     <br /> and Ready to Listen
-  //   </button>
 
   renderIntroduction() {
     switch (this.state.introductionStep) {
@@ -89,7 +81,7 @@ class Introduction extends Component {
             <audio id="line1">
               <source src={line1} type="audio/wav" />
             </audio>
-            <img className="img-background" src={parent_child} alt="" />
+            <img className="img-background" src={parentChild} alt="" />
             <div className="div-absolute">
               <button
                 onClick={this.onClickTrue}
@@ -115,7 +107,41 @@ class Introduction extends Component {
       case 1:
         return (
           <div className="div-absolute">
-            <img className="img-background" src={button_press} alt="" />
+            <video
+              id="introductionVideo"
+              className="video-introduction"
+              onEnded={this.onVideoEnd}
+            >
+              <source src={introductionVideo} type="video/mp4" />
+            </video>
+            <img
+              className="img-background img-none"
+              src={handsOnLap}
+              alt=""
+              id="handsOnLap"
+            />
+            <img
+              className="img-background img-none"
+              src={child}
+              alt=""
+              id="child"
+            />
+            <img
+              className="img-background img-none"
+              src={buttonPress}
+              alt=""
+              id="buttonPress"
+            />
+            <div className="div-absolute">
+              <button
+                onClick={this.onClickTrue}
+                id="buttonIntroduction10"
+                className="button-main button-introduction"
+              >
+                Child Hands on Lap
+                <br /> and Ready to Listen
+              </button>
+            </div>
           </div>
         );
         break;
