@@ -12,6 +12,7 @@ import egg from "../../images/egg.png";
 
 import startTrialAudio from "../../audio/line9.wav";
 import startTopTrialAudio from "../../audio/line10.wav";
+import congratulationsAudio from "../../audio/congratulations.wav";
 
 import {
   SCREEN_TO_LADDER_BOTTOM_PERCENT,
@@ -146,6 +147,12 @@ class Trial extends Component {
     }
   }
 
+  renderCongratulations() {
+    if (this.state.showCongratulations) {
+      return <Congratulations />;
+    }
+  }
+
   render() {
     const ladderHeightPercent =
       SCREEN_TO_LADDER_BOTTOM_PERCENT - SLIDER_TOP_PERCENT;
@@ -235,7 +242,7 @@ class Trial extends Component {
           />
           <Markers />
         </div>
-        <Congratulations showCongratulations={this.state.showCongratulations} />
+        {this.renderCongratulations()}
       </div>
     );
   }

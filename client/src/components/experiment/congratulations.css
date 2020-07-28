@@ -1,10 +1,16 @@
 /* https://codepen.io/andyobrien/pen/WYrxMe */
 .confetti {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
   overflow: hidden;
-  top: 0;
+}
+
+.img-point {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 40%;
+  /* 100px from the width */
+  left: 40%;
+  z-index: 5;
 }
 
 .confetti-piece {

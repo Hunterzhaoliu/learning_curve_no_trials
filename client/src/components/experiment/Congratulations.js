@@ -1,37 +1,38 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import $ from "jquery";
-import congratulationsAudio from "../../audio/congratulations.wav";
+import point from "../../images/point.png";
 import "./congratulations.css";
 
+import congratulationsAudio from "../../audio/congratulations.wav";
+
 class Congratulations extends Component {
+  componentDidMount() {
+    document.getElementById("congratulationsAudio").play();
+    console.log("congratulationsAudio");
+  }
   render() {
     const { showCongratulations } = this.props;
-
-    if (!showCongratulations) {
-      return <div />;
-    } else {
-      return (
-        <div className="confetti">
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <div className="confetti-piece" />
-          <audio autoPlay id="congratulationsAudio">
-            <source src={congratulationsAudio} type="audio/mpeg" />
-          </audio>
-        </div>
-      );
-    }
+    return (
+      <div className="div-absolute confetti">
+        <img className="img-point" src={point} alt="" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <div className="confetti-piece" />
+        <audio id="congratulationsAudio">
+          <source src={congratulationsAudio} type="audio/wav" />
+        </audio>
+      </div>
+    );
   }
 }
 

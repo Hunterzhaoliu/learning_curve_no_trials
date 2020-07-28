@@ -7,7 +7,7 @@ import "./introduction.css";
 import line1 from "../../audio/line1.wav";
 import getParentAudio from "../../audio/line1point5.wav";
 import line2_3 from "../../audio/line2_3.wav";
-import introductionVideo from "../../audio/introduction.mp4";
+import introductionVideo from "../../audio/intro.mp4";
 
 import parentChild from "../../images/parent_child.png";
 import buttonPress from "../../images/button_press.png";
