@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import "./introduction.css";
 
 import line1 from "../../audio/line1.wav";
-import getParentAudio from "../../audio/line1point5.wav";
+import getParentAudio from "../../audio/get_parent.mp3";
 import line2_3 from "../../audio/line2_3.wav";
 import introductionVideo from "../../audio/intro.mp4";
 
@@ -22,8 +22,7 @@ class Introduction extends Component {
     };
   }
 
-  componentDidMount() {
-    document.getElementById("line1").play();
+  displayButtons() {
     setTimeout(function() {
       // first number is which introductionStep and second is within introductionStep
       document.getElementById("buttonIntroduction00").style.display =
@@ -33,41 +32,47 @@ class Introduction extends Component {
     }, 4000);
   }
 
-  onClickTrue = () => {
-    switch (this.state.introductionStep) {
-      case 0:
-        // confirmed parent is around
-        this.setState({ introductionStep: 1 });
-        document.getElementById("line2_3").play();
-        setTimeout(function() {
-          document.getElementById("buttonPress").style.display = "inline-block";
-        }, 5000);
-        setTimeout(function() {
-          document.getElementById("child").style.display = "inline-block";
-        }, 9000);
-        setTimeout(function() {
-          document.getElementById("handsOnLap").style.display = "inline-block";
-        }, 20000);
-        setTimeout(function() {
-          document.getElementById("buttonIntroduction10").style.display =
-            "inline-block";
-        }, 23000);
-        break;
-      case 1:
-        // understands button press; display and play video
-        document.getElementById("buttonIntroduction10").style.display = "none";
-        const video = document.getElementById("introductionVideo");
-        video.style.display = "inline-block";
-        video.play();
-        break;
-      default:
-        return;
-    }
+  componentDidMount() {
+    document.getElementById("line1").play();
+    this.displayButtons();
+  }
+
+  onClickYes = () => {
+    // confirmed parent is around
+    this.setState({ introductionStep: 1 });
+    document.getElementById("line2_3").play();
+    setTimeout(function() {
+      document.getElementById("buttonPress").style.display = "inline-block";
+    }, 5000);
+    setTimeout(function() {
+      document.getElementById("child").style.display = "inline-block";
+    }, 9000);
+    setTimeout(function() {
+      document.getElementById("handsOnLap").style.display = "inline-block";
+    }, 20000);
+    setTimeout(function() {
+      document.getElementById("buttonIntroduction10").style.display =
+        "inline-block";
+    }, 23000);
   };
 
-  onClickFalse() {
-    document.getElementById("getParentAudio").play();
+  onClickReady() {
+    // understands button press; display and play video
+    document.getElementById("buttonIntroduction10").style.display = "none";
+    const video = document.getElementById("introductionVideo");
+    video.style.display = "inline-block";
+    video.play();
   }
+
+  onClickNo = () => {
+    document.getElementById("buttonIntroduction00").style.display = "none";
+    document.getElementById("buttonIntroduction01").style.display = "none";
+    document.getElementById("getParentAudio").play();
+
+    setTimeout(() => {
+      this.displayButtons();
+    }, 5000);
+  };
 
   onVideoEnd = () => {
     this.props.advancePhase("practice");
@@ -84,14 +89,14 @@ class Introduction extends Component {
             <img className="img-background" src={parentChild} alt="" />
             <div className="div-absolute">
               <button
-                onClick={this.onClickTrue}
+                onClick={this.onClickYes}
                 id="buttonIntroduction00"
                 className="button-main button-introduction"
               >
                 Yes
               </button>
               <button
-                onClick={this.onClickFalse}
+                onClick={this.onClickNo}
                 id="buttonIntroduction01"
                 className="button-main button-introduction button-right"
               >
@@ -133,7 +138,7 @@ class Introduction extends Component {
             />
             <div className="div-absolute">
               <button
-                onClick={this.onClickTrue}
+                onClick={this.onClickReady}
                 id="buttonIntroduction10"
                 className="button-main button-introduction"
               >
