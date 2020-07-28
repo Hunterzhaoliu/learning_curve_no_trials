@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import $ from "jquery";
-import congratulationsAudio from "../../audio/congratulations.mp3";
+import congratulationsAudio from "../../audio/congratulations.wav";
 import "./congratulations.css";
 
 class Congratulations extends Component {

@@ -68,7 +68,7 @@ class Instruction extends Component {
       <div className="div-absolute">
         <img className="img-hand img-hand-right" src={hand} id="hand" alt="" />
         <audio id="instructionAudio">
-          <source src={instructionAudio} type="audio/wav" />
+          <source src={instructionAudio} type="audio/mpeg" />
         </audio>
         <div
           className="div-egg-and-platform"

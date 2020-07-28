@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 // import * as experimentActionCreators from "../../actions/experiment";
 // import { bindActionCreators } from "redux";
 import "./markers.css";
-import markTrialAudio from "../../audio/bell.mp3";
-import markFinalTrialAudio from "../../audio/bell.mp3";
+import markTrialAudio from "../../audio/line11_12.mp3";
+import markFinalTrialAudio from "../../audio/line11.wav";
 import one from "../../images/numbers/one.png";
 import two from "../../images/numbers/two.png";
 import three from "../../images/numbers/three.png";
@@ -67,7 +67,7 @@ class Markers extends Component {
           <source src={markTrialAudio} type="audio/mpeg" />
         </audio>
         <audio id="markFinalTrialAudio">
-          <source src={markFinalTrialAudio} type="audio/mpeg" />
+          <source src={markFinalTrialAudio} type="audio/wav" />
         </audio>
         {this.renderMarkers()}
       </div>

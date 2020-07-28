@@ -6,9 +6,12 @@ import Guess from "./Guess";
 import Markers from "./Markers";
 import Congratulations from "./Congratulations";
 import "./trial.css";
+
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
-import startTrialAudio from "../../audio/bell.mp3";
+
+import startTrialAudio from "../../audio/line9.wav";
+import startTopTrialAudio from "../../audio/line10.wav";
 
 import {
   SCREEN_TO_LADDER_BOTTOM_PERCENT,
@@ -60,8 +63,14 @@ class Trial extends Component {
     const { guesses, trial, eggFallPercentage, treeChoice } = this.props;
     if (!this.state.hasGuessed && trial === guesses.length) {
       this.setState({ hasGuessed: true });
-      document.getElementById("startTrialAudio").play();
-      console.log("startTrialAudio");
+
+      if (guesses[trial - 1] < 95) {
+        document.getElementById("startTrialAudio").play();
+        console.log("startTrialAudio");
+      } else {
+        document.getElementById("startTopTrialAudio").play();
+        console.log("startTopTrialAudio");
+      }
     }
 
     if (this.state.eggHeight > eggFallPercentage && !this.state.eggFalling) {
@@ -71,8 +80,10 @@ class Trial extends Component {
         eggAnimation: "fall 2.0s ease-in 1 forwards"
       });
 
-      // this increases the trial count and adds the marker
-      this.props.completedTrial();
+      setTimeout(() => {
+        // this increases the trial count and adds the marker
+        this.props.completedTrial();
+      }, 7000);
 
       if (trial < 4) {
         document.getElementById("markTrialAudio").play();
@@ -98,7 +109,7 @@ class Trial extends Component {
             hasGuessed: false,
             showCongratulations: false
           });
-        }, 3000);
+        }, 8000);
       } else {
         // just completed 4th trial, need to move to next phase
         document.getElementById("markFinalTrialAudio").play();
@@ -111,7 +122,7 @@ class Trial extends Component {
           // start the summary audio
           document.getElementById("summaryAudio").play();
           console.log("summaryAudio");
-        }, 5000);
+        }, 8000);
       }
     }
 
@@ -185,7 +196,10 @@ class Trial extends Component {
     return (
       <div>
         <audio id="startTrialAudio">
-          <source src={startTrialAudio} type="audio/mpeg" />
+          <source src={startTrialAudio} type="audio/wav" />
+        </audio>
+        <audio id="startTopTrialAudio">
+          <source src={startTopTrialAudio} type="audio/wav" />
         </audio>
         {this.renderGuess()}
         <div style={{ left: sliderLeft }} className="slider-container">

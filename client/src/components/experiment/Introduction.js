@@ -5,8 +5,8 @@ import { bindActionCreators } from "redux";
 import "./introduction.css";
 
 import line1 from "../../audio/line1.wav";
+import getParentAudio from "../../audio/line1point5.wav";
 import line2_3 from "../../audio/line2_3.wav";
-import getParentAudio from "../../audio/bell.mp3";
 import introductionVideo from "../../audio/introduction.mp4";
 
 import parentChild from "../../images/parent_child.png";
@@ -23,14 +23,14 @@ class Introduction extends Component {
   }
 
   componentDidMount() {
-    document.getElementById("introductionAudio").play();
+    document.getElementById("line1").play();
     setTimeout(function() {
       // first number is which introductionStep and second is within introductionStep
       document.getElementById("buttonIntroduction00").style.display =
         "inline-block";
       document.getElementById("buttonIntroduction01").style.display =
         "inline-block";
-    }, 1000);
+    }, 4000);
   }
 
   onClickTrue = () => {

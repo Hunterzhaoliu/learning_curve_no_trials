@@ -11,7 +11,6 @@ import "./experiment.css";
 class Experiment extends Component {
   renderExperiment() {
     const { phase } = this.props;
-    console.log("phase = ", phase);
     switch (phase) {
       case "introduction":
         return <Introduction />;
@@ -39,10 +38,7 @@ class Experiment extends Component {
         return <Summary />;
       case "conclusion":
         return (
-          <Trial
-            eggFallPercentage={eggFallPercentage}
-            treeChoice={treeChoice}
-          />
+          <Trial eggFallPercentage={110} treeChoice={this.props.treeChoice} />
         );
       default:
         return <Introduction />;

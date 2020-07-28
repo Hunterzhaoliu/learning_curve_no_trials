@@ -8,8 +8,7 @@ import "./practice.css";
 
 class Practice extends Component {
   componentDidMount() {
-    // document.getElementById("line4").play();
-
+    document.getElementById("line4").play();
     // don't want to display egg while in practice
     document.getElementById("egg").style.display = "none";
     setTimeout(() => {
@@ -26,7 +25,7 @@ class Practice extends Component {
     return (
       <div className="div-absolute">
         <audio id="line4">
-          <source src={line4} type="audio/mpeg" />
+          <source src={line4} type="audio/wav" />
         </audio>
         <button
           onClick={this.onClick}

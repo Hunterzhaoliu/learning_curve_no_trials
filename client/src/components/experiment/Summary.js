@@ -4,11 +4,11 @@ import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
 import Markers from "./Markers";
 import hand from "../../images/hand.png";
-import summaryAudio from "../../audio/bell.mp3";
-import questionAudio from "../../audio/bell.mp3";
-import goTopAudio from "../../audio/bell.mp3";
+import summaryAudio from "../../audio/line13_14.mp3";
+import questionSameAudio from "../../audio/line16_same_cut.wav";
+import questionBetterAudio from "../../audio/line16_better_cut.wav";
+import goTopAudio from "../../audio/line15.wav";
 import "./summary.css";
-import "./instruction.css";
 
 import {
   SLIDER_TOP_PERCENT,
@@ -20,12 +20,13 @@ class Summary extends Component {
   constructor() {
     super();
     this.state = {
-      treeChoice: ""
+      treeChoice: "",
+      leftButton: Math.random() // < .5 means same goes on left
     };
   }
 
   componentDidMount() {
-    const markerHighlightDelay = [1000, 2000, 3000, 4000];
+    const markerHighlightDelay = [5000, 9000, 12500, 16000];
     // highlight the first marker so the for loop can remove the previous
     // marker's highlight in the same iteration
     setTimeout(function() {
@@ -47,7 +48,7 @@ class Summary extends Component {
       document.getElementById("marker3").style.border = "none";
 
       document.getElementById("handRight").style.display = "block";
-    }, 6000);
+    }, 21000);
 
     // display the left pointing hand
     setTimeout(function() {
@@ -59,33 +60,52 @@ class Summary extends Component {
       // remove the left pointing hand
       setTimeout(function() {
         document.getElementById("handLeft").style.display = "none";
-      }, 1000);
+      }, 2000);
+    }, 23000);
 
+    setTimeout(function() {
       // display both tree buttons
       document.getElementById("buttonLeftTree").style.display = "block";
       document.getElementById("buttonRightTree").style.display = "block";
-    }, 8000);
+    }, 26000);
   }
 
   onClickTree = e => {
     this.setState({ treeChoice: e.target.value });
 
     // ask comprehension questions
-    document.getElementById("questionAudio").play();
-    console.log("questionAudio");
+    if (this.state.leftButton < 0.5) {
+      document.getElementById("questionSameAudio").play();
+      console.log("questionSameAudio");
+    } else {
+      document.getElementById("questionBetterAudio").play();
+      console.log("questionBetterAudio");
+    }
 
     // display both reflection buttons
     setTimeout(function() {
       document.getElementById("buttonBetter").style.display = "block";
       document.getElementById("buttonSame").style.display = "block";
-    }, 1000);
+    }, 7000);
   };
 
   onClickReflection = e => {
+    // remove buttons
+    document.getElementById("buttonBetter").style.display = "none";
+    document.getElementById("buttonSame").style.display = "none";
+
     // ensure success
     document.getElementById("goTopAudio").play();
     console.log("goTopAudio");
 
+    // display both reflection buttons
+    setTimeout(() => {
+      if (this.state.treeChoice === "left") {
+        document.getElementById("handLeft").style.display = "block";
+      } else {
+        document.getElementById("handRight").style.display = "block";
+      }
+    }, 3000);
     const data = {
       dBID: this.props.dBID,
       guesses: this.props.guesses,
@@ -95,7 +115,7 @@ class Summary extends Component {
 
     setTimeout(() => {
       this.props.saveData(data);
-    }, 2000);
+    }, 4000);
   };
 
   render() {
@@ -107,12 +127,14 @@ class Summary extends Component {
     const sliderLeft = "calc(50% + " + String(EGG_PLATFORM_WIDTH * 0.6) + "px)";
 
     // need to decide which reflection button display on left vs. right
-    const randomNumber = Math.random(); // between 0 (inclusive) and 1 (exclusive)
-    let betterLeft = 0;
-    let sameLeft = "50%";
-    if (randomNumber > 0.5) {
+    let sameLeft;
+    let betterLeft;
+    if (this.state.leftButton < 0.5) {
       betterLeft = "50%";
       sameLeft = 0;
+    } else {
+      betterLeft = 0;
+      sameLeft = "50%";
     }
 
     return (
@@ -143,16 +165,16 @@ class Summary extends Component {
           alt=""
         />
         <button
+          value="left"
+          onClick={this.onClickTree}
+          className="button-tree"
+          id="buttonLeftTree"
+        />
+        <button
           value="right"
           onClick={this.onClickTree}
           className="button-tree right-tree"
           id="buttonRightTree"
-        />
-        <button
-          value="left"
-          onClick={this.onClickTree}
-          className="button-tree left-tree"
-          id="buttonLeftTree"
         />
         <button
           value="better"
@@ -172,11 +194,14 @@ class Summary extends Component {
         >
           Same
         </button>
-        <audio id="questionAudio">
-          <source src={questionAudio} type="audio/mpeg" />
+        <audio id="questionSameAudio">
+          <source src={questionSameAudio} type="audio/wav" />
+        </audio>
+        <audio id="questionBetterAudio">
+          <source src={questionBetterAudio} type="audio/wav" />
         </audio>
         <audio id="goTopAudio">
-          <source src={goTopAudio} type="audio/mpeg" />
+          <source src={goTopAudio} type="audio/wav" />
         </audio>
       </div>
     );

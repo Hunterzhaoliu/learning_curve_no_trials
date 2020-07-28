@@ -4,9 +4,10 @@ import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
 import "./trial.css";
 import "./guess.css";
-import confirmGuessAudio from "../../audio/bell.mp3";
-import confirmTopGuessAudio from "../../audio/bell.mp3";
-import guessAgainAudio from "../../audio/bell.mp3";
+
+import confirmGuessAudio from "../../audio/line8.wav";
+import guessAgainAudio from "../../audio/line12_cut.wav";
+
 import star from "../../images/star.png";
 
 import { EGG_PLATFORM_WIDTH } from "./constants";
@@ -61,6 +62,7 @@ class Guess extends Component {
             value="yes"
             onClick={this.onClick}
             className="button-main button-confirm-guess"
+            id="yesButton"
           >
             Yes
           </button>
@@ -68,6 +70,7 @@ class Guess extends Component {
             value="no"
             onClick={this.onClick}
             className="button-main button-confirm-guess"
+            id="noButton"
           >
             No
           </button>
@@ -78,16 +81,7 @@ class Guess extends Component {
 
   renderConfirmGuess() {
     if (this.state.gavePotentialGuess) {
-      if (this.state.guessHeight < 97) {
-        document.getElementById("confirmGuessAudio").play();
-        console.log("confirmGuessAudio");
-        return this.renderConfirmButtons();
-      } else {
-        // confirm that subject guessed at the top of the tree
-        document.getElementById("confirmTopGuessAudio").play();
-        console.log("confirmTopGuessAudio");
-        return this.renderConfirmButtons();
-      }
+      return this.renderConfirmButtons();
     }
   }
 
@@ -96,6 +90,7 @@ class Guess extends Component {
     // determine how high (%) user guessed and save to state
     const guess = (100 * (rectangle.bottom - e.clientY)) / rectangle.height;
     this.setState({ guessHeight: guess, gavePotentialGuess: true });
+    document.getElementById("confirmGuessAudio").play();
   };
 
   renderGuess() {
@@ -114,13 +109,10 @@ class Guess extends Component {
           />
           {this.renderConfirmGuess()}
           <audio id="confirmGuessAudio">
-            <source src={confirmGuessAudio} type="audio/mpeg" />
-          </audio>
-          <audio id="confirmTopGuessAudio">
-            <source src={confirmTopGuessAudio} type="audio/mpeg" />
+            <source src={confirmGuessAudio} type="audio/wav" />
           </audio>
           <audio id="guessAgainAudio">
-            <source src={guessAgainAudio} type="audio/mpeg" />
+            <source src={guessAgainAudio} type="audio/wav" />
           </audio>
         </div>
       );
@@ -128,8 +120,6 @@ class Guess extends Component {
   }
 
   render() {
-    //   const ladderHeightPercent = SCREEN_TO_LADDER_BOTTOM_PERCENT - SLIDER_TOP_PERCENT;
-    // const guessSliderTop = SLIDER_TOP_PERCENT;
     const guessSliderLeft =
       "calc(50% + " + String(EGG_PLATFORM_WIDTH / 2) + "px)";
 

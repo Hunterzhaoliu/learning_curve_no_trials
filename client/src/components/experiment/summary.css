@@ -9,6 +9,10 @@
   display: none;
 }
 
+.right-tree {
+  left: 50%;
+}
+
 .button-tree:focus {
   outline: none;
 }
