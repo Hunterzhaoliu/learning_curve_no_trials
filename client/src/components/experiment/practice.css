@@ -3,4 +3,6 @@
   top: 2vh;
   display: none;
   height: 60px !important;
+  /* needs to be in front of background */
+  z-index: 1;
 }

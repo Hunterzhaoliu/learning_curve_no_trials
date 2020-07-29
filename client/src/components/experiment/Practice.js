@@ -17,7 +17,6 @@ class Practice extends Component {
   }
 
   onClick = () => {
-    console.log("onClick to instruction");
     this.props.advancePhase("instruction");
   };
 
@@ -25,9 +24,6 @@ class Practice extends Component {
     // using tree choice to determine whether to show Guess component
     return (
       <div className="div-absolute">
-        <audio id="line4">
-          <source src={line4} type="audio/wav" />
-        </audio>
         <button
           onClick={this.onClick}
           id="buttonPractice"
@@ -36,6 +32,9 @@ class Practice extends Component {
           Done with Practice <br />
           Hands Back on Lap
         </button>
+        <audio id="line4">
+          <source src={line4} type="audio/wav" />
+        </audio>
         <Trial eggFallPercentage={110} treeChoice="practice" />
       </div>
     );
