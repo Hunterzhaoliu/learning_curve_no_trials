@@ -49,31 +49,12 @@ class Trial extends Component {
     if (this.state.eggAnimation === "none") {
       this.setState({ eggAnimation: "shake 0.5s infinite" });
     }
-    this.setState({ eggHeight: e.target.value });
-  };
 
-  onChangeEnd = () => {
-    // when the egg begins to fall, already changed to falling animation
-    if (this.state.eggAnimation === "shake 0.5s infinite") {
-      this.setState({ eggAnimation: "none" });
-    }
-  };
+    const newEggHeight = e.target.value;
+    this.setState({ eggHeight: newEggHeight });
 
-  componentDidUpdate() {
-    const { guesses, trial, eggFallPercentage, treeChoice } = this.props;
-    if (!this.state.hasGuessed && trial === guesses.length) {
-      this.setState({ hasGuessed: true });
-
-      if (guesses[trial - 1] < 95) {
-        document.getElementById("startTrialAudio").play();
-        console.log("startTrialAudio");
-      } else {
-        document.getElementById("startTopTrialAudio").play();
-        console.log("startTopTrialAudio");
-      }
-    }
-
-    if (this.state.eggHeight > eggFallPercentage && !this.state.eggFalling) {
+    if (!this.state.eggFalling && newEggHeight > this.props.eggFallPercentage) {
+      const { trial } = this.props;
       // egg needs to fall
       this.setState({
         eggFalling: true,
@@ -126,6 +107,7 @@ class Trial extends Component {
       }
     }
 
+    const { treeChoice } = this.props;
     if (
       !this.state.showCongratulations &&
       ((treeChoice === "left" && this.state.eggHeight > 50) ||
@@ -135,6 +117,28 @@ class Trial extends Component {
       this.setState({
         showCongratulations: true
       });
+    }
+  };
+
+  onChangeEnd = () => {
+    // when the egg begins to fall, already changed to falling animation
+    if (this.state.eggAnimation === "shake 0.5s infinite") {
+      this.setState({ eggAnimation: "none" });
+    }
+  };
+
+  componentDidUpdate() {
+    const { guesses, trial } = this.props;
+    if (!this.state.hasGuessed && trial === guesses.length) {
+      this.setState({ hasGuessed: true });
+
+      if (guesses[trial - 1] < 95) {
+        document.getElementById("startTrialAudio").play();
+        console.log("startTrialAudio");
+      } else {
+        document.getElementById("startTopTrialAudio").play();
+        console.log("startTopTrialAudio");
+      }
     }
   }
 
