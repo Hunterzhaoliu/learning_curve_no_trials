@@ -10,6 +10,7 @@ class Congratulations extends Component {
     document.getElementById("congratulationsAudio").play();
     console.log("congratulationsAudio");
   }
+
   render() {
     return (
       <div className="div-absolute confetti">

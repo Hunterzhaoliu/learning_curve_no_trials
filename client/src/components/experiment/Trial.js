@@ -45,8 +45,7 @@ class Trial extends Component {
   }
 
   onChange = e => {
-    document.getElementById("markTrialAudio").play();
-    console.log("markTrialAudioImmediate");
+    document.getElementById("fakeButton").click();
 
     // console.log("e.target.value = ", e.target.value);
     if (this.state.eggAnimation === "none") {
@@ -124,6 +123,7 @@ class Trial extends Component {
   };
 
   onChangeEnd = () => {
+    console.log("onChangeEnd");
     // when the egg begins to fall, already changed to falling animation
     if (this.state.eggAnimation === "shake 0.5s infinite") {
       this.setState({ eggAnimation: "none" });
@@ -157,6 +157,11 @@ class Trial extends Component {
     if (this.state.showCongratulations) {
       return <Congratulations />;
     }
+  }
+
+  playAudio() {
+    document.getElementById("markTrialAudio").play();
+    console.log("markTrialAudio");
   }
 
   render() {
@@ -207,7 +212,15 @@ class Trial extends Component {
       this.state.showCongratulations;
 
     return (
-      <div>
+      <div className="div-absolute">
+        <button
+          onClick={this.playAudio}
+          className="button-main"
+          id="fakeButton"
+          style={{ position: "absolute", top: "100px", zIndex: 20 }}
+        >
+          Fake Button
+        </button>
         <audio id="startTrialAudio">
           <source src={startTrialAudio} type="audio/wav" />
         </audio>
