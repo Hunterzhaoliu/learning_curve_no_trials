@@ -10,7 +10,7 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  phase: "trial",
+  phase: "introduction",
   trial: 1,
   guesses: [],
   treeChoice: ""

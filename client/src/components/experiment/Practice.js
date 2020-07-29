@@ -17,6 +17,7 @@ class Practice extends Component {
   }
 
   onClick = () => {
+    console.log("onClick to instruction");
     this.props.advancePhase("instruction");
   };
 
