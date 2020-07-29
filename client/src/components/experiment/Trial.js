@@ -45,6 +45,9 @@ class Trial extends Component {
   }
 
   onChange = e => {
+    document.getElementById("markTrialAudio").play();
+    console.log("markTrialAudioImmediate");
+
     // console.log("e.target.value = ", e.target.value);
     if (this.state.eggAnimation === "none") {
       this.setState({ eggAnimation: "shake 0.5s infinite" });
