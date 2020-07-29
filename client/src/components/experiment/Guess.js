@@ -86,11 +86,11 @@ class Guess extends Component {
   }
 
   onGuess = e => {
+    document.getElementById("confirmGuessAudio").play();
     const rectangle = e.target.getBoundingClientRect();
     // determine how high (%) user guessed and save to state
     const guess = (100 * (rectangle.bottom - e.clientY)) / rectangle.height;
     this.setState({ guessHeight: guess, gavePotentialGuess: true });
-    document.getElementById("confirmGuessAudio").play();
   };
 
   renderGuess() {

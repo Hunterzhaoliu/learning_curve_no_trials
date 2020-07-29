@@ -12,7 +12,6 @@ import egg from "../../images/egg.png";
 
 import startTrialAudio from "../../audio/line9.wav";
 import startTopTrialAudio from "../../audio/line10.wav";
-import congratulationsAudio from "../../audio/congratulations.wav";
 
 import {
   SCREEN_TO_LADDER_BOTTOM_PERCENT,

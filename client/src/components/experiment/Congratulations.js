@@ -11,7 +11,6 @@ class Congratulations extends Component {
     console.log("congratulationsAudio");
   }
   render() {
-    const { showCongratulations } = this.props;
     return (
       <div className="div-absolute confetti">
         <img className="img-point" src={point} alt="" />
