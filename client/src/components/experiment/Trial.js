@@ -98,9 +98,6 @@ class Trial extends Component {
         // let the markFinalTrialAudio finish
         setTimeout(() => {
           this.props.advancePhase("summary");
-
-          // start the summary audio
-          document.getElementById("summaryAudioButton").click();
         }, 8000);
       }
     }
@@ -214,7 +211,6 @@ class Trial extends Component {
         <audio id="startTopTrialAudio">
           <source src={startTopTrialAudio} type="audio/wav" />
         </audio>
-        {this.renderGuess()}
         <div style={{ left: sliderLeft }} className="slider-container">
           <input
             onChange={this.onChange}
@@ -256,12 +252,8 @@ class Trial extends Component {
             id="markFinalTrialAudioButton"
             className="button-audio"
           />
-          <button
-            onClick={() => this.playAudio("summaryAudio")}
-            id="summaryAudioButton"
-            className="button-audio"
-          />
           <Markers />
+          {this.renderGuess()}
         </div>
         {this.renderCongratulations()}
       </div>

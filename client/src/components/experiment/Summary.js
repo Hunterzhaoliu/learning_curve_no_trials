@@ -26,6 +26,9 @@ class Summary extends Component {
   }
 
   componentDidMount() {
+    document.getElementById("summaryAudio").play();
+    console.log("summaryAudio");
+
     const markerHighlightDelay = [5000, 9000, 12500, 16000];
     // highlight the first marker so the for loop can remove the previous
     // marker's highlight in the same iteration

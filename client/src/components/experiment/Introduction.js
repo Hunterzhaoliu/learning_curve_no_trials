@@ -34,6 +34,7 @@ class Introduction extends Component {
 
   componentDidMount() {
     document.getElementById("line1").play();
+    console.log("line1");
     this.displayButtons();
   }
 
