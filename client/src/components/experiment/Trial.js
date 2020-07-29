@@ -45,8 +45,6 @@ class Trial extends Component {
   }
 
   onChange = e => {
-    document.getElementById("fakeButton").click();
-
     // console.log("e.target.value = ", e.target.value);
     if (this.state.eggAnimation === "none") {
       this.setState({ eggAnimation: "shake 0.5s infinite" });
@@ -69,8 +67,8 @@ class Trial extends Component {
       }, 7000);
 
       if (trial < 4) {
-        document.getElementById("markTrialAudio").play();
-        console.log("markTrialAudio");
+        // simulate button press or else it won't play the audio
+        document.getElementById("markTrialAudioButton").click();
 
         setTimeout(() => {
           // need to remove the egg or else it will make the page longer
@@ -95,16 +93,14 @@ class Trial extends Component {
         }, 8000);
       } else {
         // just completed 4th trial, need to move to next phase
-        document.getElementById("markFinalTrialAudio").play();
-        console.log("markFinalTrialAudio");
+        document.getElementById("markFinalTrialAudioButton").click();
 
         // let the markFinalTrialAudio finish
         setTimeout(() => {
           this.props.advancePhase("summary");
 
           // start the summary audio
-          document.getElementById("summaryAudio").play();
-          console.log("summaryAudio");
+          document.getElementById("summaryAudioButton").click();
         }, 8000);
       }
     }
@@ -123,7 +119,6 @@ class Trial extends Component {
   };
 
   onChangeEnd = () => {
-    console.log("onChangeEnd");
     // when the egg begins to fall, already changed to falling animation
     if (this.state.eggAnimation === "shake 0.5s infinite") {
       this.setState({ eggAnimation: "none" });
@@ -159,9 +154,9 @@ class Trial extends Component {
     }
   }
 
-  playAudio() {
-    document.getElementById("markTrialAudio").play();
-    console.log("markTrialAudio");
+  playAudio(audioId) {
+    console.log(audioId);
+    document.getElementById(audioId).play();
   }
 
   render() {
@@ -213,14 +208,6 @@ class Trial extends Component {
 
     return (
       <div className="div-absolute">
-        <button
-          onClick={this.playAudio}
-          className="button-main"
-          id="fakeButton"
-          style={{ position: "absolute", top: "100px", zIndex: 20 }}
-        >
-          Fake Button
-        </button>
         <audio id="startTrialAudio">
           <source src={startTrialAudio} type="audio/wav" />
         </audio>
@@ -258,6 +245,21 @@ class Trial extends Component {
             id="egg"
             src={egg}
             alt=""
+          />
+          <button
+            onClick={() => this.playAudio("markTrialAudio")}
+            id="markTrialAudioButton"
+            className="button-audio"
+          />
+          <button
+            onClick={() => this.playAudio("markFinalTrialAudio")}
+            id="markFinalTrialAudioButton"
+            className="button-audio"
+          />
+          <button
+            onClick={() => this.playAudio("summaryAudio")}
+            id="summaryAudioButton"
+            className="button-audio"
           />
           <Markers />
         </div>
