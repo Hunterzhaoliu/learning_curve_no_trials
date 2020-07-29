@@ -92,11 +92,14 @@ class Trial extends Component {
           });
         }, 8000);
       } else {
-        // just completed 4th trial, need to move to next phase
+        // need to simuate click to play the audio
         document.getElementById("markFinalTrialAudioButton").click();
 
         // let the markFinalTrialAudio finish
         setTimeout(() => {
+          // the button is in Trial.js and the audio element is in Experiment
+          document.getElementById("summaryAudioButton").click();
+
           this.props.advancePhase("summary");
         }, 8000);
       }
@@ -250,6 +253,11 @@ class Trial extends Component {
           <button
             onClick={() => this.playAudio("markFinalTrialAudio")}
             id="markFinalTrialAudioButton"
+            className="button-audio"
+          />
+          <button
+            onClick={() => this.playAudio("summaryAudio")}
+            id="summaryAudioButton"
             className="button-audio"
           />
           <Markers />

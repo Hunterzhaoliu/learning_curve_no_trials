@@ -4,7 +4,6 @@ import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
 import Markers from "./Markers";
 import hand from "../../images/hand.png";
-import summaryAudio from "../../audio/line13_14.mp3";
 import questionSameAudio from "../../audio/line16_same_cut.wav";
 import questionBetterAudio from "../../audio/line16_better_cut.wav";
 import goTopAudio from "../../audio/line15.wav";
@@ -26,9 +25,6 @@ class Summary extends Component {
   }
 
   componentDidMount() {
-    document.getElementById("summaryAudio").play();
-    console.log("summaryAudio");
-
     const markerHighlightDelay = [5000, 9000, 12500, 16000];
     // highlight the first marker so the for loop can remove the previous
     // marker's highlight in the same iteration
@@ -152,9 +148,6 @@ class Summary extends Component {
         >
           <Markers />
         </div>
-        <audio id="summaryAudio">
-          <source src={summaryAudio} type="audio/mpeg" />
-        </audio>
         <img
           className="img-hand img-hand-left"
           src={hand}
