@@ -251,13 +251,13 @@ class Trial extends Component {
             alt=""
           />
           <Markers onAudioEnded={this.onAudioEnded} />
-          {this.renderGuess()}
           <button
             onClick={this.playAudio}
             id="summaryAudioButton"
             className="button-audio"
           />
         </div>
+        {this.renderGuess()}
         {this.renderCongratulations()}
       </div>
     );
