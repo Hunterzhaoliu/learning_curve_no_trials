@@ -9,6 +9,8 @@ import "./practice.css";
 class Practice extends Component {
   componentDidMount() {
     document.getElementById("line4").play();
+    console.log("line4");
+
     // don't want to display egg while in practice
     document.getElementById("egg").style.display = "none";
     setTimeout(() => {

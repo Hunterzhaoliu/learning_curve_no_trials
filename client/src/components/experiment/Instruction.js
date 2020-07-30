@@ -46,7 +46,7 @@ class Instruction extends Component {
 
     setTimeout(() => {
       this.props.advancePhase("trial");
-    }, 22100);
+    }, 23000);
   }
 
   render() {

@@ -7,6 +7,7 @@ import "./start.css";
 
 class Start extends Component {
   onClick = e => {
+    console.log("start onClick");
     this.props.startExperiment();
     // if (screenfull.isEnabled) {
     //   screenfull.request(document.documentElement);

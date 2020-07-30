@@ -42,6 +42,8 @@ class Introduction extends Component {
     // confirmed parent is around
     this.setState({ introductionStep: 1 });
     document.getElementById("line2_3").play();
+    console.log("line2_3");
+
     setTimeout(function() {
       document.getElementById("buttonPress").style.display = "inline-block";
     }, 5000);
@@ -69,6 +71,7 @@ class Introduction extends Component {
     document.getElementById("buttonIntroduction00").style.display = "none";
     document.getElementById("buttonIntroduction01").style.display = "none";
     document.getElementById("getParentAudio").play();
+    console.log("getParentAudio");
 
     setTimeout(() => {
       this.displayButtons();

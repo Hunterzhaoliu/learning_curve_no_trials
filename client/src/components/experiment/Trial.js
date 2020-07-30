@@ -45,7 +45,7 @@ class Trial extends Component {
   }
 
   onChange = e => {
-    // console.log("e.target.value = ", e.target.value);
+    console.log("e.target.value = ", e.target.value);
     if (this.state.eggAnimation === "none") {
       this.setState({ eggAnimation: "shake 0.5s infinite" });
     }
@@ -85,8 +85,9 @@ class Trial extends Component {
           this.setState({
             eggHeight: 0,
             eggAnimation: "none",
-            eggFalling: false,
             hasGuessed: false,
+            trialReady: false,
+            eggFalling: false,
             showCongratulations: false
           });
         }, 8000);
@@ -160,7 +161,15 @@ class Trial extends Component {
 
   playAudio(audioId) {
     console.log(audioId);
-    document.getElementById(audioId).play();
+    // document.getElementById(audioId).play();
+  }
+
+  onClickRange() {
+    console.log("onClickRange");
+  }
+
+  onInput() {
+    console.log("onInput");
   }
 
   render() {
@@ -220,6 +229,8 @@ class Trial extends Component {
         <div style={{ left: sliderLeft }} className="slider-container">
           <input
             onChange={this.onChange}
+            onClick={this.onClickRange}
+            onInput={this.onInput}
             type="range"
             min="0"
             max="100"
