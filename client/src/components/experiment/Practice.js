@@ -13,14 +13,19 @@ class Practice extends Component {
 
     // don't want to display egg while in practice
     document.getElementById("egg").style.display = "none";
-    setTimeout(() => {
-      document.getElementById("buttonPractice").style.display = "inline-block";
-    }, 5000);
   }
 
   onClick = () => {
     this.props.advancePhase("instruction");
   };
+
+  onAudioEnded() {
+    // only for line 4
+    setTimeout(() => {
+      // add a little time after the audio before displaying button
+      document.getElementById("buttonPractice").style.display = "inline-block";
+    }, 2000);
+  }
 
   render() {
     // using tree choice to determine whether to show Guess component
@@ -34,7 +39,7 @@ class Practice extends Component {
           Done with Practice <br />
           Hands Back on Lap
         </button>
-        <audio id="line4">
+        <audio onEnded={this.onAudioEnded} id="line4">
           <source src={line4} type="audio/wav" />
         </audio>
         <Trial eggFallPercentage={110} treeChoice="practice" />

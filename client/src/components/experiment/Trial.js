@@ -40,7 +40,22 @@ class Trial extends Component {
     const { treeChoice } = this.props;
     if (treeChoice !== "") {
       // ensure success, no need for subject to guess
+      this.setState({ hasGuessed: true, trialReady: true });
+    }
+  }
+
+  componentDidUpdate() {
+    const { guesses, trial } = this.props;
+    if (!this.state.hasGuessed && trial === guesses.length) {
       this.setState({ hasGuessed: true });
+
+      if (guesses[trial - 1] < 95) {
+        document.getElementById("startTrialAudio").play();
+        console.log("startTrialAudio");
+      } else {
+        document.getElementById("startTopTrialAudio").play();
+        console.log("startTopTrialAudio");
+      }
     }
   }
 
@@ -60,11 +75,6 @@ class Trial extends Component {
         eggFalling: true,
         eggAnimation: "fall 2.0s ease-in 1 forwards"
       });
-
-      setTimeout(() => {
-        // this increases the trial count and adds the marker
-        this.props.completedTrial();
-      }, 7000);
 
       if (trial < 4) {
         // simulate button press or else it won't play the audio
@@ -103,6 +113,11 @@ class Trial extends Component {
           this.props.advancePhase("summary");
         }, 8000);
       }
+
+      setTimeout(() => {
+        // this increases the trial count and adds the marker
+        this.props.completedTrial();
+      }, 7000);
     }
 
     const { treeChoice } = this.props;
@@ -125,26 +140,6 @@ class Trial extends Component {
     }
   };
 
-  componentDidUpdate() {
-    const { guesses, trial } = this.props;
-    if (!this.state.hasGuessed && trial === guesses.length) {
-      this.setState({ hasGuessed: true });
-
-      if (guesses[trial - 1] < 95) {
-        document.getElementById("startTrialAudio").play();
-        console.log("startTrialAudio");
-      } else {
-        document.getElementById("startTopTrialAudio").play();
-        console.log("startTopTrialAudio");
-      }
-
-      setTimeout(() => {
-        // allow subject to manipulate egg
-        this.setState({ trialReady: true });
-      }, 7000);
-    }
-  }
-
   renderGuess() {
     // don't need the Guess component for last trial when subject is
     // guaranteed success
@@ -161,7 +156,7 @@ class Trial extends Component {
 
   playAudio(audioId) {
     console.log(audioId);
-    // document.getElementById(audioId).play();
+    document.getElementById(audioId).play();
   }
 
   onClickRange() {
@@ -169,7 +164,15 @@ class Trial extends Component {
   }
 
   onInput() {
+    document.getElementById("markTrialAudio").play();
     console.log("onInput");
+  }
+
+  onAudioEnded(elementId) {
+    if (elementId === "startTrialAudio" || elementId === "startTopTrialAudio") {
+      // allow subject to manipulate egg
+      this.setState({ trialReady: true });
+    }
   }
 
   render() {
@@ -220,10 +223,16 @@ class Trial extends Component {
 
     return (
       <div className="div-absolute">
-        <audio id="startTrialAudio">
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          id="startTrialAudio"
+        >
           <source src={startTrialAudio} type="audio/wav" />
         </audio>
-        <audio id="startTopTrialAudio">
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          id="startTopTrialAudio"
+        >
           <source src={startTopTrialAudio} type="audio/wav" />
         </audio>
         <div style={{ left: sliderLeft }} className="slider-container">

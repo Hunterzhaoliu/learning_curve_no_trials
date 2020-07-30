@@ -21,19 +21,14 @@ class Experiment extends Component {
       case "instruction":
         return <Instruction />;
       case "trial":
-        const { condition, trial, treeChoice } = this.props;
+        const { condition, trial } = this.props;
         let eggFallPercentage;
         if (condition === 1) {
           eggFallPercentage = 80;
         } else if (condition === 2) {
           eggFallPercentage = trial * 20;
         }
-        return (
-          <Trial
-            eggFallPercentage={eggFallPercentage}
-            treeChoice={treeChoice}
-          />
-        );
+        return <Trial eggFallPercentage={eggFallPercentage} treeChoice={""} />;
       case "summary":
         // subject finished experiment, need to go over results, ask for desired
         // tree, and ask tree choice reasoning

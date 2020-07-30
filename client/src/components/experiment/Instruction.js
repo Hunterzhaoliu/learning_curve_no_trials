@@ -27,26 +27,26 @@ class Instruction extends Component {
 
   componentDidMount() {
     document.getElementById("instructionAudio").play();
+  }
 
-    // show egg falling off platform
-    setTimeout(() => {
+  onAudioEnded = () => {
+    // only for instructionAudio
+    this.props.advancePhase("trial");
+  };
+
+  onTimeUpdate(currentTime) {
+    // only for instructionAudio
+    if (currentTime > 13.5) {
+      document.getElementById("hand").style.display = "none";
+    } else if (currentTime > 12) {
+      // point to the right tree
+      document.getElementById("hand").style.display = "block";
+    } else if (currentTime > 8) {
+      // show egg falling off platform
       this.setState({
         eggAnimation: "fall 2.0s ease-in 1 backwards"
       });
-    }, 8000);
-
-    // point to the right tree
-    setTimeout(() => {
-      document.getElementById("hand").style.display = "block";
-
-      setTimeout(() => {
-        document.getElementById("hand").style.display = "none";
-      }, 1500);
-    }, 12000);
-
-    setTimeout(() => {
-      this.props.advancePhase("trial");
-    }, 23000);
+    }
   }
 
   render() {
@@ -67,7 +67,11 @@ class Instruction extends Component {
     return (
       <div className="div-absolute">
         <img className="img-hand img-hand-right" src={hand} id="hand" alt="" />
-        <audio id="instructionAudio">
+        <audio
+          onEnded={this.onAudioEnded}
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="instructionAudio"
+        >
           <source src={instructionAudio} type="audio/mpeg" />
         </audio>
         <div

@@ -22,20 +22,9 @@ class Introduction extends Component {
     };
   }
 
-  displayButtons() {
-    setTimeout(function() {
-      // first number is which introductionStep and second is within introductionStep
-      document.getElementById("buttonIntroduction00").style.display =
-        "inline-block";
-      document.getElementById("buttonIntroduction01").style.display =
-        "inline-block";
-    }, 4000);
-  }
-
   componentDidMount() {
     document.getElementById("line1").play();
     console.log("line1");
-    this.displayButtons();
   }
 
   onClickYes = () => {
@@ -43,20 +32,6 @@ class Introduction extends Component {
     this.setState({ introductionStep: 1 });
     document.getElementById("line2_3").play();
     console.log("line2_3");
-
-    setTimeout(function() {
-      document.getElementById("buttonPress").style.display = "inline-block";
-    }, 5000);
-    setTimeout(function() {
-      document.getElementById("child").style.display = "inline-block";
-    }, 9000);
-    setTimeout(function() {
-      document.getElementById("handsOnLap").style.display = "inline-block";
-    }, 20000);
-    setTimeout(function() {
-      document.getElementById("buttonIntroduction10").style.display =
-        "inline-block";
-    }, 23000);
   };
 
   onClickReady() {
@@ -72,22 +47,28 @@ class Introduction extends Component {
     document.getElementById("buttonIntroduction01").style.display = "none";
     document.getElementById("getParentAudio").play();
     console.log("getParentAudio");
-
-    setTimeout(() => {
-      this.displayButtons();
-    }, 5000);
   };
 
-  onVideoEnd = () => {
+  onVideoEnded = () => {
     this.props.advancePhase("practice");
   };
+
+  onAudioEnded(elementId) {
+    if (elementId === "line1" || elementId === "getParentAudio") {
+      // first number is which introductionStep and second is within introductionStep
+      document.getElementById("buttonIntroduction00").style.display =
+        "inline-block";
+      document.getElementById("buttonIntroduction01").style.display =
+        "inline-block";
+    }
+  }
 
   renderIntroduction() {
     switch (this.state.introductionStep) {
       case 0:
         return (
           <div className="div-absolute">
-            <audio id="line1">
+            <audio onEnded={e => this.onAudioEnded(e.target.id)} id="line1">
               <source src={line1} type="audio/wav" />
             </audio>
             <img className="img-background" src={parentChild} alt="" />
@@ -107,7 +88,10 @@ class Introduction extends Component {
                 No
               </button>
             </div>
-            <audio id="getParentAudio">
+            <audio
+              onEnded={e => this.onAudioEnded(e.target.id)}
+              id="getParentAudio"
+            >
               <source src={getParentAudio} type="audio/mp3" />
             </audio>
           </div>
@@ -118,7 +102,7 @@ class Introduction extends Component {
             <video
               id="introductionVideo"
               className="video-introduction"
-              onEnded={this.onVideoEnd}
+              onEnded={this.onVideoEnded}
             >
               <source src={introductionVideo} type="video/mp4" />
             </video>
@@ -157,10 +141,27 @@ class Introduction extends Component {
     }
   }
 
+  onTimeUpdate(currentTime) {
+    // only for line2_3
+    if (currentTime > 23) {
+      document.getElementById("buttonIntroduction10").style.display =
+        "inline-block";
+    } else if (currentTime > 20) {
+      document.getElementById("handsOnLap").style.display = "inline-block";
+    } else if (currentTime > 12) {
+      document.getElementById("child").style.display = "inline-block";
+    } else if (currentTime > 6) {
+      document.getElementById("buttonPress").style.display = "inline-block";
+    }
+  }
+
   render() {
     return (
       <div className="div-absolute">
-        <audio id="line2_3">
+        <audio
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="line2_3"
+        >
           <source src={line2_3} type="audio/wav" />
         </audio>
         {this.renderIntroduction()}
