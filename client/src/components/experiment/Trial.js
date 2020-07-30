@@ -29,9 +29,9 @@ class Trial extends Component {
     this.state = {
       eggHeight: 0,
       eggAnimation: "none",
-      eggFalling: false,
-      eggFell: false,
       hasGuessed: false,
+      trialReady: false,
+      eggFalling: false,
       showCongratulations: false
     };
   }
@@ -86,7 +86,6 @@ class Trial extends Component {
             eggHeight: 0,
             eggAnimation: "none",
             eggFalling: false,
-            eggFell: false,
             hasGuessed: false,
             showCongratulations: false
           });
@@ -137,6 +136,11 @@ class Trial extends Component {
         document.getElementById("startTopTrialAudio").play();
         console.log("startTopTrialAudio");
       }
+
+      setTimeout(() => {
+        // allow subject to manipulate egg
+        this.setState({ trialReady: true });
+      }, 7000);
     }
   }
 
@@ -201,9 +205,8 @@ class Trial extends Component {
     const eggLeft = "calc(50% - " + String(EGG_WIDTH / 2) + "px)";
 
     const isEggSliderDisabled =
-      !this.state.hasGuessed ||
+      !this.state.trialReady ||
       this.state.eggFalling ||
-      this.state.eggFell ||
       this.state.showCongratulations;
 
     return (
