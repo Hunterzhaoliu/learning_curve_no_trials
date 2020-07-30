@@ -59,13 +59,12 @@ class Trial extends Component {
     }
   }
 
-  onChange = e => {
-    console.log("e.target.value = ", e.target.value);
+  onInput(newEggHeight) {
+    // console.log("newEggHeight = ", newEggHeight);
     if (this.state.eggAnimation === "none") {
       this.setState({ eggAnimation: "shake 0.5s infinite" });
     }
 
-    const newEggHeight = e.target.value;
     this.setState({ eggHeight: newEggHeight });
 
     if (!this.state.eggFalling && newEggHeight > this.props.eggFallPercentage) {
@@ -77,8 +76,8 @@ class Trial extends Component {
       });
 
       if (trial < 4) {
-        // simulate button press or else it won't play the audio
-        document.getElementById("markTrialAudioButton").click();
+        document.getElementById("markTrialAudio").play();
+        console.log("markTrialAudio");
 
         setTimeout(() => {
           // need to remove the egg or else it will make the page longer
@@ -102,14 +101,11 @@ class Trial extends Component {
           });
         }, 8000);
       } else {
-        // need to simuate click to play the audio
-        document.getElementById("markFinalTrialAudioButton").click();
+        document.getElementById("markFinalTrialAudio").play();
+        console.log("markFinalTrialAudio");
 
         // let the markFinalTrialAudio finish
         setTimeout(() => {
-          // the button is in Trial.js and the audio element is in Experiment
-          document.getElementById("summaryAudioButton").click();
-
           this.props.advancePhase("summary");
         }, 8000);
       }
@@ -131,14 +127,20 @@ class Trial extends Component {
         showCongratulations: true
       });
     }
-  };
-
-  onChangeEnd = () => {
+  }
+  onInputEnd = () => {
     // when the egg begins to fall, already changed to falling animation
     if (this.state.eggAnimation === "shake 0.5s infinite") {
       this.setState({ eggAnimation: "none" });
     }
   };
+
+  onAudioEnded(elementId) {
+    if (elementId === "startTrialAudio" || elementId === "startTopTrialAudio") {
+      // allow subject to manipulate egg
+      this.setState({ trialReady: true });
+    }
+  }
 
   renderGuess() {
     // don't need the Guess component for last trial when subject is
@@ -151,27 +153,6 @@ class Trial extends Component {
   renderCongratulations() {
     if (this.state.showCongratulations) {
       return <Congratulations />;
-    }
-  }
-
-  playAudio(audioId) {
-    console.log(audioId);
-    document.getElementById(audioId).play();
-  }
-
-  onClickRange() {
-    console.log("onClickRange");
-  }
-
-  onInput() {
-    document.getElementById("markTrialAudio").play();
-    console.log("onInput");
-  }
-
-  onAudioEnded(elementId) {
-    if (elementId === "startTrialAudio" || elementId === "startTopTrialAudio") {
-      // allow subject to manipulate egg
-      this.setState({ trialReady: true });
     }
   }
 
@@ -237,17 +218,15 @@ class Trial extends Component {
         </audio>
         <div style={{ left: sliderLeft }} className="slider-container">
           <input
-            onChange={this.onChange}
-            onClick={this.onClickRange}
-            onInput={this.onInput}
+            onInput={e => this.onInput(e.target.value)}
             type="range"
             min="0"
             max="100"
             value={this.state.eggHeight}
             className="slider"
             id="eggHeight"
-            onMouseUp={this.onChangeEnd}
-            onTouchEnd={this.onChangeEnd}
+            onMouseUp={this.onInputEnd}
+            onTouchEnd={this.onInputEnd}
             disabled={isEggSliderDisabled}
           />
           <img
@@ -267,21 +246,6 @@ class Trial extends Component {
             id="egg"
             src={egg}
             alt=""
-          />
-          <button
-            onClick={() => this.playAudio("markTrialAudio")}
-            id="markTrialAudioButton"
-            className="button-audio"
-          />
-          <button
-            onClick={() => this.playAudio("markFinalTrialAudio")}
-            id="markFinalTrialAudioButton"
-            className="button-audio"
-          />
-          <button
-            onClick={() => this.playAudio("summaryAudio")}
-            id="summaryAudioButton"
-            className="button-audio"
           />
           <Markers />
           {this.renderGuess()}

@@ -8,7 +8,7 @@ import Summary from "./Summary";
 import background from "../../images/background.png";
 import "./experiment.css";
 
-import summaryAudio from "../../audio/line13_14.mp3";
+// import summaryAudio from "../../audio/line13_14.mp3";
 
 class Experiment extends Component {
   renderExperiment() {
@@ -46,9 +46,6 @@ class Experiment extends Component {
     return (
       <div>
         <img className="img-background" src={background} alt="" />
-        <audio id="summaryAudio">
-          <source src={summaryAudio} type="audio/mpeg" />
-        </audio>
         {this.renderExperiment()}
       </div>
     );
