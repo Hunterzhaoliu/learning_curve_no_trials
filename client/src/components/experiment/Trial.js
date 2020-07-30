@@ -87,6 +87,11 @@ class Trial extends Component {
         document.getElementById("markFinalTrialAudio").play();
         console.log("markFinalTrialAudio");
       }
+
+      setTimeout(() => {
+        // this increases the trial count and adds the marker
+        this.props.completedTrial();
+      }, 7000);
     }
 
     const { treeChoice } = this.props;
@@ -273,6 +278,9 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
+    completedTrial: () => {
+      experimentDispatchers.completedTrial();
+    },
     advancePhase: nextPhase => {
       experimentDispatchers.advancePhase(nextPhase);
     }

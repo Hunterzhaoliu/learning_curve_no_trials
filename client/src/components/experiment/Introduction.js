@@ -143,6 +143,7 @@ class Introduction extends Component {
 
   onTimeUpdate(currentTime) {
     // only for line2_3
+    console.log("currentTime = ", currentTime);
     if (currentTime > 23) {
       document.getElementById("buttonIntroduction10").style.display =
         "inline-block";
@@ -151,6 +152,7 @@ class Introduction extends Component {
     } else if (currentTime > 12) {
       document.getElementById("child").style.display = "inline-block";
     } else if (currentTime > 6) {
+      console.log("displayingButtonPressImage");
       document.getElementById("buttonPress").style.display = "inline-block";
     }
   }
