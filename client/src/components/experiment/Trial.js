@@ -83,37 +83,10 @@ class Trial extends Component {
           // need to remove the egg or else it will make the page longer
           document.getElementById("egg").style.display = "none";
         }, 2000);
-
-        // reset trial to begin again
-        setTimeout(() => {
-          // reset the egg
-          document.getElementById("egg").style.display = "block";
-          document.getElementById("egg").style.animation = "none";
-
-          // reset state
-          this.setState({
-            eggHeight: 0,
-            eggAnimation: "none",
-            hasGuessed: false,
-            trialReady: false,
-            eggFalling: false,
-            showCongratulations: false
-          });
-        }, 8000);
       } else {
         document.getElementById("markFinalTrialAudio").play();
         console.log("markFinalTrialAudio");
-
-        // let the markFinalTrialAudio finish
-        setTimeout(() => {
-          this.props.advancePhase("summary");
-        }, 8000);
       }
-
-      setTimeout(() => {
-        // this increases the trial count and adds the marker
-        this.props.completedTrial();
-      }, 7000);
     }
 
     const { treeChoice } = this.props;
@@ -135,11 +108,36 @@ class Trial extends Component {
     }
   };
 
-  onAudioEnded(elementId) {
+  onAudioEnded = elementId => {
     if (elementId === "startTrialAudio" || elementId === "startTopTrialAudio") {
       // allow subject to manipulate egg
       this.setState({ trialReady: true });
+    } else if (elementId === "markTrialAudio") {
+      // reset trial to begin again
+      // reset the egg
+      document.getElementById("egg").style.display = "block";
+      document.getElementById("egg").style.animation = "none";
+
+      // reset state
+      this.setState({
+        eggHeight: 0,
+        eggAnimation: "none",
+        hasGuessed: false,
+        trialReady: false,
+        eggFalling: false,
+        showCongratulations: false
+      });
+    } else if (elementId === "markFinalTrialAudio") {
+      // the button is in Trial.js and the audio element is in Experiment
+      document.getElementById("summaryAudioButton").click();
+      this.props.advancePhase("summary");
     }
+  };
+
+  playAudio() {
+    // only being used to simulate summaryAudioButton click for now
+    document.getElementById("summaryAudio").play();
+    console.log("summaryAudio");
   }
 
   renderGuess() {
@@ -247,8 +245,13 @@ class Trial extends Component {
             src={egg}
             alt=""
           />
-          <Markers />
+          <Markers onAudioEnded={this.onAudioEnded} />
           {this.renderGuess()}
+          <button
+            onClick={this.playAudio}
+            id="summaryAudioButton"
+            className="button-audio"
+          />
         </div>
         {this.renderCongratulations()}
       </div>
@@ -270,9 +273,6 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    completedTrial: () => {
-      experimentDispatchers.completedTrial();
-    },
     advancePhase: nextPhase => {
       experimentDispatchers.advancePhase(nextPhase);
     }

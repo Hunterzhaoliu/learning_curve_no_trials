@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import * as experimentActionCreators from "../../actions/experiment";
-// import { bindActionCreators } from "redux";
+import * as experimentActionCreators from "../../actions/experiment";
+import { bindActionCreators } from "redux";
 import "./markers.css";
 import markTrialAudio from "../../audio/line11_12.mp3";
 import markFinalTrialAudio from "../../audio/line11.wav";
@@ -11,6 +11,13 @@ import three from "../../images/numbers/three.png";
 import four from "../../images/numbers/four.png";
 
 class Markers extends Component {
+  onTimeUpdate(currentTime) {
+    // only to increase trial count which also adds marker
+    if (currentTime > 7) {
+      this.props.completedTrial();
+    }
+  }
+
   renderMarkers = () => {
     const { condition, trial } = this.props;
 
@@ -63,10 +70,18 @@ class Markers extends Component {
   render() {
     return (
       <div>
-        <audio id="markTrialAudio">
+        <audio
+          onEnded={e => this.props.onAudioEnded(e.target.id)}
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="markTrialAudio"
+        >
           <source src={markTrialAudio} type="audio/mpeg" />
         </audio>
-        <audio id="markFinalTrialAudio">
+        <audio
+          onEnded={e => this.props.onAudioEnded(e.target.id)}
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="markFinalTrialAudio"
+        >
           <source src={markFinalTrialAudio} type="audio/wav" />
         </audio>
         {this.renderMarkers()}
@@ -82,20 +97,20 @@ function mapStateToProps(state) {
   };
 }
 
-// function mapDispatchToProps(dispatch) {
-//   const experimentDispatchers = bindActionCreators(
-//     experimentActionCreators,
-//     dispatch
-//   );
-//
-//   return {
-//     completedTrial: userCode => {
-//       experimentDispatchers.completedTrial(userCode);
-//     }
-//   };
-// }
+function mapDispatchToProps(dispatch) {
+  const experimentDispatchers = bindActionCreators(
+    experimentActionCreators,
+    dispatch
+  );
+
+  return {
+    completedTrial: userCode => {
+      experimentDispatchers.completedTrial(userCode);
+    }
+  };
+}
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Markers);
