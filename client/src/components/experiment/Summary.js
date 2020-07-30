@@ -21,54 +21,10 @@ class Summary extends Component {
   constructor() {
     super();
     this.state = {
+      leftButton: Math.random(), // < .5 means same goes on left
       treeChoice: "",
-      leftButton: Math.random() // < .5 means same goes on left
+      reflection: ""
     };
-  }
-
-  componentDidMount() {
-    const markerHighlightDelay = [5000, 9000, 12500, 16000];
-    // highlight the first marker so the for loop can remove the previous
-    // marker's highlight in the same iteration
-    setTimeout(function() {
-      document.getElementById("marker0").style.border = "3px solid yellow";
-    }, markerHighlightDelay[0]);
-    for (let i = 1; i < 4; i++) {
-      // need to highlight each marker as the audio walks through them and
-      // unhighlight the previous marker
-      setTimeout(function() {
-        document.getElementById("marker" + String(i - 1)).style.border = "none";
-        document.getElementById("marker" + String(i)).style.border =
-          "3px solid yellow";
-      }, markerHighlightDelay[i]);
-    }
-
-    // display the right pointing hand
-    setTimeout(function() {
-      // unhighlight the last marker
-      document.getElementById("marker3").style.border = "none";
-
-      document.getElementById("handRight").style.display = "block";
-    }, 21000);
-
-    // display the left pointing hand
-    setTimeout(function() {
-      // remove the right pointing hand
-      document.getElementById("handRight").style.display = "none";
-
-      document.getElementById("handLeft").style.display = "block";
-
-      // remove the left pointing hand
-      setTimeout(function() {
-        document.getElementById("handLeft").style.display = "none";
-      }, 2000);
-    }, 23000);
-
-    setTimeout(function() {
-      // display both tree buttons
-      document.getElementById("buttonLeftTree").style.display = "block";
-      document.getElementById("buttonRightTree").style.display = "block";
-    }, 26000);
   }
 
   onClickTree = e => {
@@ -82,15 +38,11 @@ class Summary extends Component {
       document.getElementById("questionBetterAudio").play();
       console.log("questionBetterAudio");
     }
-
-    // display both reflection buttons
-    setTimeout(function() {
-      document.getElementById("buttonBetter").style.display = "block";
-      document.getElementById("buttonSame").style.display = "block";
-    }, 7000);
   };
 
   onClickReflection = e => {
+    this.setState({ reflection: e.target.value });
+
     // remove buttons
     document.getElementById("buttonBetter").style.display = "none";
     document.getElementById("buttonSame").style.display = "none";
@@ -98,26 +50,34 @@ class Summary extends Component {
     // ensure success
     document.getElementById("goTopAudio").play();
     console.log("goTopAudio");
+  };
 
-    // display both reflection buttons
-    setTimeout(() => {
+  onAudioEnded(audioId) {
+    if (audioId === "questionSameAudio" || audioId === "questionBetterAudio") {
+      // display both reflection buttons
+      document.getElementById("buttonBetter").style.display = "block";
+      document.getElementById("buttonSame").style.display = "block";
+    } else if (audioId === "goTopAudio") {
+      const data = {
+        dBID: this.props.dBID,
+        guesses: this.props.guesses,
+        treeChoice: this.state.treeChoice,
+        reflection: this.state.reflection
+      };
+
+      this.props.saveData(data);
+    }
+  }
+
+  onTimeUpdate(currentTime) {
+    if (currentTime > 2.5) {
       if (this.state.treeChoice === "left") {
         document.getElementById("handLeft").style.display = "block";
       } else {
         document.getElementById("handRight").style.display = "block";
       }
-    }, 3000);
-    const data = {
-      dBID: this.props.dBID,
-      guesses: this.props.guesses,
-      treeChoice: this.state.treeChoice,
-      reflection: e.target.value
-    };
-
-    setTimeout(() => {
-      this.props.saveData(data);
-    }, 4000);
-  };
+    }
+  }
 
   render() {
     const ladderHeightPercent =
@@ -192,13 +152,23 @@ class Summary extends Component {
         >
           Same
         </button>
-        <audio id="questionSameAudio">
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          id="questionSameAudio"
+        >
           <source src={questionSameAudio} type="audio/wav" />
         </audio>
-        <audio id="questionBetterAudio">
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          id="questionBetterAudio"
+        >
           <source src={questionBetterAudio} type="audio/wav" />
         </audio>
-        <audio id="goTopAudio">
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="goTopAudio"
+        >
           <source src={goTopAudio} type="audio/wav" />
         </audio>
       </div>

@@ -42,71 +42,52 @@ class Experiment extends Component {
     }
   }
 
-  // onSummaryAudioTimeUpdate() {
-  //   console.log("onSummaryAudioTimeUpdate");
-  //   const markerHighlightDelay = [5000, 9000, 12500, 16000];
-  //   // highlight the first marker so the for loop can remove the previous
-  //   // marker's highlight in the same iteration
-  //   setTimeout(function() {
-  //     document.getElementById("marker0").style.border = "3px solid yellow";
-  //   }, markerHighlightDelay[0]);
-  //   for (let i = 1; i < 4; i++) {
-  //     // need to highlight each marker as the audio walks through them and
-  //     // unhighlight the previous marker
-  //     setTimeout(function() {
-  //       document.getElementById("marker" + String(i - 1)).style.border = "none";
-  //       document.getElementById("marker" + String(i)).style.border =
-  //         "3px solid yellow";
-  //     }, markerHighlightDelay[i]);
-  //   }
-  //
-  //   // display the right pointing hand
-  //   setTimeout(function() {
-  //     // unhighlight the last marker
-  //     document.getElementById("marker3").style.border = "none";
-  //
-  //     document.getElementById("handRight").style.display = "block";
-  //   }, 21000);
-  //
-  //   // display the left pointing hand
-  //   setTimeout(function() {
-  //     // remove the right pointing hand
-  //     document.getElementById("handRight").style.display = "none";
-  //
-  //     document.getElementById("handLeft").style.display = "block";
-  //
-  //     // remove the left pointing hand
-  //     setTimeout(function() {
-  //       document.getElementById("handLeft").style.display = "none";
-  //     }, 2000);
-  //   }, 23000);
-  //
-  //   setTimeout(function() {
-  //     // display both tree buttons
-  //     document.getElementById("buttonLeftTree").style.display = "block";
-  //     document.getElementById("buttonRightTree").style.display = "block";
-  //   }, 26000);
-  //
-  //   // if (currentTime > 23) {
-  //   //   document.getElementById("buttonIntroduction10").style.display =
-  //   //     "inline-block";
-  //   // } else if (currentTime > 20) {
-  //   //   document.getElementById("handsOnLap").style.display = "inline-block";
-  //   // } else if (currentTime > 12) {
-  //   //   document.getElementById("child").style.display = "inline-block";
-  //   // } else if (currentTime > 6) {
-  //   //   document.getElementById("buttonPress").style.display = "inline-block";
-  //   // }
-  // }
+  onAudioEnded() {
+    // Only for summmaryAudio; display both tree buttons
+    document.getElementById("buttonLeftTree").style.display = "block";
+    document.getElementById("buttonRightTree").style.display = "block";
+  }
+
+  onTimeUpdate(currentTime) {
+    if (currentTime > 25) {
+      // remove the left pointing hand
+      document.getElementById("handLeft").style.display = "none";
+    } else if (currentTime > 23) {
+      // remove the right pointing hand
+      document.getElementById("handRight").style.display = "none";
+      // display the left pointing hand
+      document.getElementById("handLeft").style.display = "block";
+      ("3px solid yellow");
+    } else if (currentTime > 21) {
+      // unhighlight the last marker
+      document.getElementById("marker3").style.border = "none";
+      // display the right pointing hand
+      document.getElementById("handRight").style.display = "block";
+    } else if (currentTime > 15) {
+      document.getElementById("marker2").style.border = "none";
+      document.getElementById("marker3").style.border = "3px solid yellow";
+    } else if (currentTime > 12) {
+      document.getElementById("marker1").style.border = "none";
+      document.getElementById("marker2").style.border = "3px solid yellow";
+    } else if (currentTime > 8) {
+      // need to highlight each marker as the audio walks through them and
+      // unhighlight the previous marker
+      document.getElementById("marker0").style.border = "none";
+      document.getElementById("marker1").style.border = "3px solid yellow";
+    } else if (currentTime > 5) {
+      document.getElementById("marker0").style.border = "3px solid yellow";
+    }
+  }
 
   render() {
-    // onTimeUpdate={e =>
-    //   this.onSummaryAudioTimeUpdate(e.target.currentTime)
-    // }
     return (
       <div>
         <img className="img-background" src={background} alt="" />
-        <audio id="summaryAudio">
+        <audio
+          onEnded={this.onAudioEnded}
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="summaryAudio"
+        >
           <source src={summaryAudio} type="audio/mpeg" />
         </audio>
         {this.renderExperiment()}
