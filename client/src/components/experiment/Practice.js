@@ -21,7 +21,7 @@ class Practice extends Component {
 
   onAudioEnded() {
     // only for line 4
-    setTimeout(() => {
+    setTimeout(function() {
       // add a little time after the audio before displaying button
       document.getElementById("buttonPractice").style.display = "inline-block";
     }, 2000);

@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import * as experimentActionCreators from "../../actions/experiment";
+import { bindActionCreators } from "redux";
 import point from "../../images/point.png";
 import "./congratulations.css";
 
-import congratulationsAudio from "../../audio/congratulations.wav";
-
 class Congratulations extends Component {
   componentDidMount() {
-    document.getElementById("congratulationsAudio").play();
-    console.log("congratulationsAudio");
+    setTimeout(() => {
+      // ask final interference question and show credits
+      this.props.advancePhase("conclusion");
+    }, 3000);
   }
 
   render() {
@@ -28,15 +30,25 @@ class Congratulations extends Component {
         <div className="confetti-piece" />
         <div className="confetti-piece" />
         <div className="confetti-piece" />
-        <audio id="congratulationsAudio">
-          <source src={congratulationsAudio} type="audio/wav" />
-        </audio>
       </div>
     );
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  const experimentDispatchers = bindActionCreators(
+    experimentActionCreators,
+    dispatch
+  );
+
+  return {
+    advancePhase: nextPhase => {
+      experimentDispatchers.advancePhase(nextPhase);
+    }
+  };
+}
+
 export default connect(
   null,
-  null
+  mapDispatchToProps
 )(Congratulations);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import "./credit.css";
+// import "./conclusion.css";
 
 class Conclusion extends Component {
   render() {

@@ -26,7 +26,6 @@
 .confetti-piece:nth-child(1) {
   left: 7%;
   transform: rotate(-20deg);
-  animation-delay: 1100ms;
   animation-duration: 1500ms;
 }
 
@@ -47,7 +46,6 @@
 .confetti-piece:nth-child(4) {
   left: 28%;
   transform: rotate(10deg);
-  animation-delay: 2000ms;
   animation-duration: 3000ms;
 }
 
@@ -68,7 +66,6 @@
 .confetti-piece:nth-child(7) {
   left: 49%;
   transform: rotate(70deg);
-  animation-delay: 1900ms;
   animation-duration: 1900ms;
 }
 

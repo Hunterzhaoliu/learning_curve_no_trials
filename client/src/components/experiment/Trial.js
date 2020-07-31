@@ -12,6 +12,7 @@ import egg from "../../images/egg.png";
 
 import startTrialAudio from "../../audio/line9.wav";
 import startTopTrialAudio from "../../audio/line10.wav";
+import congratulationsAudio from "../../audio/congratulations.wav";
 
 import {
   SCREEN_TO_LADDER_BOTTOM_PERCENT,
@@ -103,6 +104,8 @@ class Trial extends Component {
       ((treeChoice === "left" && this.state.eggHeight > 50) ||
         (treeChoice === "right" && this.state.eggHeight > 95))
     ) {
+      document.getElementById("congratulationsAudio").play();
+      console.log("congratulationsAudio");
       // child successfully brought egg up tree
       this.setState({
         showCongratulations: true
@@ -262,6 +265,12 @@ class Trial extends Component {
         </div>
         {this.renderGuess()}
         {this.renderCongratulations()}
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          id="congratulationsAudio"
+        >
+          <source src={congratulationsAudio} type="audio/wav" />
+        </audio>
       </div>
     );
   }
