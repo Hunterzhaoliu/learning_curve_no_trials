@@ -5,8 +5,10 @@ import Practice from "./Practice";
 import Instruction from "./Instruction";
 import Trial from "./Trial";
 import Summary from "./Summary";
-import background from "../../images/background.png";
+import Conclusion from "./Conclusion";
 import "./experiment.css";
+
+import background from "../../images/background.png";
 
 import summaryAudio from "../../audio/line13_14.mp3";
 
@@ -33,10 +35,12 @@ class Experiment extends Component {
         // subject finished experiment, need to go over results, ask for desired
         // tree, and ask tree choice reasoning
         return <Summary />;
-      case "conclusion":
+      case "success":
         return (
           <Trial eggFallPercentage={110} treeChoice={this.props.treeChoice} />
         );
+      case "conclusion":
+        return <Conclusion />;
       default:
         return <Introduction />;
     }
@@ -57,7 +61,6 @@ class Experiment extends Component {
       document.getElementById("handRight").style.display = "none";
       // display the left pointing hand
       document.getElementById("handLeft").style.display = "block";
-      ("3px solid yellow");
     } else if (currentTime > 21) {
       // unhighlight the last marker
       document.getElementById("marker3").style.border = "none";

@@ -6,7 +6,7 @@ import "./trial.css";
 import "./guess.css";
 
 import confirmGuessAudio from "../../audio/line8.wav";
-import guessAgainAudio from "../../audio/line12_cut.wav";
+import guessAgainAudio from "../../audio/line12.wav";
 
 import star from "../../images/star.png";
 

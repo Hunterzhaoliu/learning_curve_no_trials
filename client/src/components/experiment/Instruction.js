@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
+import "./instruction.css";
+import "./trial.css";
+
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
 import hand from "../../images/hand.png";
+
 import instructionAudio from "../../audio/line5_6_7.mp3";
-import "./instruction.css";
-import "./trial.css";
 
 import {
   SCREEN_TO_LADDER_BOTTOM_PERCENT,
@@ -36,7 +38,9 @@ class Instruction extends Component {
 
   onTimeUpdate(currentTime) {
     // only for instructionAudio
-    if (currentTime > 13.5) {
+    if (currentTime > 19) {
+      document.getElementById("hand").style.display = "block";
+    } else if (currentTime > 13.5) {
       document.getElementById("hand").style.display = "none";
     } else if (currentTime > 12) {
       // point to the right tree

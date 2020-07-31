@@ -70,7 +70,10 @@ class Trial extends Component {
     if (!this.state.eggFalling && newEggHeight > this.props.eggFallPercentage) {
       const { trial } = this.props;
       // egg needs to fall
+      // if input is moved too quickly, the platform can be significantly above
+      // the expected fall percentage, so ensure right above right place
       this.setState({
+        eggHeight: this.props.eggFallPercentage + 1,
         eggFalling: true,
         eggAnimation: "fall 2.0s ease-in 1 forwards"
       });

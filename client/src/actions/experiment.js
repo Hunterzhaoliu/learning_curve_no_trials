@@ -32,7 +32,7 @@ export const saveData = data => async dispatch => {
 
   dispatch({
     type: ADVANCE_PHASE,
-    nextPhase: "conclusion"
+    nextPhase: "success"
   });
 
   // const saveDataResponse = await axios.put("/api/save-data", data);
@@ -40,7 +40,7 @@ export const saveData = data => async dispatch => {
   // if (saveDataResponse.status === 200) {
   //   dispatch({
   //     type: ADVANCE_PHASE,
-  //     nextPhase: "conclusion"
+  //     nextPhase: "success"
   //   });
   // } else {
   //   console.log("Unable to Save Data");
