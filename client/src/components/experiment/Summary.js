@@ -6,6 +6,8 @@ import Markers from "./Markers";
 import "./summary.css";
 
 import hand from "../../images/hand.png";
+import same from "../../images/same.png";
+import better from "../../images/better.png";
 
 import questionSameAudio from "../../audio/line16_same_cut.wav";
 import questionBetterAudio from "../../audio/line16_better_cut.wav";
@@ -21,7 +23,7 @@ class Summary extends Component {
   constructor() {
     super();
     this.state = {
-      leftButton: Math.random(), // < .5 means same goes on left
+      topButton: Math.random(), // < .5 means same goes on top
       treeChoice: "",
       reflection: ""
     };
@@ -31,7 +33,7 @@ class Summary extends Component {
     this.setState({ treeChoice: e.target.value });
 
     // ask comprehension questions
-    if (this.state.leftButton < 0.5) {
+    if (this.state.topButton < 0.5) {
       document.getElementById("questionSameAudio").play();
       console.log("questionSameAudio");
     } else {
@@ -88,14 +90,14 @@ class Summary extends Component {
     const sliderLeft = "calc(50% + " + String(EGG_PLATFORM_WIDTH * 0.6) + "px)";
 
     // need to decide which reflection button display on left vs. right
-    let sameLeft;
-    let betterLeft;
-    if (this.state.leftButton < 0.5) {
-      betterLeft = "50%";
-      sameLeft = 0;
+    let sameTop;
+    let betterTop;
+    if (this.state.topButton < 0.5) {
+      betterTop = "50%";
+      sameTop = 0;
     } else {
-      betterLeft = 0;
-      sameLeft = "50%";
+      betterTop = 0;
+      sameTop = "50%";
     }
 
     return (
@@ -135,22 +137,24 @@ class Summary extends Component {
           id="buttonRightTree"
         />
         <button
-          value="better"
-          style={{ left: betterLeft }}
-          onClick={this.onClickReflection}
-          className="button-main button-reflection"
-          id="buttonBetter"
-        >
-          Better
-        </button>
-        <button
           value="same"
-          style={{ left: sameLeft }}
+          style={{ top: sameTop }}
           onClick={this.onClickReflection}
           className="button-main button-reflection"
           id="buttonSame"
         >
-          Same
+          <img className="img-plants" src={same} alt="" />
+          <h3 className="h3-reflection">Same</h3>
+        </button>
+        <button
+          value="better"
+          style={{ top: betterTop }}
+          onClick={this.onClickReflection}
+          className="button-main button-reflection"
+          id="buttonBetter"
+        >
+          <img className="img-plants" src={better} alt="" />
+          <h3 className="h3-reflection">Better</h3>
         </button>
         <audio
           onEnded={e => this.onAudioEnded(e.target.id)}

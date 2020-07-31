@@ -24,8 +24,30 @@
 
 .button-reflection {
   position: absolute;
-  height: 100vh !important;
-  width: 50vw;
-  top: 0;
+  height: 50vh !important;
+  width: 100vw;
+  left: 0;
   display: none;
+}
+
+.button-main:hover {
+  color: black !important;
+  background-color: white !important;
+}
+
+.button-main:focus {
+  color: black !important;
+  background-color: white !important;
+}
+
+.img-plants {
+  object-fit: cover;
+  width: 80vw;
+  position: relative;
+  left: 0;
+}
+
+.h3-reflection {
+  font-weight: bold;
+  padding-top: 15px;
 }
