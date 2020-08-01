@@ -11,7 +11,8 @@ const subjectSchema = new Schema(
     condition: { type: String, default: "increasing" },
     guesses: [Number],
     treeChoice: String,
-    reflection: String
+    reflection: String,
+    interference: String
   },
   {
     // allows for request.subject.save()

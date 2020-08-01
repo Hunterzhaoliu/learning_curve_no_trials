@@ -21,4 +21,20 @@ module.exports = app => {
       response.status(422).send(error);
     }
   });
+
+  app.put("/api/save-interference", async (request, response) => {
+    const data = request.body;
+    try {
+      await SubjectCollection.findOneAndUpdate(
+        { _id: "5efa5e151ffa2d276d1bc53b" },
+        {
+          interference: data.interferenceAnswer
+        },
+        { upsert: true }
+      );
+      response.send("successfully saved data");
+    } catch (error) {
+      response.status(422).send(error);
+    }
+  });
 };

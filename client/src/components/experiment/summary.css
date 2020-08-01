@@ -24,18 +24,20 @@
 
 .button-reflection {
   position: absolute;
-  height: 50vh !important;
+  height: 45vh !important;
   width: 100vw;
   left: 0;
-  display: none;
+  z-index: 2;
+  /* display: none; */
+  border-radius: 0px !important;
 }
 
-.button-main:hover {
+.button-reflection:hover {
   color: black !important;
   background-color: white !important;
 }
 
-.button-main:focus {
+.button-reflection:focus {
   color: black !important;
   background-color: white !important;
 }
@@ -49,5 +51,5 @@
 
 .h3-reflection {
   font-weight: bold;
-  padding-top: 15px;
+  padding-bottom: 15px;
 }

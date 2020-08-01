@@ -93,15 +93,15 @@ class Summary extends Component {
     let sameTop;
     let betterTop;
     if (this.state.topButton < 0.5) {
-      betterTop = "50%";
+      betterTop = "45%"; // same as height of the reflection buttons
       sameTop = 0;
     } else {
       betterTop = 0;
-      sameTop = "50%";
+      sameTop = "45%";
     }
 
     return (
-      <div>
+      <div className="div-absolute">
         <div
           style={{
             position: "absolute",
@@ -143,8 +143,8 @@ class Summary extends Component {
           className="button-main button-reflection"
           id="buttonSame"
         >
-          <img className="img-plants" src={same} alt="" />
           <h3 className="h3-reflection">Same</h3>
+          <img className="img-plants" src={same} alt="" />
         </button>
         <button
           value="better"
@@ -153,8 +153,8 @@ class Summary extends Component {
           className="button-main button-reflection"
           id="buttonBetter"
         >
-          <img className="img-plants" src={better} alt="" />
           <h3 className="h3-reflection">Better</h3>
+          <img className="img-plants" src={better} alt="" />
         </button>
         <audio
           onEnded={e => this.onAudioEnded(e.target.id)}
