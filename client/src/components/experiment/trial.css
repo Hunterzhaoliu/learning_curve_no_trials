@@ -66,6 +66,10 @@
   display: none;
 }
 
+.img-none {
+  display: none;
+}
+
 /* Animation details: https://www.w3schools.com/css/css3_animations.asp */
 @keyframes shake {
   0% {

@@ -1,6 +1,7 @@
 /* https://codepen.io/andyobrien/pen/WYrxMe */
 .confetti {
   overflow: hidden;
+  z-index: 6;
 }
 
 .img-point {
@@ -52,14 +53,14 @@
 .confetti-piece:nth-child(5) {
   left: 35%;
   transform: rotate(5deg);
-  animation-delay: 2500ms;
+  animation-delay: 200ms;
   animation-duration: 1600ms;
 }
 
 .confetti-piece:nth-child(6) {
   left: 42%;
   transform: rotate(30deg);
-  animation-delay: 2700ms;
+  animation-delay: 200ms;
   animation-duration: 1800ms;
 }
 
@@ -72,42 +73,42 @@
 .confetti-piece:nth-child(8) {
   left: 56%;
   transform: rotate(50deg);
-  animation-delay: 3000ms;
+  animation-delay: 1000ms;
   animation-duration: 2800ms;
 }
 
 .confetti-piece:nth-child(9) {
   left: 63%;
   transform: rotate(70deg);
-  animation-delay: 1900ms;
+  animation-delay: 700ms;
   animation-duration: 2100ms;
 }
 
 .confetti-piece:nth-child(10) {
   left: 70%;
   transform: rotate(30deg);
-  animation-delay: 2100ms;
+  animation-delay: 600ms;
   animation-duration: 1900ms;
 }
 
 .confetti-piece:nth-child(11) {
   left: 77%;
   transform: rotate(25deg);
-  animation-delay: 2300s;
-  animation-duration: 300ms;
+  animation-delay: 230ms;
+  animation-duration: 1300ms;
 }
 
 .confetti-piece:nth-child(12) {
   left: 84%;
   transform: rotate(80deg);
-  animation-delay: 2400ms;
+  animation-delay: 1600ms;
   animation-duration: 2100ms;
 }
 
 .confetti-piece:nth-child(13) {
   left: 91%;
   transform: rotate(-32deg);
-  animation-delay: 2700ms;
+  animation-delay: 2100ms;
   animation-duration: 1700ms;
 }
 

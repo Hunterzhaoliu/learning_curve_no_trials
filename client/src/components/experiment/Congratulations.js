@@ -14,6 +14,7 @@ class Congratulations extends Component {
   }
 
   render() {
+    console.log("display confetti");
     return (
       <div className="div-absolute confetti">
         <img className="img-point" src={point} alt="" />

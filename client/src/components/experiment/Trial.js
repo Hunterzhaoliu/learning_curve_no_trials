@@ -9,6 +9,8 @@ import "./trial.css";
 
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
+import background_egg_left from "../../images/background_egg_left.png";
+import background_egg_right from "../../images/background_egg_right.png";
 
 import startTrialAudio from "../../audio/line9.wav";
 import startTopTrialAudio from "../../audio/line10.wav";
@@ -108,7 +110,15 @@ class Trial extends Component {
     ) {
       document.getElementById("congratulationsAudio").play();
       console.log("congratulationsAudio");
-      // child successfully brought egg up tree
+
+      // child successfully brought egg up tree; need to show egg in nest
+      document.getElementById("egg").style.display = "none";
+      if (treeChoice === "left") {
+        document.getElementById("backgroundEggLeft").style.display = "block";
+      } else {
+        document.getElementById("backgroundEggRight").style.display = "block";
+      }
+
       this.setState({
         showCongratulations: true
       });
@@ -272,6 +282,18 @@ class Trial extends Component {
         >
           <source src={congratulationsAudio} type="audio/wav" />
         </audio>
+        <img
+          className="img-background img-none"
+          src={background_egg_left}
+          alt=""
+          id="backgroundEggLeft"
+        />
+        <img
+          className="img-background img-none"
+          src={background_egg_right}
+          alt=""
+          id="backgroundEggRight"
+        />
       </div>
     );
   }
