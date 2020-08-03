@@ -3,7 +3,7 @@ import {
   COMPLETED_TRIAL,
   SAVE_TREE_CHOICE,
   ADVANCE_PHASE,
-  SAVE_INTERFERENCE_ANSWER
+  SUCCESSFULLY_SAVED_CONCLUSION
 } from "./types";
 
 export const advancePhase = nextPhase => dispatch => {
@@ -48,30 +48,19 @@ export const saveData = data => async dispatch => {
   // }
 };
 
-export const saveInterferenceAnswer = (
-  dBID,
-  interferenceAnswer
-) => async dispatch => {
+export const saveConclusion = conclusionResponses => async dispatch => {
   dispatch({
-    type: SAVE_INTERFERENCE_ANSWER,
-    interferenceAnswer: interferenceAnswer
+    type: SUCCESSFULLY_SAVED_CONCLUSION
   });
-
-  // const interferenceData = {
-  //   dBID: dBID,
-  //   interferenceAnswer: interferenceAnswer
-  // };
-
-  // const saveInterferenceResponse = await axios.put(
-  //   "/api/save-interference",
-  //   interferenceData
+  // const saveConclusionResponse = await axios.put(
+  //   "/api/save-conclusion",
+  //   conclusionResponses
   // );
-  // if (saveInterferenceResponse.status === 200) {
+  // if (saveConclusionResponse.status === 200) {
   //   dispatch({
-  //     type: SAVE_INTERFERENCE_ANSWER,
-  //     interferenceAnswer: interferenceAnswer
+  //     type: SUCCESSFULLY_SAVED_CONCLUSION,
   //   });
   // } else {
-  //   console.log("Unable to Save Data");
+  //   console.log("Unable to save conclusion");
   // }
 };

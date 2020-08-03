@@ -12,7 +12,8 @@ const subjectSchema = new Schema(
     guesses: [Number],
     treeChoice: String,
     reflection: String,
-    interference: String
+    interference: String,
+    feedback: String
   },
   {
     // allows for request.subject.save()

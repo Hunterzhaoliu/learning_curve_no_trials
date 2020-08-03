@@ -22,13 +22,14 @@ module.exports = app => {
     }
   });
 
-  app.put("/api/save-interference", async (request, response) => {
+  app.put("/api/save-conclusion", async (request, response) => {
     const data = request.body;
     try {
       await SubjectCollection.findOneAndUpdate(
         { _id: "5efa5e151ffa2d276d1bc53b" },
         {
-          interference: data.interferenceAnswer
+          interference: data.interferenceAnswer,
+          feedback: data.feedback
         },
         { upsert: true }
       );

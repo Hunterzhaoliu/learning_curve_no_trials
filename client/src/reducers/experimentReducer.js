@@ -2,8 +2,7 @@ import {
   SAVE_GUESS,
   COMPLETED_TRIAL,
   SAVE_TREE_CHOICE,
-  ADVANCE_PHASE,
-  SAVE_INTERFERENCE_ANSWER
+  ADVANCE_PHASE
 } from "../actions/types";
 
 let cloneObject = object => {
@@ -11,11 +10,10 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  phase: "success",
+  phase: "conclusion",
   trial: 5,
   guesses: [10, 20, 30, 40],
-  treeChoice: "left",
-  interferenceAnswer: ""
+  treeChoice: "left"
 };
 
 export default function(state = initialState, action) {
@@ -32,9 +30,6 @@ export default function(state = initialState, action) {
       return newState;
     case SAVE_TREE_CHOICE:
       newState.treeChoice = action.treeChoice;
-      return newState;
-    case SAVE_INTERFERENCE_ANSWER:
-      newState.interferenceAnswer = action.interferenceAnswer;
       return newState;
     default:
       return state;

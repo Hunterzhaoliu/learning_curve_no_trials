@@ -7,7 +7,7 @@
   padding: 15px 30px 0px;
 }
 
-.h3-interference-question {
+.h3-conclusion-question {
   padding-top: 20%;
   padding-bottom: 15px;
 }
@@ -19,4 +19,18 @@
 .h2-thank-you {
   padding-top: 20%;
   padding-bottom: 30px;
+}
+
+.textarea-feedback {
+  font-size: 16px;
+  padding: 10px;
+  border-width: 2px;
+  border-radius: 4px;
+  width: 80%;
+  border-style: solid;
+  margin-bottom: 15px;
+}
+
+.textarea-feedback:focus {
+  outline: none;
 }

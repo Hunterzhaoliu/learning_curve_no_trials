@@ -2,19 +2,43 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
+// import InputField from "../input/InputField";
 import "./conclusion.css";
 
 class Conclusion extends Component {
+  constructor() {
+    super();
+    this.state = {
+      interferenceAnswer: "yes",
+      feedback: "",
+      requireFeedback: true
+    };
+  }
+
   onClick = e => {
-    this.props.saveInterferenceAnswer(this.props.dBID, e.target.value);
+    this.setState({ interferenceAnswer: e.target.value });
+  };
+
+  onChange = e => {
+    this.setState({ feedback: e.target.value });
+  };
+
+  onSubmit = () => {
+    const conclusionResponses = {
+      dBID: this.props.dBID,
+      interferenceAnswer: this.state.interferenceAnswer,
+      feedback: this.state.feedback
+    };
+    this.props.saveConclusion(conclusionResponses);
+    this.setState({ requireFeedback: false });
   };
 
   render() {
-    if (this.props.interferenceAnswer === "") {
+    if (this.state.interferenceAnswer === "") {
       // need to ask parent if they or another child interfered at any point
       return (
         <div className="div-absolute div-white">
-          <h3 className="h3-interference-question">
+          <h3 className="h3-conclusion-question">
             Parent: Did another child or adult interfere with the game?
           </h3>
           <button value="yes" onClick={this.onClick} className="button-main">
@@ -26,6 +50,23 @@ class Conclusion extends Component {
             className="button-main button-right"
           >
             No
+          </button>
+        </div>
+      );
+    } else if (this.state.requireFeedback) {
+      return (
+        <div className="div-absolute div-white">
+          <h3 className="h3-conclusion-question">
+            Anything else we should know?
+          </h3>
+          <textarea
+            className="textarea-feedback"
+            placeholder="Feedback:"
+            rows={5}
+            onChange={this.onChange}
+          />
+          <button onClick={this.onSubmit} className="button-main">
+            Submit
           </button>
         </div>
       );
@@ -114,8 +155,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    saveInterferenceAnswer: (dBID, interferenceAnswer) => {
-      experimentDispatchers.saveInterferenceAnswer(dBID, interferenceAnswer);
+    saveConclusion: conclusionResponses => {
+      experimentDispatchers.saveConclusion(conclusionResponses);
     }
   };
 }
