@@ -21,6 +21,11 @@ class Guess extends Component {
     };
   }
 
+  componentDidMount() {
+    // don't want to display egg while guessing
+    document.getElementById("egg").style.display = "none";
+  }
+
   onClick = e => {
     if (e.target.value === "yes") {
       // successfully made guess, need to save into redux state and move on

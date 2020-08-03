@@ -49,6 +49,8 @@ class Trial extends Component {
     const { guesses, trial } = this.props;
     if (!this.state.hasGuessed && trial === guesses.length) {
       this.setState({ hasGuessed: true });
+      // removed egg for guessing, bring it back
+      document.getElementById("egg").style.display = "block";
 
       if (guesses[trial - 1] < 95) {
         document.getElementById("startTrialAudio").play();
@@ -112,6 +114,7 @@ class Trial extends Component {
       });
     }
   }
+
   onInputEnd = () => {
     // when the egg begins to fall, already changed to falling animation
     if (this.state.eggAnimation === "shake 0.5s infinite") {
@@ -124,9 +127,7 @@ class Trial extends Component {
       // allow subject to manipulate egg
       this.setState({ trialReady: true });
     } else if (elementId === "markTrialAudio") {
-      // reset trial to begin again
-      // reset the egg
-      document.getElementById("egg").style.display = "block";
+      // reset trial to begin again; keep the egg gone for the guess
       document.getElementById("egg").style.animation = "none";
 
       // reset state
