@@ -9,9 +9,11 @@ import hand from "../../images/hand.png";
 import same from "../../images/same.png";
 import better from "../../images/better.png";
 
+import reaskTreeAudio from "../../audio/line14_cut.wav";
+import confirmTreeAudio from "../../audio/line15_2.wav";
 import questionSameAudio from "../../audio/line16_same_cut.wav";
 import questionBetterAudio from "../../audio/line16_better_cut.wav";
-import goTopAudio from "../../audio/line15.wav";
+import goTopAudio from "../../audio/line15_3.wav";
 
 import {
   SLIDER_TOP_PERCENT,
@@ -24,22 +26,54 @@ class Summary extends Component {
     super();
     this.state = {
       topButton: Math.random(), // < .5 means same goes on top
+      gavePotentialTreeChoice: false,
       treeChoice: "",
       reflection: ""
     };
   }
 
-  onClickTree = e => {
-    this.setState({ treeChoice: e.target.value });
+  onClickConfirmation = e => {
+    // remove confirmation buttons
+    this.setState({
+      gavePotentialTreeChoice: false
+    });
 
-    // ask comprehension questions
-    if (this.state.topButton < 0.5) {
-      document.getElementById("questionSameAudio").play();
-      console.log("questionSameAudio");
+    if (this.state.treeChoice === "left") {
+      document.getElementById("handLeft").style.display = "none";
     } else {
-      document.getElementById("questionBetterAudio").play();
-      console.log("questionBetterAudio");
+      document.getElementById("handRight").style.display = "none";
     }
+
+    if (e.target.value === "yes") {
+      // ask comprehension questions
+      if (this.state.topButton < 0.5) {
+        document.getElementById("questionSameAudio").play();
+        console.log("questionSameAudio");
+      } else {
+        document.getElementById("questionBetterAudio").play();
+        console.log("questionBetterAudio");
+      }
+    } else {
+      // reask which tree
+      document.getElementById("reaskTreeAudio").play();
+      console.log("reaskTreeAudio");
+    }
+  };
+
+  onClickTree = e => {
+    const chosenTree = e.target.value;
+    console.log("chosenTree = ", chosenTree);
+    this.setState({
+      gavePotentialTreeChoice: true,
+      treeChoice: chosenTree
+    });
+
+    document.getElementById("buttonLeftTree").style.display = "none";
+    document.getElementById("buttonRightTree").style.display = "none";
+
+    document.getElementById("confirmTreeAudio").play();
+    console.log("confirmTreeAudio");
+    // hand display is done in onTimeUpdate() function
   };
 
   onClickReflection = e => {
@@ -54,8 +88,42 @@ class Summary extends Component {
     console.log("goTopAudio");
   };
 
+  renderConfirmationButtons() {
+    if (this.state.gavePotentialTreeChoice) {
+      return (
+        <div>
+          <div id="treeConfirmationButtonDiv" className="div-confirmation">
+            <button
+              value="yes"
+              onClick={this.onClickConfirmation}
+              className="button-main"
+            >
+              Yes
+            </button>
+            <button
+              value="no"
+              onClick={this.onClickConfirmation}
+              className="button-main button-right"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      );
+    }
+  }
+
   onAudioEnded(audioId) {
-    if (audioId === "questionSameAudio" || audioId === "questionBetterAudio") {
+    if (audioId === "confirmTreeAudio") {
+      document.getElementById("treeConfirmationButtonDiv").style.display =
+        "block";
+    } else if (audioId === "reaskTreeAudio") {
+      document.getElementById("buttonLeftTree").style.display = "block";
+      document.getElementById("buttonRightTree").style.display = "block";
+    } else if (
+      audioId === "questionSameAudio" ||
+      audioId === "questionBetterAudio"
+    ) {
       // display both reflection buttons
       document.getElementById("buttonBetter").style.display = "block";
       document.getElementById("buttonSame").style.display = "block";
@@ -72,7 +140,7 @@ class Summary extends Component {
   }
 
   onTimeUpdate(currentTime) {
-    if (currentTime > 2.5) {
+    if (currentTime > 1) {
       if (this.state.treeChoice === "left") {
         document.getElementById("handLeft").style.display = "block";
       } else {
@@ -127,7 +195,7 @@ class Summary extends Component {
         <button
           value="left"
           onClick={this.onClickTree}
-          className="button-tree"
+          className="button-tree left-tree"
           id="buttonLeftTree"
         />
         <button
@@ -136,6 +204,20 @@ class Summary extends Component {
           className="button-tree right-tree"
           id="buttonRightTree"
         />
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="confirmTreeAudio"
+        >
+          <source src={confirmTreeAudio} type="audio/wav" />
+        </audio>
+        {this.renderConfirmationButtons()}
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          id="reaskTreeAudio"
+        >
+          <source src={reaskTreeAudio} type="audio/wav" />
+        </audio>
         <button
           value="same"
           style={{ top: sameTop }}

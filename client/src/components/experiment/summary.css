@@ -6,7 +6,11 @@
   width: 50vw;
   padding: 0;
   border: none;
-  display: none;
+  /* display: none; */
+}
+
+.left-tree {
+  left: 0;
 }
 
 .right-tree {
@@ -20,6 +24,17 @@
 .img-hand-left {
   left: 40%;
   transform: rotate(-90deg);
+}
+
+.div-confirmation {
+  position: relative;
+  padding-top: 50%;
+  z-index: 2;
+  display: none;
+}
+
+.button-right {
+  margin-left: 10px;
 }
 
 .button-reflection {

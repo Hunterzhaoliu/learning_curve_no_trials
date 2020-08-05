@@ -67,7 +67,6 @@ class Guess extends Component {
             value="yes"
             onClick={this.onClick}
             className="button-main button-confirm-guess"
-            id="yesButton"
           >
             Yes
           </button>
@@ -75,7 +74,6 @@ class Guess extends Component {
             value="no"
             onClick={this.onClick}
             className="button-main button-confirm-guess"
-            id="noButton"
           >
             No
           </button>

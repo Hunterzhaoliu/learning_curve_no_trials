@@ -9,7 +9,7 @@ class Conclusion extends Component {
   constructor() {
     super();
     this.state = {
-      interferenceAnswer: "yes",
+      interferenceAnswer: "",
       feedback: "",
       requireFeedback: true
     };
