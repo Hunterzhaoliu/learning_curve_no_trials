@@ -62,7 +62,6 @@ class Summary extends Component {
 
   onClickTree = e => {
     const chosenTree = e.target.value;
-    console.log("chosenTree = ", chosenTree);
     this.setState({
       gavePotentialTreeChoice: true,
       treeChoice: chosenTree

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
-// import InputField from "../input/InputField";
 import "./conclusion.css";
 
 class Conclusion extends Component {
@@ -118,6 +117,10 @@ class Conclusion extends Component {
             <br />
             <a href="https://www.freepik.com/vectors/tree">
               Tree vector created by freepik - www.freepik.com
+            </a>
+            <br />
+            <a href="https://www.freepik.com/vectors/background">
+              Background vector created by rawpixel.com - www.freepik.com
             </a>
             <br />
             <div>
