@@ -105,7 +105,7 @@ class Trial extends Component {
     const { treeChoice } = this.props;
     if (
       !this.state.showCongratulations &&
-      ((treeChoice === "left" && this.state.eggHeight > 50) ||
+      ((treeChoice === "left" && this.state.eggHeight > 75) ||
         (treeChoice === "right" && this.state.eggHeight > 95))
     ) {
       document.getElementById("congratulationsAudio").play();

@@ -12,6 +12,8 @@ import background from "../../images/background.png";
 
 import summaryAudio from "../../audio/line13_14.mp3";
 
+import { EGG_FALL_INCREASING } from "./constants";
+
 class Experiment extends Component {
   renderExperiment() {
     const { phase } = this.props;
@@ -28,7 +30,7 @@ class Experiment extends Component {
         if (condition === 1) {
           eggFallPercentage = 80;
         } else if (condition === 2) {
-          eggFallPercentage = trial * 20;
+          eggFallPercentage = EGG_FALL_INCREASING[trial - 1];
         }
         return <Trial eggFallPercentage={eggFallPercentage} treeChoice={""} />;
       case "summary":

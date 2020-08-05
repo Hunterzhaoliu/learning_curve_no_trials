@@ -9,3 +9,7 @@ export const EGG_PLATFORM_HEIGHT = 20; // px
 export const EGG_HEIGHT = 75; // px
 export const EGG_WIDTH = 57; // px
 export const SLIDER_THUMB_HEIGHT = EGG_PLATFORM_HEIGHT + EGG_HEIGHT; // px
+
+// based on physical experiment where tall tree height = 17.52"
+// egg fall at 8", 10", 12", and 14"
+export const EGG_FALL_INCREASING = [28, 44, 60, 76];

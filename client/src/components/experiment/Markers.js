@@ -8,6 +8,8 @@ import two from "../../images/numbers/two.png";
 import three from "../../images/numbers/three.png";
 import four from "../../images/numbers/four.png";
 
+import { EGG_FALL_INCREASING } from "./constants";
+
 class Markers extends Component {
   renderMarkers = () => {
     const { condition, trial } = this.props;
@@ -26,10 +28,10 @@ class Markers extends Component {
 
       if (condition === 1) {
         // condition 1: Constant condition where egg gets 80% up ladder
-        eggFallPercentage = "20";
+        eggFallPercentage = String(EGG_FALL_INCREASING[3]);
         markerLeft = "calc(110% + " + String(20 * i) + "px)";
       } else {
-        eggFallPercentage = String(80 - 20 * i);
+        eggFallPercentage = String(100 - EGG_FALL_INCREASING[i]);
         markerLeft = "110%";
       }
 
