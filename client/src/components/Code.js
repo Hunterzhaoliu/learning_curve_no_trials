@@ -27,7 +27,7 @@ class Code extends Component {
   onSubmitCode = e => {
     // prevent cleaning the form
     e.preventDefault();
-    this.props.checkCode(this.state.code);
+    this.props.submitCode(this.state.code);
   };
 
   onChange = e => {
@@ -114,8 +114,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    checkCode: userCode => {
-      registerDispatchers.checkCode(userCode);
+    submitCode: code => {
+      registerDispatchers.submitCode(code);
     }
   };
 }

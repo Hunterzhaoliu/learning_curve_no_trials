@@ -27,9 +27,9 @@ class Experiment extends Component {
       case "trial":
         const { condition, trial } = this.props;
         let eggFallPercentage;
-        if (condition === 1) {
+        if (condition === "constant") {
           eggFallPercentage = 80;
-        } else if (condition === 2) {
+        } else if (condition === "increasing") {
           eggFallPercentage = EGG_FALL_INCREASING[trial - 1];
         }
         return <Trial eggFallPercentage={eggFallPercentage} treeChoice={""} />;

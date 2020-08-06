@@ -1,9 +1,8 @@
 import {
-  SAVE_CODE_ERROR,
+  SUBMIT_CODE_ERROR,
   REMOVE_CODE_ERROR,
   NEXT_STEP,
-  SUCCESSFULLY_REGISTERED_CONSENT,
-  SAVE_REGISTER_CONSENT_ERRORS
+  SUCCESSFULLY_SUBMITTED_CODE
 } from "../actions/types";
 
 let cloneObject = object => {
@@ -11,23 +10,16 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  step: 2,
+  step: 0,
   codeError: false,
-  consentError: {
-    childName: false,
-    childBirthDate: false,
-    signature: false,
-    videoPermission: false
-  },
-  questionnaireErrors: {},
   dBID: null,
-  condition: 2
+  condition: ""
 };
 
 export default function(state = initialState, action) {
   let newState = cloneObject(state);
   switch (action.type) {
-    case SAVE_CODE_ERROR:
+    case SUBMIT_CODE_ERROR:
       newState.codeError = true;
       return newState;
     case REMOVE_CODE_ERROR:
@@ -36,12 +28,9 @@ export default function(state = initialState, action) {
     case NEXT_STEP:
       newState.step += 1;
       return newState;
-    case SAVE_REGISTER_CONSENT_ERRORS:
-      newState.consentError.signature = action.errors.signature;
-      return newState;
-    case SUCCESSFULLY_REGISTERED_CONSENT:
-      // newState.dBID = action.subjectDBInfo.dBID;
-      // newState.condition = action.subjectDBInfo.condition;
+    case SUCCESSFULLY_SUBMITTED_CODE:
+      newState.dBID = action.subjectDBInfo.dBID;
+      newState.condition = action.subjectDBInfo.condition;
       return newState;
     default:
       return state;

@@ -1,13 +1,11 @@
 import {
-  SAVE_CODE_ERROR,
+  SUCCESSFULLY_SUBMITTED_CODE,
+  SUBMIT_CODE_ERROR,
   NEXT_STEP,
-  REMOVE_CODE_ERROR,
-  SUCCESSFULLY_REGISTERED_CONSENT,
-  SAVE_REGISTER_CONSENT_ERRORS
+  REMOVE_CODE_ERROR
 } from "./types";
 import axios from "axios";
-import { isValidFilledString } from "../utils/ValidateRegistration";
-// import history from "../components/history";
+// import { isValidFilledString } from "../utils/ValidateRegistration";
 
 export const startExperiment = () => dispatch => {
   dispatch({
@@ -15,54 +13,32 @@ export const startExperiment = () => dispatch => {
   });
 };
 
-export const checkCode = userCode => dispatch => {
-  if (userCode === process.env.REACT_APP_CODE) {
+export const submitCode = code => async dispatch => {
+  if (code === "error") {
     dispatch({
-      type: NEXT_STEP
-    });
-
-    dispatch({
-      type: REMOVE_CODE_ERROR
+      type: SUBMIT_CODE_ERROR
     });
   } else {
-    dispatch({
-      type: SAVE_CODE_ERROR
+    // valid code
+    const submitCodeResponse = await axios.post("/api/submit-code", {
+      code: code
     });
-  }
-};
 
-export const registerConsent = registerInfo => async dispatch => {
-  // TODO: validate registration information
-  let errors = {};
-  // fill errors
-  errors.signature = !isValidFilledString(registerInfo.signature);
-
-  dispatch({
-    type: SAVE_REGISTER_CONSENT_ERRORS,
-    errors: errors
-  });
-
-  if (errors.signature) {
-    // there is an error in registration, don't register subject for agent
-  } else {
-    // errors shouldn't be part of the registration
-    delete registerInfo.errors;
-    const registerConsentResponse = await axios.post(
-      "/api/register-consent",
-      registerInfo
-    );
-
-    if (registerConsentResponse.status === 200) {
+    if (submitCodeResponse.status === 200) {
       dispatch({
-        type: SUCCESSFULLY_REGISTERED_CONSENT,
-        subjectDBInfo: registerConsentResponse.data
+        type: SUCCESSFULLY_SUBMITTED_CODE,
+        subjectDBInfo: submitCodeResponse.data
+      });
+
+      dispatch({
+        type: REMOVE_CODE_ERROR
       });
 
       dispatch({
         type: NEXT_STEP
       });
     } else {
-      dispatch({ type: SAVE_REGISTER_CONSENT_ERRORS });
+      dispatch({ type: SUBMIT_CODE_ERROR });
     }
   }
 };

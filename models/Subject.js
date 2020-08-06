@@ -3,12 +3,8 @@ const { Schema } = mongoose;
 
 const subjectSchema = new Schema(
   {
-    childName: String,
-    childBirthDate: Date,
-    signature: String,
-    signatureDate: Date,
-    videoPermission: { type: Number, default: 0 },
-    condition: { type: String, default: "increasing" },
+    code: String,
+    condition: String,
     guesses: [Number],
     treeChoice: String,
     reflection: String,

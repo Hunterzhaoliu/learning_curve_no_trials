@@ -5,23 +5,46 @@ const mongoose = require("mongoose");
 const SubjectCollection = mongoose.model("subjects");
 
 module.exports = app => {
-  app.post("/api/register-consent", async (request, response) => {
-    SubjectCollection.findOne({ signature: request.body.signature }).then(
-      subject => {
-        if (subject) {
-          return response.json("You have already completed this study.");
+  app.post("/api/submit-code", async (request, response) => {
+    try {
+      const previousSubjectConditions = await SubjectCollection.find(
+        {},
+        { condition: 1, _id: 0 }
+      );
+
+      let increasingCount = 0;
+      let constantCount = 0;
+
+      for (let i = 0; i < previousSubjectConditions.length; i++) {
+        if (previousSubjectConditions[i].condition === "increasing") {
+          increasingCount++;
         } else {
-          const newSubject = new SubjectCollection(request.body);
-          // Also need to determine what condition the subject should be in by
-          // looking at the condition of previous children and their birth days
-          newSubject.save();
-          subjectDBInfo = {
-            dBID: newSubject._id,
-            condition: newSubject.condition
-          };
-          response.send(subjectDBInfo);
+          constantCount++;
         }
       }
-    );
+
+      let currentSubjectCondition;
+      if (increasingCount > constantCount) {
+        currentSubjectCondition = "constant";
+      } else {
+        // when increasing <= constant, make this subject increasing
+        currentSubjectCondition = "increasing";
+      }
+
+      const newSubject = new SubjectCollection({
+        condition: currentSubjectCondition,
+        code: request.body.code
+      });
+
+      await newSubject.save();
+
+      subjectDBInfo = {
+        dBID: newSubject._id,
+        condition: newSubject.condition
+      };
+      response.send(subjectDBInfo);
+    } catch (error) {
+      response.send(error);
+    }
   });
 };
