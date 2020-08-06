@@ -62,6 +62,15 @@ class Start extends Component {
             <br />
             <br />
             <h4>3. Have a good internet connection</h4>
+            <br />
+            <br />
+            <div className="text-align-left">
+              <p>
+                For verfication purposes, we will be audio recording this game.
+                Please accept the microphone permissions after you press
+                "START".
+              </p>
+            </div>
           </div>
           <br />
           <button className="button-main" onClick={this.onClick}>

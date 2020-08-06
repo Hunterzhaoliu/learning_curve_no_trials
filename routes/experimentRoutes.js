@@ -8,7 +8,7 @@ module.exports = app => {
     const data = request.body;
     try {
       await SubjectCollection.findOneAndUpdate(
-        { _id: "5efa5e151ffa2d276d1bc53b" },
+        { _id: request.body.dBID },
         {
           guesses: data.guesses,
           treeChoice: data.treeChoice,
@@ -26,7 +26,7 @@ module.exports = app => {
     const data = request.body;
     try {
       await SubjectCollection.findOneAndUpdate(
-        { _id: "5efa5e151ffa2d276d1bc53b" },
+        { _id: request.body.dBID },
         {
           interference: data.interferenceAnswer,
           feedback: data.feedback

@@ -3,20 +3,55 @@ import { connect } from "react-redux";
 import { Layout } from "antd";
 import Code from "./Code";
 import Start from "./Start";
-// import ConsentForm from "./consent/ConsentForm";
 import Experiment from "./experiment/Experiment";
+
+import MicRecorder from "mic-recorder-to-mp3";
 
 const { Content } = Layout;
 
 class Landing extends Component {
   renderDisplay() {
     const { step } = this.props;
+
     switch (step) {
       case 0:
         return <Code />;
       case 1:
         return <Start />;
       case 2:
+        const recorder = new MicRecorder({
+          bitRate: 128
+        });
+        console.log("recorder = ", recorder);
+
+        // Start recording. Browser will request permission to use your microphone.
+        recorder
+          .start()
+          .then(() => {
+            console.log("starting recording");
+          })
+          .catch(e => {
+            console.error(e);
+          });
+        //
+        // // Once you are done singing your best song, stop and get the mp3.
+        // recorder
+        // .stop()
+        // .getMp3().then(([buffer, blob]) => {
+        //   // do what ever you want with buffer and blob
+        //   // Example: Create a mp3 file and play
+        //   const file = new File(buffer, 'me-at-thevoice.mp3', {
+        //     type: blob.type,
+        //     lastModified: Date.now()
+        //   });
+        //
+        //   const player = new Audio(URL.createObjectURL(file));
+        //   player.play();
+        //
+        // }).catch((e) => {
+        //   alert('We could not retrieve your message');
+        //   console.log(e);
+        // });
         return <Experiment />;
       default:
         return <Code />;

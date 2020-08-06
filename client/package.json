@@ -11,6 +11,7 @@
     "antd": "^3.26.18",
     "axios": "^0.16.2",
     "babel-plugin-import": "^1.13.0",
+    "mic-recorder-to-mp3": "^2.2.2",
     "react": "^16.13.1",
     "react-app-rewired": "^1.4.0",
     "react-dom": "^16.13.1",

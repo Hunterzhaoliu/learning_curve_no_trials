@@ -5,6 +5,7 @@ import {
   ADVANCE_PHASE,
   SUCCESSFULLY_SAVED_CONCLUSION
 } from "./types";
+import axios from "axios";
 
 export const advancePhase = nextPhase => dispatch => {
   dispatch({
@@ -36,31 +37,31 @@ export const saveData = data => async dispatch => {
     nextPhase: "success"
   });
 
-  // const saveDataResponse = await axios.put("/api/save-data", data);
-  //
-  // if (saveDataResponse.status === 200) {
-  //   dispatch({
-  //     type: ADVANCE_PHASE,
-  //     nextPhase: "success"
-  //   });
-  // } else {
-  //   console.log("Unable to Save Data");
-  // }
+  const saveDataResponse = await axios.put("/api/save-data", data);
+
+  if (saveDataResponse.status === 200) {
+    dispatch({
+      type: ADVANCE_PHASE,
+      nextPhase: "success"
+    });
+  } else {
+    console.log("Unable to Save Data");
+  }
 };
 
 export const saveConclusion = conclusionResponses => async dispatch => {
   dispatch({
     type: SUCCESSFULLY_SAVED_CONCLUSION
   });
-  // const saveConclusionResponse = await axios.put(
-  //   "/api/save-conclusion",
-  //   conclusionResponses
-  // );
-  // if (saveConclusionResponse.status === 200) {
-  //   dispatch({
-  //     type: SUCCESSFULLY_SAVED_CONCLUSION,
-  //   });
-  // } else {
-  //   console.log("Unable to save conclusion");
-  // }
+  const saveConclusionResponse = await axios.put(
+    "/api/save-conclusion",
+    conclusionResponses
+  );
+  if (saveConclusionResponse.status === 200) {
+    dispatch({
+      type: SUCCESSFULLY_SAVED_CONCLUSION
+    });
+  } else {
+    console.log("Unable to save conclusion");
+  }
 };

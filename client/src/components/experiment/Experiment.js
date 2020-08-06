@@ -17,6 +17,7 @@ import { EGG_FALL_INCREASING } from "./constants";
 class Experiment extends Component {
   renderExperiment() {
     const { phase } = this.props;
+
     switch (phase) {
       case "introduction":
         return <Introduction />;
