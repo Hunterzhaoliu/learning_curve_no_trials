@@ -3,7 +3,8 @@ import {
   COMPLETED_TRIAL,
   SAVE_TREE_CHOICE,
   ADVANCE_PHASE,
-  SUCCESSFULLY_SAVED_CONCLUSION
+  SUCCESSFULLY_SAVED_CONCLUSION,
+  SUCCESSFULLY_SAVED_AUDIO
 } from "./types";
 import axios from "axios";
 
@@ -49,10 +50,13 @@ export const saveData = data => async dispatch => {
   }
 };
 
-export const saveConclusion = conclusionResponses => async dispatch => {
-  dispatch({
-    type: SUCCESSFULLY_SAVED_CONCLUSION
-  });
+export const saveConclusionAndAudio = conclusionAndAudio => async dispatch => {
+  const audioData = conclusionAndAudio.audioData;
+
+  // remove the audio data
+  delete conclusionAndAudio.audioData;
+  const conclusionResponses = conclusionAndAudio;
+
   const saveConclusionResponse = await axios.put(
     "/api/save-conclusion",
     conclusionResponses
@@ -63,5 +67,12 @@ export const saveConclusion = conclusionResponses => async dispatch => {
     });
   } else {
     console.log("Unable to save conclusion");
+  }
+
+  const saveAudioResponse = await axios.post("/api/save-audio", audioData);
+  if (saveAudioResponse.status === 200) {
+    console.log("Successfully saved audio");
+  } else {
+    console.log("Unable to save audio");
   }
 };

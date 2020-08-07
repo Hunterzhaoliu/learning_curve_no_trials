@@ -23,13 +23,46 @@ class Conclusion extends Component {
   };
 
   onSubmit = () => {
-    const conclusionResponses = {
-      dBID: this.props.dBID,
-      interferenceAnswer: this.state.interferenceAnswer,
-      feedback: this.state.feedback
-    };
-    this.props.saveConclusion(conclusionResponses);
-    this.setState({ requireFeedback: false });
+    const { recorder } = this.props;
+
+    recorder
+      .stop()
+      .getMp3()
+      .then(([buffer, blob]) => {
+        const file = new File(buffer, "subject_audio.mp3", {
+          type: blob.type,
+          lastModified: Date.now()
+        });
+
+        let formData = new FormData();
+        formData.append("file", file);
+
+        console.log("successfully stopped recording");
+        const conclusionAndAudio = {
+          dBID: this.props.dBID,
+          interferenceAnswer: this.state.interferenceAnswer,
+          feedback: this.state.feedback,
+          audioData: formData
+        };
+
+        this.props.saveConclusionAndAudio(conclusionAndAudio);
+        this.setState({ requireFeedback: false });
+
+        // const player = new Audio(URL.createObjectURL(file));
+        // console.log("player = ", player);
+      })
+      .catch(e => {
+        console.log("Stop recorder error = ", e);
+
+        const conclusionAndAudio = {
+          dBID: this.props.dBID,
+          interferenceAnswer: this.state.interferenceAnswer,
+          feedback: this.state.feedback,
+          audioData: "failed audio"
+        };
+        this.props.saveConclusionAndAudio(conclusionAndAudio);
+        this.setState({ requireFeedback: false });
+      });
   };
 
   render() {
@@ -158,8 +191,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    saveConclusion: conclusionResponses => {
-      experimentDispatchers.saveConclusion(conclusionResponses);
+    saveConclusionAndAudio: conclusionAndAudio => {
+      experimentDispatchers.saveConclusionAndAudio(conclusionAndAudio);
     }
   };
 }

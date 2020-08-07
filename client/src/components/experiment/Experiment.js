@@ -43,7 +43,7 @@ class Experiment extends Component {
           <Trial eggFallPercentage={110} treeChoice={this.props.treeChoice} />
         );
       case "conclusion":
-        return <Conclusion />;
+        return <Conclusion recorder={this.props.recorder} />;
       default:
         return <Introduction />;
     }
