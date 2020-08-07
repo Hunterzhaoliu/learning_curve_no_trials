@@ -1,39 +1,22 @@
 const keys = require("../config/keys");
 const mongoose = require("mongoose");
-// const fs = require("fs");
-const path = require("path");
 const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
 const gridfs = require("gridfs-stream");
-const crypto = require("crypto");
 
 const SubjectCollection = mongoose.model("subjects");
 
-// For GridFS Audio Storage
-const connection = mongoose.connection;
-connection.once("open", () => {
-  const gfs = gridfs(connection.db, mongoose.mongo);
-  gfs.collection("audios");
-});
-
 // Create storage engine
+// https://github.com/bradtraversy/mongo_file_uploads/blob/master/app.js
 const storage = new GridFsStorage({
-  url: keys.mongoURI,
+  db: mongoose.connection,
   file: (fileRequest, file) => {
     return new Promise((resolve, reject) => {
-      // crypto changes the name of the file in case to make each name unique
-      crypto.randomBytes(16, (error, buffer) => {
-        if (error) {
-          return reject(error);
-        }
-        const filename =
-          buffer.toString("hex") + path.extname(file.originalname);
-        const fileInfo = {
-          filename: filename,
-          bucketName: "audios"
-        };
-        resolve(fileInfo);
-      });
+      const fileInfo = {
+        filename: file.originalname,
+        bucketName: "audios" // collection name in mongoDB
+      };
+      resolve(fileInfo);
     });
   }
 });
@@ -77,7 +60,6 @@ module.exports = app => {
   });
 
   app.post("/api/save-audio", upload.single("file"), (request, response) => {
-    console.log("/api/save-audio");
     response.send("successfully saved audio");
   });
 };

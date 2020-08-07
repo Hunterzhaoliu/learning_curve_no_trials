@@ -29,15 +29,16 @@ class Conclusion extends Component {
       .stop()
       .getMp3()
       .then(([buffer, blob]) => {
-        const file = new File(buffer, "subject_audio.mp3", {
+        const file = new File(buffer, "subject_" + this.props.dBID + ".mp3", {
           type: blob.type,
           lastModified: Date.now()
         });
 
+        // file needs to be in this form in order to send to backend
+        // https://medium.com/@aresnik11/how-to-upload-a-file-on-the-frontend-and-send-it-using-js-to-a-rails-backend-29755afaad06
         let formData = new FormData();
         formData.append("file", file);
 
-        console.log("successfully stopped recording");
         const conclusionAndAudio = {
           dBID: this.props.dBID,
           interferenceAnswer: this.state.interferenceAnswer,
@@ -47,9 +48,6 @@ class Conclusion extends Component {
 
         this.props.saveConclusionAndAudio(conclusionAndAudio);
         this.setState({ requireFeedback: false });
-
-        // const player = new Audio(URL.createObjectURL(file));
-        // console.log("player = ", player);
       })
       .catch(e => {
         console.log("Stop recorder error = ", e);
