@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Preparation from "./Preparation";
 import Introduction from "./Introduction";
 import Practice from "./Practice";
 import Instruction from "./Instruction";
@@ -19,6 +20,8 @@ class Experiment extends Component {
     const { phase } = this.props;
 
     switch (phase) {
+      case "preparation":
+        return <Preparation />;
       case "introduction":
         return <Introduction />;
       case "practice":
