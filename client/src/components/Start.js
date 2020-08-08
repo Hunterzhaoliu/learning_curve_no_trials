@@ -64,11 +64,10 @@ class Start extends Component {
             <h4>3. Have a good internet connection</h4>
             <br />
             <br />
-            <div className="text-align-left">
+            <div className="text-align-left row-upper-15-padding">
               <p>
                 For verfication purposes, we will be audio recording this game.
-                Please accept the microphone permissions after you press
-                "START".
+                Please accept the microphone permissions after you press "NEXT".
               </p>
             </div>
           </div>

@@ -6,7 +6,9 @@ import "./introduction.css";
 
 import line1 from "../../audio/line1.wav";
 import getParentAudio from "../../audio/get_parent.mp3";
-import line2_3 from "../../audio/line2_3.wav";
+import line2_and_name from "../../audio/line2_and_name.mp3";
+import line2_age from "../../audio/line2_age.wav";
+import line3_thank_you from "../../audio/line3_thank_you.wav";
 import introductionVideo from "../../audio/intro.mp4";
 
 import parentChild from "../../images/parent_child.png";
@@ -27,20 +29,42 @@ class Introduction extends Component {
     console.log("line1");
   }
 
-  onClickYes = () => {
-    // confirmed parent is around
-    this.setState({ introductionStep: 1 });
-    document.getElementById("line2_3").play();
-    console.log("line2_3");
-  };
+  onClickContinue = () => {
+    const introductionStep = this.state.introductionStep;
+    switch (introductionStep) {
+      case 0:
+        // confirmed parent is around
+        this.setState({ introductionStep: 1 });
+        document.getElementById("line2_and_name").play();
+        console.log("line2_and_name");
 
-  onClickReady() {
-    // understands button press; display and play video
-    document.getElementById("buttonIntroduction10").style.display = "none";
-    const video = document.getElementById("introductionVideo");
-    video.style.display = "inline-block";
-    video.play();
-  }
+        // without changing the display, the confirm name button displays for
+        // some reason
+        document.getElementById("buttonIntroduction00").style.display = "none";
+        document.getElementById("buttonIntroduction01").style.display = "none";
+        break;
+      case 1:
+        // confirmed name
+        this.setState({ introductionStep: 2 });
+        document.getElementById("line2_age").play();
+        console.log("line2_age");
+        break;
+      case 2:
+        // confirmed age
+        this.setState({ introductionStep: 3 });
+        document.getElementById("line3_thank_you").play();
+        console.log("line3_thank_you");
+        break;
+      case 3:
+        // understands button press; display and play video
+        document.getElementById("buttonIntroduction30").style.display = "none";
+        const video = document.getElementById("introductionVideo");
+        video.style.display = "inline-block";
+        video.play();
+        break;
+      default:
+    }
+  };
 
   onClickNo = () => {
     document.getElementById("buttonIntroduction00").style.display = "none";
@@ -49,9 +73,18 @@ class Introduction extends Component {
     console.log("getParentAudio");
   };
 
-  onVideoEnded = () => {
-    this.props.advancePhase("practice");
-  };
+  onTimeUpdate(currentTime, audioId) {
+    if (audioId === "line2_and_name") {
+      if (currentTime > 12) {
+        document.getElementById("child").style.display = "inline-block";
+        document.getElementById("buttonPress").style.display = "none";
+      } else if (currentTime > 6) {
+        document.getElementById("buttonPress").style.display = "inline-block";
+      }
+    } else if (audioId === "line3_thank_you" && currentTime > 6) {
+      document.getElementById("handsOnLap").style.display = "inline-block";
+    }
+  }
 
   onAudioEnded(elementId) {
     if (elementId === "line1" || elementId === "getParentAudio") {
@@ -60,8 +93,25 @@ class Introduction extends Component {
         "inline-block";
       document.getElementById("buttonIntroduction01").style.display =
         "inline-block";
+    } else if (elementId === "line2_and_name") {
+      setTimeout(function() {
+        document.getElementById("buttonIntroduction10").style.display =
+          "inline-block";
+      }, 2000);
+    } else if (elementId === "line2_age") {
+      setTimeout(function() {
+        document.getElementById("buttonIntroduction20").style.display =
+          "inline-block";
+      }, 2000);
+    } else if (elementId === "line3_thank_you") {
+      document.getElementById("buttonIntroduction30").style.display =
+        "inline-block";
     }
   }
+
+  onVideoEnded = () => {
+    this.props.advancePhase("practice");
+  };
 
   renderIntroduction() {
     switch (this.state.introductionStep) {
@@ -74,7 +124,7 @@ class Introduction extends Component {
             <img className="img-background" src={parentChild} alt="" />
             <div className="div-absolute">
               <button
-                onClick={this.onClickYes}
+                onClick={this.onClickContinue}
                 id="buttonIntroduction00"
                 className="button-main button-introduction"
               >
@@ -99,6 +149,38 @@ class Introduction extends Component {
       case 1:
         return (
           <div className="div-absolute">
+            <img
+              className="img-background img-none"
+              src={buttonPress}
+              alt=""
+              id="buttonPress"
+            />
+            <div className="div-absolute">
+              <button
+                onClick={this.onClickContinue}
+                id="buttonIntroduction10"
+                className="button-main button-introduction"
+              >
+                Confirmed Name
+              </button>
+            </div>
+          </div>
+        );
+      case 2:
+        return (
+          <div className="div-absolute">
+            <button
+              onClick={this.onClickContinue}
+              id="buttonIntroduction20"
+              className="button-main button-introduction"
+            >
+              Confirmed Age
+            </button>
+          </div>
+        );
+      case 3:
+        return (
+          <div className="div-absolute">
             <video
               id="introductionVideo"
               className="video-introduction"
@@ -112,22 +194,10 @@ class Introduction extends Component {
               alt=""
               id="handsOnLap"
             />
-            <img
-              className="img-background img-none"
-              src={child}
-              alt=""
-              id="child"
-            />
-            <img
-              className="img-background img-none"
-              src={buttonPress}
-              alt=""
-              id="buttonPress"
-            />
             <div className="div-absolute">
               <button
-                onClick={this.onClickReady}
-                id="buttonIntroduction10"
+                onClick={this.onClickContinue}
+                id="buttonIntroduction30"
                 className="button-main button-introduction"
               >
                 Child Hands on Lap
@@ -141,31 +211,36 @@ class Introduction extends Component {
     }
   }
 
-  onTimeUpdate(currentTime) {
-    // only for line2_3
-    // console.log("currentTime = ", currentTime);
-    if (currentTime > 23) {
-      document.getElementById("buttonIntroduction10").style.display =
-        "inline-block";
-    } else if (currentTime > 20) {
-      document.getElementById("handsOnLap").style.display = "inline-block";
-    } else if (currentTime > 12) {
-      document.getElementById("child").style.display = "inline-block";
-    } else if (currentTime > 6) {
-      // console.log("displayingButtonPressImage");
-      document.getElementById("buttonPress").style.display = "inline-block";
-    }
-  }
-
   render() {
     return (
       <div className="div-absolute">
         <audio
-          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
-          id="line2_3"
+          onTimeUpdate={e =>
+            this.onTimeUpdate(e.target.currentTime, e.target.id)
+          }
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          id="line2_and_name"
         >
-          <source src={line2_3} type="audio/wav" />
+          <source src={line2_and_name} type="audio/mpeg" />
         </audio>
+        <audio onEnded={e => this.onAudioEnded(e.target.id)} id="line2_age">
+          <source src={line2_age} type="audio/wav" />
+        </audio>
+        <audio
+          onTimeUpdate={e =>
+            this.onTimeUpdate(e.target.currentTime, e.target.id)
+          }
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          id="line3_thank_you"
+        >
+          <source src={line3_thank_you} type="audio/wav" />
+        </audio>
+        <img
+          className="img-background img-none"
+          src={child}
+          alt=""
+          id="child"
+        />
         {this.renderIntroduction()}
       </div>
     );
