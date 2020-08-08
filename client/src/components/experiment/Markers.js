@@ -27,8 +27,8 @@ class Markers extends Component {
       let markerLeft;
 
       if (condition === "constant") {
-        // Constant condition where egg gets 80% up ladder
-        eggFallPercentage = String(EGG_FALL_INCREASING[3]);
+        // Constant condition where egg gets to the last marker
+        eggFallPercentage = String(100 - EGG_FALL_INCREASING[3]);
         markerLeft = "calc(110% + " + String(20 * i) + "px)";
       } else {
         eggFallPercentage = String(100 - EGG_FALL_INCREASING[i]);

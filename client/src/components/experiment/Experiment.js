@@ -32,7 +32,7 @@ class Experiment extends Component {
         const { condition, trial } = this.props;
         let eggFallPercentage;
         if (condition === "constant") {
-          eggFallPercentage = 80;
+          eggFallPercentage = EGG_FALL_INCREASING[3];
         } else if (condition === "increasing") {
           eggFallPercentage = EGG_FALL_INCREASING[trial - 1];
         }
@@ -74,16 +74,20 @@ class Experiment extends Component {
       document.getElementById("handRight").style.display = "block";
     } else if (currentTime > 15) {
       document.getElementById("marker2").style.border = "none";
+      document.getElementById("marker3").style.zIndex = 5;
       document.getElementById("marker3").style.border = "3px solid yellow";
     } else if (currentTime > 12) {
       document.getElementById("marker1").style.border = "none";
+      document.getElementById("marker2").style.zIndex = 4;
       document.getElementById("marker2").style.border = "3px solid yellow";
     } else if (currentTime > 8) {
       // need to highlight each marker as the audio walks through them and
       // unhighlight the previous marker
       document.getElementById("marker0").style.border = "none";
+      document.getElementById("marker1").style.zIndex = 3;
       document.getElementById("marker1").style.border = "3px solid yellow";
     } else if (currentTime > 5) {
+      document.getElementById("marker0").style.zIndex = 2;
       document.getElementById("marker0").style.border = "3px solid yellow";
     }
   }
