@@ -6,8 +6,8 @@ import Markers from "./Markers";
 import "./summary.css";
 
 import hand from "../../images/hand.png";
-import same from "../../images/same.png";
-import better from "../../images/better.png";
+import same_2 from "../../images/same_2.png";
+import better_2 from "../../images/better_2.png";
 
 import reaskTreeAudio from "../../audio/line14_cut.wav";
 import confirmTreeAudio from "../../audio/line15_2.wav";
@@ -75,12 +75,12 @@ class Summary extends Component {
     // hand display is done in onTimeUpdate() function
   };
 
-  onClickReflection = e => {
-    this.setState({ reflection: e.target.value });
+  onClickReflection = value => {
+    this.setState({ reflection: value });
 
     // remove buttons
-    document.getElementById("buttonBetter").style.display = "none";
-    document.getElementById("buttonSame").style.display = "none";
+    document.getElementById("better").style.display = "none";
+    document.getElementById("same").style.display = "none";
 
     // ensure success
     document.getElementById("goTopAudio").play();
@@ -124,8 +124,8 @@ class Summary extends Component {
       audioId === "questionBetterAudio"
     ) {
       // display both reflection buttons
-      document.getElementById("buttonBetter").style.display = "block";
-      document.getElementById("buttonSame").style.display = "block";
+      document.getElementById("better").style.display = "block";
+      document.getElementById("same").style.display = "block";
     } else if (audioId === "goTopAudio") {
       const data = {
         dBID: this.props.dBID,
@@ -133,7 +133,6 @@ class Summary extends Component {
         treeChoice: this.state.treeChoice,
         reflection: this.state.reflection
       };
-
       this.props.saveData(data);
     }
   }
@@ -217,26 +216,26 @@ class Summary extends Component {
         >
           <source src={reaskTreeAudio} type="audio/wav" />
         </audio>
-        <button
-          value="same"
-          style={{ top: sameTop }}
-          onClick={this.onClickReflection}
-          className="button-main button-reflection"
-          id="buttonSame"
-        >
-          <h3 className="h3-reflection">Same</h3>
-          <img className="img-plants" src={same} alt="" />
-        </button>
-        <button
-          value="better"
-          style={{ top: betterTop }}
-          onClick={this.onClickReflection}
-          className="button-main button-reflection"
-          id="buttonBetter"
-        >
-          <h3 className="h3-reflection">Better</h3>
-          <img className="img-plants" src={better} alt="" />
-        </button>
+        <img
+          style={{
+            top: sameTop
+          }}
+          onClick={e => this.onClickReflection(e.target.id)}
+          id="same"
+          className="img-plants"
+          src={same_2}
+          alt=""
+        />
+        <img
+          style={{
+            top: betterTop
+          }}
+          onClick={e => this.onClickReflection(e.target.id)}
+          id="better"
+          className="img-plants"
+          src={better_2}
+          alt=""
+        />
         <audio
           onEnded={e => this.onAudioEnded(e.target.id)}
           id="questionSameAudio"

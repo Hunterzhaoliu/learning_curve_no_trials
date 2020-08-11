@@ -37,34 +37,19 @@
   margin-left: 10px;
 }
 
-.button-reflection {
+.img-plants {
   position: absolute;
-  height: 45vh !important;
+  height: 45vh;
   width: 100vw;
   left: 0;
-  z-index: 2;
+  z-index: 6;
+  border-radius: 0px;
+  border: solid 4px black;
   display: none;
-  border-radius: 0px !important;
-}
-
-.button-reflection:hover {
-  color: black !important;
-  background-color: white !important;
-}
-
-.button-reflection:focus {
-  color: black !important;
-  background-color: white !important;
-}
-
-.img-plants {
-  object-fit: cover;
-  width: 80vw;
-  position: relative;
-  left: 0;
 }
 
 .h3-reflection {
   font-weight: bold;
   padding-bottom: 15px;
+  text-transform: uppercase;
 }

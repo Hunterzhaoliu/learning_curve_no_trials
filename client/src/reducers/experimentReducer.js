@@ -9,6 +9,12 @@ let cloneObject = object => {
   return JSON.parse(JSON.stringify(object));
 };
 
+// let initialState = {
+//   phase: "preparation",
+//   trial: 1,
+//   guesses: [],
+//   treeChoice: ""
+// };
 let initialState = {
   phase: "preparation",
   trial: 1,

@@ -1,38 +1,39 @@
 const keys = require("../config/keys");
 const mongoose = require("mongoose");
-// const validateRegisterInput = require("../validation/register");
 
 const SubjectCollection = mongoose.model("subjects");
 
 module.exports = app => {
   app.post("/api/submit-code", async (request, response) => {
     try {
-      const previousSubjectConditions = await SubjectCollection.find(
-        {},
-        { condition: 1, _id: 0 }
-      );
+      // const previousSubjectConditions = await SubjectCollection.find(
+      //   {},
+      //   { condition: 1, _id: 0 }
+      // );
+      //
+      // let increasingCount = 0;
+      // let constantCount = 0;
+      //
+      // for (let i = 0; i < previousSubjectConditions.length; i++) {
+      //   if (previousSubjectConditions[i].condition === "increasing") {
+      //     increasingCount++;
+      //   } else {
+      //     constantCount++;
+      //   }
+      // }
+      //
+      // let newSubjectCondition;
+      // if (increasingCount > constantCount) {
+      //   newSubjectCondition = "constant";
+      // } else {
+      //   // when increasing <= constant, make this subject increasing
+      //   newSubjectCondition = "increasing";
+      // }
 
-      let increasingCount = 0;
-      let constantCount = 0;
-
-      for (let i = 0; i < previousSubjectConditions.length; i++) {
-        if (previousSubjectConditions[i].condition === "increasing") {
-          increasingCount++;
-        } else {
-          constantCount++;
-        }
-      }
-
-      let currentSubjectCondition;
-      if (increasingCount > constantCount) {
-        currentSubjectCondition = "constant";
-      } else {
-        // when increasing <= constant, make this subject increasing
-        currentSubjectCondition = "increasing";
-      }
+      const newSubjectCondition = "increasing";
 
       const newSubject = new SubjectCollection({
-        condition: currentSubjectCondition,
+        condition: newSubjectCondition,
         code: request.body.code
       });
 
