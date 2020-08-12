@@ -5,64 +5,61 @@ const keys = require("./config/dev");
 MongoClient.connect(
   keys.mongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  function(error, client) {
-    if (error) {
-      console.log("MongoClient Connection error = ", error.errMsg);
+  function(connectError, client) {
+    if (connectError) {
+      console.log(
+        "MongoClient Connection connectError = ",
+        connectError.errMsg
+      );
       return;
     } else {
       const db = client.db("learning_curve");
       const audioFilesCollection = db.collection("audios.files");
       const audioChuncksCollection = db.collection("audios.chunks");
+      // console.log("got collections");
 
-      audioFilesCollection.find().toArray(function(error, files) {
-        if (error) {
-          console.log("Error finding file = ", error.errMsg);
+      audioFilesCollection.find().toArray(function(filesError, files) {
+        // console.log("finding files");
+
+        if (filesError) {
+          console.log("Error finding file = ", filesError.errMsg);
           return;
-          if (!files || files.length === 0) {
-            console.log("No files found");
-            return;
-          } else {
-            return;
-            //Retrieving the chunks from the db
-            audioChuncksCollection
-              .find({ files_id: files[0]._id })
-              .sort({ n: 1 })
-              .toArray(function(error, chunks) {
-                if (error) {
-                  console.log("Error retrieving chunks = ", error.errmsg);
-                  return;
+        } else if (!files || files.length === 0) {
+          console.log("No files found");
+          return;
+        } else {
+          // console.log("retrieved files");
+          // Retrieving chunks from mongoDB
+          audioChuncksCollection
+            .find({ files_id: files[0]._id })
+            .sort({ n: 1 })
+            .toArray(function(chuncksError, chunks) {
+              if (chuncksError) {
+                console.log("Error retrieving chunks = ", chuncksError.errmsg);
+                return;
+              } else if (!chunks || chunks.length === 0) {
+                console.log("No data found");
+                return;
+              } else {
+                let fileData = [];
+                for (let i = 0; i < chunks.length; i++) {
+                  // chuncks are in BSON format, which is stored
+                  // in fileData array in base64 endocoded string format
+                  fileData.push(chunks[i].data.toString("base64"));
                 }
-                if (!chunks || chunks.length === 0) {
-                  console.log("No data found");
-                  return;
-                }
-              });
-          }
+
+                // Display the chunks using the data URI format
+                let finalFile =
+                  "data:" +
+                  files[0].contentType +
+                  ";base64," +
+                  fileData.join("");
+                console.log("finalFile = ", finalFile);
+              }
+            });
         }
+        console.log("end of file");
       });
     }
   }
 );
-
-//
-//     let fileData = [];
-//     for(let i=0; i<chunks.length;i++){
-//       //This is in Binary JSON or BSON format, which is stored
-//       //in fileData array in base64 endocoded string format
-//
-//       fileData.push(chunks[i].data.toString('base64'));
-//     }
-//
-//      //Display the chunks using the data URI format
-//      let finalFile = 'data:' + files[0].contentType + ';base64,'
-//           + fileData.join('');
-//       res.render('imageView', {
-//          title: 'Image File',
-//          message: 'Image loaded from MongoDB GridFS',
-//          imgurl: finalFile});
-//      });
-//     }
-//    });
-//      }
-//
-// });
