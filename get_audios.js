@@ -32,38 +32,47 @@ MongoClient.connect(
           // console.log("retrieved files");
           // Retrieving chunks from mongoDB where n is the sequence number of
           // the chuncks
-          audioChuncksCollection
-            .find({ files_id: files[2]._id })
-            .sort({ n: 1 })
-            .toArray(function(chuncksError, chunks) {
-              if (chuncksError) {
-                console.log("Error retrieving chunks = ", chuncksError.errmsg);
-                return;
-              } else if (!chunks || chunks.length === 0) {
-                console.log("No data found");
-                return;
-              } else {
-                let fileData = [];
-                for (let i = 0; i < chunks.length; i++) {
-                  // chuncks are in BSON format, which is stored
-                  // in fileData array in base64 encoded string format
-                  fileData.push(chunks[i].data.toString("base64"));
-                }
-
-                const filename = files[2].filename;
-                // console.log("filename = ", filename);
-
-                const fileBase64 = fileData.join("");
-                fs.writeFile(
-                  filename,
-                  fileData,
-                  { encoding: "base64" },
-                  function(err) {
-                    console.log("File created");
+          for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
+            audioChuncksCollection
+              .find({ files_id: files[fileIndex]._id })
+              .sort({ n: 1 })
+              .toArray(function(chuncksError, chunks) {
+                if (chuncksError) {
+                  console.log(
+                    "Error retrieving chunks = ",
+                    chuncksError.errmsg
+                  );
+                  return;
+                } else if (!chunks || chunks.length === 0) {
+                  console.log("No data found");
+                  return;
+                } else {
+                  let fileData = [];
+                  for (
+                    let chunckIndex = 0;
+                    chunckIndex < chunks.length;
+                    chunckIndex++
+                  ) {
+                    // chuncks are in BSON format, which is stored
+                    // in fileData array in base64 encoded string format
+                    fileData.push(chunks[chunckIndex].data.toString("base64"));
                   }
-                );
-              }
-            });
+
+                  const filename = files[fileIndex].filename;
+                  // console.log("filename = ", filename);
+
+                  const fileBase64 = fileData.join("");
+                  fs.writeFile(
+                    filename,
+                    fileData,
+                    { encoding: "base64" },
+                    function(err) {
+                      console.log("File created");
+                    }
+                  );
+                }
+              });
+          }
         }
         console.log("end of file");
       });
