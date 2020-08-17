@@ -6,13 +6,13 @@
 
 - How to import data from a csv file: `mongoimport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve --collection subjects --type file_type --headerline --file file_name`
 
-- How to export data to a csv file: `mongoexport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve --collection collection_name --type file_type --fields field_to_include_if_csv_file --out file_name --forceTableScan`
+- How to export data to a csv file: `mongoexport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve --collection subjects --type csv --fields _id,guesses,condition,code,reflection,treeChoice,feedback,interference --out subjects.csv --forceTableScan`
 
 ### Website
 
 - Setup:
 
-1. Install node and node package manager (npm): https://nodejs.org/en/download/
+1. Install node and node package manager (npm):
 
 - `node -v` = 8.9.3
 - `npm -v` = 5.6.0
