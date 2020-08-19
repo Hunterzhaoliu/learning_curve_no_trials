@@ -60,11 +60,11 @@ MongoClient.connect(
 
                   const filename = files[fileIndex].filename;
                   // console.log("filename = ", filename);
-
+                  // console.log("fileData = ", fileData);
                   const fileBase64 = fileData.join("");
                   fs.writeFile(
                     filename,
-                    fileData,
+                    fileBase64,
                     { encoding: "base64" },
                     function(err) {
                       console.log("File created");
