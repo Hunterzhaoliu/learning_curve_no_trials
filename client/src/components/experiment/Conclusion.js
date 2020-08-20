@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
+import { osName, browserName, mobileModel } from "react-device-detect";
 import InputField from "../input/InputField";
 import "./conclusion.css";
 
@@ -9,44 +10,41 @@ class Conclusion extends Component {
   constructor() {
     super();
     this.state = {
-      deviceType: "",
-      deviceModel: "",
-      submittedDeviceModel: false,
-      deviceModelError: false,
       interferenceAnswer: "",
       feedback: "",
-      requireFeedback: true
+      requireFeedback: true,
+      windowWidth: null,
+      windowHeight: null
     };
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
-  onClickInterferenceAnswer = e => {
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({
+      windowWidth: window.innerWidth,
+      windowHeight: window.innerHeight
+    });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowDimensions);
+  }
+
+  onClick = e => {
     this.setState({ interferenceAnswer: e.target.value });
   };
 
-  onClickDeviceType = e => {
-    this.setState({ deviceType: e.target.value });
-  };
-
-  onChangeFeedback = e => {
+  onChange = e => {
     this.setState({ feedback: e.target.value });
   };
 
-  onChangeDeviceModel = e => {
-    this.setState({ deviceModel: e.target.value });
-    if (this.state.deviceModelError) {
-      this.setState({ deviceModelError: false });
-    }
-  };
-
-  onSubmitDeviceModel = () => {
-    if (this.state.deviceModel === "") {
-      this.setState({ deviceModelError: true });
-    } else {
-      this.setState({ submittedDeviceModel: true });
-    }
-  };
-
-  onSubmitFeedback = () => {
+  onSubmit = () => {
     const { recorder } = this.props;
 
     try {
@@ -68,8 +66,11 @@ class Conclusion extends Component {
             dBID: this.props.dBID,
             interferenceAnswer: this.state.interferenceAnswer,
             feedback: this.state.feedback,
-            deviceType: this.state.deviceType,
-            deviceModel: this.state.deviceModel,
+            deviceType: osName,
+            deviceModel: mobileModel,
+            browser: browserName,
+            windowWidth: this.state.windowWidth,
+            windowHeight: this.state.windowHeight,
             audioData: formData
           };
 
@@ -83,68 +84,20 @@ class Conclusion extends Component {
         dBID: this.props.dBID,
         interferenceAnswer: this.state.interferenceAnswer,
         feedback: this.state.feedback,
-        deviceType: this.state.deviceType,
-        deviceModel: this.state.deviceModel,
+        deviceType: osName,
+        deviceModel: mobileModel,
+        browser: browserName,
+        windowWidth: this.state.windowWidth,
+        windowHeight: this.state.windowHeight,
         audioData: "failed audio"
       };
       this.props.saveConclusionAndAudio(conclusionAndAudio);
-      this.setState({ requireFeedback: false });
+      this.setState({ require: false });
     }
   };
 
   render() {
-    if (this.state.deviceType === "") {
-      return (
-        <div className="div-absolute div-white">
-          <div className="div-absolute-white-child">
-            <h3 className="h3-conclusion-question">
-              Parent: Which type of device are you using?
-            </h3>
-            <button
-              value="android"
-              onClick={this.onClickDeviceType}
-              className="button-main"
-            >
-              Android
-            </button>
-            <button
-              value="apple"
-              onClick={this.onClickDeviceType}
-              className="button-main button-right"
-            >
-              Apple
-            </button>
-          </div>
-        </div>
-      );
-    } else if (!this.state.submittedDeviceModel) {
-      return (
-        <div className="div-absolute div-white">
-          <div className="div-absolute-white-child">
-            <h3 className="h3-conclusion-question">
-              Parent: What model is your device (e.g. iPhone 7, Galaxy S7,
-              etc.)?
-            </h3>
-            <InputField
-              value={this.state.deviceModel}
-              label="Device Model:"
-              errorMessage="That doesn't seem to be a valid device model."
-              hasError={this.state.deviceModelError}
-              onChange={this.onChangeDeviceModel}
-              width={"100%"}
-              id="deviceModel"
-              type="text"
-            />
-            <button
-              onClick={this.onSubmitDeviceModel}
-              className="button-main button-device-top-padding"
-            >
-              Next
-            </button>
-          </div>
-        </div>
-      );
-    } else if (this.state.interferenceAnswer === "") {
+    if (this.state.interferenceAnswer === "") {
       // need to ask parent if they or another child interfered at any point
       return (
         <div className="div-absolute div-white">
@@ -152,16 +105,12 @@ class Conclusion extends Component {
             <h3 className="h3-conclusion-question">
               Parent: Did another child or adult interfere with the game?
             </h3>
-            <button
-              value="yes"
-              onClick={this.onClickInterferenceAnswer}
-              className="button-main"
-            >
+            <button value="yes" onClick={this.onClick} className="button-main">
               Yes
             </button>
             <button
               value="no"
-              onClick={this.onClickInterferenceAnswer}
+              onClick={this.onClick}
               className="button-main button-right"
             >
               No
@@ -173,16 +122,14 @@ class Conclusion extends Component {
       return (
         <div className="div-absolute div-white">
           <div className="div-absolute-white-child">
-            <h3 className="h3-conclusion-question">
-              Anything else we should know?
-            </h3>
+            <h3 className="h3-conclusion-question">Anything we should know?</h3>
             <textarea
               className="textarea-feedback"
               placeholder="Feedback:"
               rows={5}
-              onChange={this.onChangeFeedback}
+              onChange={this.onChange}
             />
-            <button onClick={this.onSubmitFeedback} className="button-main">
+            <button onClick={this.onSubmit} className="button-main">
               Submit
             </button>
           </div>

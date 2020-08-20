@@ -54,7 +54,7 @@ export const saveConclusionAndAudio = conclusionAndAudio => async dispatch => {
   // remove the audio data
   delete conclusionAndAudio.audioData;
   const conclusionResponses = conclusionAndAudio;
-
+  console.log("conclusionResponses = ", conclusionResponses);
   const saveConclusionResponse = await axios.put(
     "/api/save-conclusion",
     conclusionResponses

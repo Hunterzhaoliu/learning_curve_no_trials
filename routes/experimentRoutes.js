@@ -61,7 +61,10 @@ module.exports = app => {
           interference: data.interferenceAnswer,
           feedback: data.feedback,
           deviceType: data.deviceType,
-          deviceModel: data.deviceModel
+          deviceModel: data.deviceModel,
+          browser: data.browser,
+          windowWidth: data.windowWidth,
+          windowHeight: data.windowHeight
         },
         { upsert: true }
       );

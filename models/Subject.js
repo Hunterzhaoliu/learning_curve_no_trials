@@ -15,7 +15,10 @@ const subjectSchema = new Schema(
     feedback: String,
     completedDate: Date,
     deviceType: String,
-    deviceModel: String
+    deviceModel: String,
+    browser: String,
+    windowWidth: Number,
+    windowHeight: Number
   },
   {
     // allows for request.subject.save()
