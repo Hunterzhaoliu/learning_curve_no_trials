@@ -5,11 +5,17 @@ const subjectSchema = new Schema(
   {
     code: String,
     condition: String,
-    guesses: [Number],
+    guess1: Number,
+    guess2: Number,
+    guess3: Number,
+    guess4: Number,
     treeChoice: String,
     reflection: String,
     interference: String,
-    feedback: String
+    feedback: String,
+    completedDate: Date,
+    deviceType: String,
+    deviceModel: String
   },
   {
     // allows for request.subject.save()

@@ -26,13 +26,23 @@ const upload = multer({ storage });
 module.exports = app => {
   app.put("/api/save-data", async (request, response) => {
     const data = request.body;
+
+    let date = new Date();
+    // getTimezoneOffset returns in minutes hence / 60 and subtract four for
+    // difference between UTC and eastern time zone
+    date.setHours(date.getHours() + date.getTimezoneOffset() / 60 - 4);
+
     try {
       await SubjectCollection.findOneAndUpdate(
         { _id: request.body.dBID },
         {
-          guesses: data.guesses,
+          guess1: data.guesses[0],
+          guess2: data.guesses[1],
+          guess3: data.guesses[2],
+          guess4: data.guesses[3],
           treeChoice: data.treeChoice,
-          reflection: data.reflection
+          reflection: data.reflection,
+          completedDate: date
         },
         { upsert: true }
       );
@@ -49,7 +59,9 @@ module.exports = app => {
         { _id: data.dBID },
         {
           interference: data.interferenceAnswer,
-          feedback: data.feedback
+          feedback: data.feedback,
+          deviceType: data.deviceType,
+          deviceModel: data.deviceModel
         },
         { upsert: true }
       );

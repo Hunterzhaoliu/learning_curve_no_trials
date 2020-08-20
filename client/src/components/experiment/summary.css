@@ -45,7 +45,7 @@
   z-index: 6;
   border-radius: 0px;
   border: solid 4px black;
-  display: none;
+  /* display: none; */
 }
 
 .h3-reflection {
