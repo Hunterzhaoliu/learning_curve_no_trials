@@ -18,7 +18,9 @@ const subjectSchema = new Schema(
     deviceModel: String,
     browser: String,
     windowWidth: Number,
-    windowHeight: Number
+    windowHeight: Number,
+    longitude: Number,
+    latitude: Number
   },
   {
     // allows for request.subject.save()
