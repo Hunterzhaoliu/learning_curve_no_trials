@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
 import { osName, browserName, mobileModel } from "react-device-detect";
-import InputField from "../input/InputField";
 import "./conclusion.css";
 
 class Conclusion extends Component {
@@ -13,16 +12,22 @@ class Conclusion extends Component {
       interferenceAnswer: "",
       feedback: "",
       requireFeedback: true,
-      windowWidth: null,
-      windowHeight: null
+      windowWidth: window.innerWidth,
+      windowHeight: window.innerHeight,
+      longitude: null,
+      latitude: null
     };
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   componentDidMount() {
-    this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
+
+    if (navigator.geolocation) {
+      // asynchronous function
+      navigator.geolocation.getCurrentPosition(this.savePosition);
+    }
   }
 
   updateWindowDimensions() {
@@ -31,6 +36,13 @@ class Conclusion extends Component {
       windowHeight: window.innerHeight
     });
   }
+
+  savePosition = position => {
+    this.setState({
+      longitude: position.coords.longitude,
+      latitude: position.coords.latitude
+    });
+  };
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateWindowDimensions);
@@ -71,6 +83,8 @@ class Conclusion extends Component {
             browser: browserName,
             windowWidth: this.state.windowWidth,
             windowHeight: this.state.windowHeight,
+            longitude: this.state.longitude,
+            latitude: this.state.latitude,
             audioData: formData
           };
 
@@ -89,6 +103,8 @@ class Conclusion extends Component {
         browser: browserName,
         windowWidth: this.state.windowWidth,
         windowHeight: this.state.windowHeight,
+        longitude: this.state.longitude,
+        latitude: this.state.latitude,
         audioData: "failed audio"
       };
       this.props.saveConclusionAndAudio(conclusionAndAudio);

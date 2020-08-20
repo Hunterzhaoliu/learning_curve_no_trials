@@ -10,7 +10,7 @@ let cloneObject = object => {
 };
 
 let initialState = {
-  step: 2,
+  step: 0,
   codeError: false,
   dBID: null,
   condition: ""
