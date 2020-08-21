@@ -140,6 +140,10 @@ class Conclusion extends Component {
               Background vector created by freepik - www.freepik.com
             </a>
             <br />
+            <a href="https://www.freepik.com/vectors/banner">
+              Banner vector created by pch.vector - www.freepik.com
+            </a>
+            <br />
             <div>
               Icons made by{" "}
               <a href="https://www.flaticon.com/authors/google" title="Google">

@@ -14,6 +14,7 @@ import introductionVideo from "../../audio/intro.mp4";
 import parentChild from "../../images/parent_child.png";
 import buttonPress from "../../images/button_press.png";
 import child from "../../images/child.png";
+import microphone from "../../images/microphone.png";
 import handsOnLap from "../../images/hands_on_lap.png";
 
 class Introduction extends Component {
@@ -46,6 +47,8 @@ class Introduction extends Component {
       case 1:
         // confirmed name
         try {
+          document.getElementById("microphone").style.display = "none";
+
           this.props.recorder
             .stop()
             .getMp3()
@@ -78,6 +81,8 @@ class Introduction extends Component {
       case 2:
         // confirmed age
         try {
+          document.getElementById("microphone").style.display = "none";
+
           this.props.recorder
             .stop()
             .getMp3()
@@ -156,9 +161,13 @@ class Introduction extends Component {
         });
 
       setTimeout(function() {
+        document.getElementById("microphone").style.display = "inline-block";
+      }, 2000);
+
+      setTimeout(function() {
         document.getElementById("buttonIntroduction10").style.display =
           "inline-block";
-      }, 2000);
+      }, 4000);
     } else if (elementId === "line2_age") {
       this.props.recorder
         .start()
@@ -170,9 +179,13 @@ class Introduction extends Component {
         });
 
       setTimeout(function() {
+        document.getElementById("microphone").style.display = "inline-block";
+      }, 2000);
+
+      setTimeout(function() {
         document.getElementById("buttonIntroduction20").style.display =
           "inline-block";
-      }, 2000);
+      }, 4000);
     } else if (elementId === "line3_thank_you") {
       document.getElementById("buttonIntroduction30").style.display =
         "inline-block";
@@ -234,18 +247,32 @@ class Introduction extends Component {
                 Next
               </button>
             </div>
+            <img
+              className="img-microphone"
+              id="microphone"
+              src={microphone}
+              alt=""
+            />
           </div>
         );
       case 2:
         return (
           <div className="div-absolute">
-            <button
-              onClick={this.onClickContinue}
-              id="buttonIntroduction20"
-              className="button-main button-introduction"
-            >
-              Next
-            </button>
+            <div className="div-absolute">
+              <button
+                onClick={this.onClickContinue}
+                id="buttonIntroduction20"
+                className="button-main button-introduction"
+              >
+                Next
+              </button>
+            </div>
+            <img
+              className="img-microphone"
+              id="microphone"
+              src={microphone}
+              alt=""
+            />
           </div>
         );
       case 3:

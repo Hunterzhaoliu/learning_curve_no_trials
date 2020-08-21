@@ -10,7 +10,7 @@
 
 .button-introduction {
   position: relative;
-  margin-top: 50%;
+  top: 30%;
   display: none;
   height: 60px !important;
   z-index: 5;
@@ -21,5 +21,12 @@
 }
 
 .img-none {
+  display: none;
+}
+
+.img-microphone {
+  position: relative;
+  top: 50%;
+  height: 200px;
   display: none;
 }
