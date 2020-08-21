@@ -29,7 +29,7 @@ class Start extends Component {
           <br />
           <p>
             For verfication purposes, we will be audio recording this game.
-            Please accept the microphone permissions after you press "NEXT".
+            Please accept the microphone permissions after clicking "NEXT".
           </p>
         </div>
         <br />

@@ -4,7 +4,6 @@ import { Layout } from "antd";
 import Code from "./Code";
 import Start from "./Start";
 import Experiment from "./experiment/Experiment";
-
 import MicRecorder from "mic-recorder-to-mp3";
 
 const { Content } = Layout;
@@ -23,14 +22,20 @@ class Landing extends Component {
           bitRate: 128
         });
 
-        recorder
-          .start()
-          .then(() => {
-            console.log("starting recording");
-          })
-          .catch(error => {
-            console.error("start recording error = ", error);
-          });
+        try {
+          // start and stop recording to get user permission
+          recorder
+            .start()
+            .then(() => {
+              recorder.stop();
+            })
+            .catch(error => {
+              console.error("start blank recording error = ", error);
+            });
+        } catch (error) {
+          console.log("Blank recorder error = ", error);
+        }
+
         return <Experiment recorder={recorder} />;
       default:
         return <Code />;

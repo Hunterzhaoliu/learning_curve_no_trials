@@ -57,59 +57,21 @@ class Conclusion extends Component {
   };
 
   onSubmit = () => {
-    const { recorder } = this.props;
+    const conclusionData = {
+      dBID: this.props.dBID,
+      interferenceAnswer: this.state.interferenceAnswer,
+      feedback: this.state.feedback,
+      deviceType: osName,
+      deviceModel: mobileModel,
+      browser: browserName,
+      windowWidth: this.state.windowWidth,
+      windowHeight: this.state.windowHeight,
+      longitude: this.state.longitude,
+      latitude: this.state.latitude
+    };
 
-    try {
-      recorder
-        .stop()
-        .getMp3()
-        .then(([buffer, blob]) => {
-          const file = new File(buffer, "subject_" + this.props.dBID + ".mp3", {
-            type: blob.type,
-            lastModified: Date.now()
-          });
-
-          // file needs to be in this form in order to send to backend
-          // https://medium.com/@aresnik11/how-to-upload-a-file-on-the-frontend-and-send-it-using-js-to-a-rails-backend-29755afaad06
-          let formData = new FormData();
-          formData.append("file", file);
-
-          const conclusionAndAudio = {
-            dBID: this.props.dBID,
-            interferenceAnswer: this.state.interferenceAnswer,
-            feedback: this.state.feedback,
-            deviceType: osName,
-            deviceModel: mobileModel,
-            browser: browserName,
-            windowWidth: this.state.windowWidth,
-            windowHeight: this.state.windowHeight,
-            longitude: this.state.longitude,
-            latitude: this.state.latitude,
-            audioData: formData
-          };
-
-          this.props.saveConclusionAndAudio(conclusionAndAudio);
-          this.setState({ requireFeedback: false });
-        });
-    } catch (error) {
-      console.log("Stop recorder error = ", error);
-
-      const conclusionAndAudio = {
-        dBID: this.props.dBID,
-        interferenceAnswer: this.state.interferenceAnswer,
-        feedback: this.state.feedback,
-        deviceType: osName,
-        deviceModel: mobileModel,
-        browser: browserName,
-        windowWidth: this.state.windowWidth,
-        windowHeight: this.state.windowHeight,
-        longitude: this.state.longitude,
-        latitude: this.state.latitude,
-        audioData: "failed audio"
-      };
-      this.props.saveConclusionAndAudio(conclusionAndAudio);
-      this.setState({ require: false });
-    }
+    this.props.saveConclusion(conclusionData);
+    this.setState({ requireFeedback: false });
   };
 
   render() {
@@ -240,8 +202,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    saveConclusionAndAudio: conclusionAndAudio => {
-      experimentDispatchers.saveConclusionAndAudio(conclusionAndAudio);
+    saveConclusion: conclusionData => {
+      experimentDispatchers.saveConclusion(conclusionData);
     }
   };
 }

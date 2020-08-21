@@ -7,6 +7,7 @@ import Instruction from "./Instruction";
 import Trial from "./Trial";
 import Summary from "./Summary";
 import Conclusion from "./Conclusion";
+
 import "./experiment.css";
 
 import background from "../../images/background.png";
@@ -23,7 +24,7 @@ class Experiment extends Component {
       case "preparation":
         return <Preparation />;
       case "introduction":
-        return <Introduction />;
+        return <Introduction recorder={this.props.recorder} />;
       case "practice":
         return <Practice />;
       case "instruction":
@@ -46,7 +47,7 @@ class Experiment extends Component {
           <Trial eggFallPercentage={110} treeChoice={this.props.treeChoice} />
         );
       case "conclusion":
-        return <Conclusion recorder={this.props.recorder} />;
+        return <Conclusion />;
       default:
         return <Introduction />;
     }

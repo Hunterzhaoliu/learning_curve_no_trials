@@ -45,12 +45,66 @@ class Introduction extends Component {
         break;
       case 1:
         // confirmed name
+        try {
+          const { recorder } = this.props;
+          recorder
+            .stop()
+            .getMp3()
+            .then(([buffer, blob]) => {
+              const file = new File(
+                buffer,
+                "subject_" + this.props.dBID + "_name.mp3",
+                {
+                  type: blob.type,
+                  lastModified: Date.now()
+                }
+              );
+
+              // file needs to be in this form in order to send to backend
+              // https://medium.com/@aresnik11/how-to-upload-a-file-on-the-frontend-and-send-it-using-js-to-a-rails-backend-29755afaad06
+              let formData = new FormData();
+              formData.append("file", file);
+
+              this.props.saveAudio(formData);
+            });
+        } catch (error) {
+          console.log("Stop name recorder error = ", error);
+          this.props.saveAudio("failed audio");
+        }
+
         this.setState({ introductionStep: 2 });
         document.getElementById("line2_age").play();
         console.log("line2_age");
         break;
       case 2:
         // confirmed age
+        try {
+          const { recorder } = this.props;
+          recorder
+            .stop()
+            .getMp3()
+            .then(([buffer, blob]) => {
+              const file = new File(
+                buffer,
+                "subject_" + this.props.dBID + "_age.mp3",
+                {
+                  type: blob.type,
+                  lastModified: Date.now()
+                }
+              );
+
+              // file needs to be in this form in order to send to backend
+              // https://medium.com/@aresnik11/how-to-upload-a-file-on-the-frontend-and-send-it-using-js-to-a-rails-backend-29755afaad06
+              let formData = new FormData();
+              formData.append("file", file);
+
+              this.props.saveAudio(formData);
+            });
+        } catch (error) {
+          console.log("Stop age recorder error = ", error);
+          this.props.saveAudio("failed audio");
+        }
+
         this.setState({ introductionStep: 3 });
         document.getElementById("line3_thank_you").play();
         console.log("line3_thank_you");
@@ -94,11 +148,31 @@ class Introduction extends Component {
       document.getElementById("buttonIntroduction01").style.display =
         "inline-block";
     } else if (elementId === "line2_and_name") {
+      const { recorder } = this.props;
+      recorder
+        .start()
+        .then(() => {
+          console.log("starting name recording");
+        })
+        .catch(error => {
+          console.error("start name recording error = ", error);
+        });
+
       setTimeout(function() {
         document.getElementById("buttonIntroduction10").style.display =
           "inline-block";
       }, 2000);
     } else if (elementId === "line2_age") {
+      const { recorder } = this.props;
+      recorder
+        .start()
+        .then(() => {
+          console.log("starting age recording");
+        })
+        .catch(error => {
+          console.error("start age recording error = ", error);
+        });
+
       setTimeout(function() {
         document.getElementById("buttonIntroduction20").style.display =
           "inline-block";
@@ -161,7 +235,7 @@ class Introduction extends Component {
                 id="buttonIntroduction10"
                 className="button-main button-introduction"
               >
-                Confirmed Name
+                Next
               </button>
             </div>
           </div>
@@ -174,7 +248,7 @@ class Introduction extends Component {
               id="buttonIntroduction20"
               className="button-main button-introduction"
             >
-              Confirmed Age
+              Next
             </button>
           </div>
         );
@@ -256,6 +330,9 @@ function mapDispatchToProps(dispatch) {
   return {
     advancePhase: nextPhase => {
       experimentDispatchers.advancePhase(nextPhase);
+    },
+    saveAudio: audiofile => {
+      experimentDispatchers.saveAudio(audiofile);
     }
   };
 }
