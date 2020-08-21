@@ -190,8 +190,7 @@ class Conclusion extends Component {
 
 function mapStateToProps(state) {
   return {
-    dBID: state.register.dBID,
-    interferenceAnswer: state.experiment.interferenceAnswer
+    dBID: state.register.dBID
   };
 }
 

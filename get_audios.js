@@ -67,7 +67,7 @@ MongoClient.connect(
                     fileBase64,
                     { encoding: "base64" },
                     function(err) {
-                      console.log("File created");
+                      console.log(filename, " created");
                     }
                   );
                 }

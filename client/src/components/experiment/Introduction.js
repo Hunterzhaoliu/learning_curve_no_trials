@@ -46,8 +46,7 @@ class Introduction extends Component {
       case 1:
         // confirmed name
         try {
-          const { recorder } = this.props;
-          recorder
+          this.props.recorder
             .stop()
             .getMp3()
             .then(([buffer, blob]) => {
@@ -79,8 +78,7 @@ class Introduction extends Component {
       case 2:
         // confirmed age
         try {
-          const { recorder } = this.props;
-          recorder
+          this.props.recorder
             .stop()
             .getMp3()
             .then(([buffer, blob]) => {
@@ -148,8 +146,7 @@ class Introduction extends Component {
       document.getElementById("buttonIntroduction01").style.display =
         "inline-block";
     } else if (elementId === "line2_and_name") {
-      const { recorder } = this.props;
-      recorder
+      this.props.recorder
         .start()
         .then(() => {
           console.log("starting name recording");
@@ -163,8 +160,7 @@ class Introduction extends Component {
           "inline-block";
       }, 2000);
     } else if (elementId === "line2_age") {
-      const { recorder } = this.props;
-      recorder
+      this.props.recorder
         .start()
         .then(() => {
           console.log("starting age recording");
@@ -321,6 +317,12 @@ class Introduction extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    dBID: state.register.dBID
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   const experimentDispatchers = bindActionCreators(
     experimentActionCreators,
@@ -338,6 +340,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Introduction);
