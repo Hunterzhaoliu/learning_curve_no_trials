@@ -13,9 +13,7 @@ class Conclusion extends Component {
       feedback: "",
       requireFeedback: true,
       windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
-      longitude: null,
-      latitude: null
+      windowHeight: window.innerHeight
     };
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -23,11 +21,6 @@ class Conclusion extends Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.updateWindowDimensions);
-
-    if (navigator.geolocation) {
-      // asynchronous function
-      navigator.geolocation.getCurrentPosition(this.savePosition);
-    }
   }
 
   updateWindowDimensions() {
@@ -36,13 +29,6 @@ class Conclusion extends Component {
       windowHeight: window.innerHeight
     });
   }
-
-  savePosition = position => {
-    this.setState({
-      longitude: position.coords.longitude,
-      latitude: position.coords.latitude
-    });
-  };
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateWindowDimensions);
@@ -65,9 +51,7 @@ class Conclusion extends Component {
       deviceModel: mobileModel,
       browser: browserName,
       windowWidth: this.state.windowWidth,
-      windowHeight: this.state.windowHeight,
-      longitude: this.state.longitude,
-      latitude: this.state.latitude
+      windowHeight: this.state.windowHeight
     };
 
     this.props.saveConclusion(conclusionData);

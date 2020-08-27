@@ -64,9 +64,7 @@ module.exports = app => {
           deviceModel: data.deviceModel,
           browser: data.browser,
           windowWidth: data.windowWidth,
-          windowHeight: data.windowHeight,
-          longitude: data.longitude,
-          latitude: data.latitude
+          windowHeight: data.windowHeight
         },
         { upsert: true }
       );
