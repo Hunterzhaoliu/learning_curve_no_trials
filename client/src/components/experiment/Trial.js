@@ -46,6 +46,13 @@ class Trial extends Component {
       // ensure success, no need for subject to guess
       this.setState({ hasGuessed: true, trialReady: true });
     }
+
+    // stop the context menu from opening when tap and holding on image
+    window.oncontextmenu = function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    };
   }
 
   componentDidUpdate() {

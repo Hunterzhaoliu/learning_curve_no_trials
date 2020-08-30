@@ -1,7 +1,5 @@
 .img-lab-logo {
   width: 50%;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
 @media only screen and (max-width: 576px) {

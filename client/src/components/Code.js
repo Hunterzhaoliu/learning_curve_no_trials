@@ -16,27 +16,12 @@ class Code extends Component {
     };
   }
 
-  componentDidMount() {
-    window.oncontextmenu = function(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      return false;
-    };
-  }
-
   componentDidUpdate(previousProps) {
     if (this.props.codeError !== previousProps.codeError) {
       this.setState({
         codeError: this.props.codeError
       });
     }
-  }
-
-  onContextMenu(e) {
-    // stop the context menu from opening when tap and hold on image
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
   }
 
   onSubmitCode = e => {
@@ -58,7 +43,6 @@ class Code extends Component {
               className="img-lab-logo"
               src={labLogo}
               alt="Changing Brain Lab"
-              oncontextmenu={e => this.onContextMenu(e)}
             />
           </Col>
         </Row>
