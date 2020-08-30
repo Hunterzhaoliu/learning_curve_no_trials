@@ -130,6 +130,7 @@ class Summary extends Component {
       const data = {
         dBID: this.props.dBID,
         guesses: this.props.guesses,
+        trialLengths: this.props.trialLengths,
         treeChoice: this.state.treeChoice,
         reflection: this.state.reflection
       };
@@ -263,7 +264,8 @@ class Summary extends Component {
 function mapStateToProps(state) {
   return {
     dBID: state.register.dBID,
-    guesses: state.experiment.guesses
+    guesses: state.experiment.guesses,
+    trialLengths: state.experiment.trialLengths
   };
 }
 

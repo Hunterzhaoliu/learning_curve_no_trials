@@ -19,9 +19,10 @@ export const saveGuess = guessHeight => dispatch => {
   });
 };
 
-export const completedTrial = () => dispatch => {
+export const completedTrial = trialLength => dispatch => {
   dispatch({
-    type: COMPLETED_TRIAL
+    type: COMPLETED_TRIAL,
+    trialLength: trialLength
   });
 };
 

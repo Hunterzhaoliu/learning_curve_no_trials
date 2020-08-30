@@ -16,6 +16,14 @@ class Code extends Component {
     };
   }
 
+  componentDidMount() {
+    window.oncontextmenu = function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    };
+  }
+
   componentDidUpdate(previousProps) {
     if (this.props.codeError !== previousProps.codeError) {
       this.setState({

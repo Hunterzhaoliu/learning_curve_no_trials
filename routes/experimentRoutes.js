@@ -40,6 +40,10 @@ module.exports = app => {
           guess2: data.guesses[1],
           guess3: data.guesses[2],
           guess4: data.guesses[3],
+          trial1Length: data.trialLengths[0],
+          trial2Length: data.trialLengths[1],
+          trial3Length: data.trialLengths[2],
+          trial4Length: data.trialLengths[3],
           treeChoice: data.treeChoice,
           reflection: data.reflection,
           completedDate: date

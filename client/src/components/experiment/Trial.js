@@ -30,6 +30,7 @@ class Trial extends Component {
   constructor() {
     super();
     this.state = {
+      trialStartTime: "",
       eggHeight: 0,
       eggAnimation: "none",
       hasGuessed: false,
@@ -63,6 +64,10 @@ class Trial extends Component {
 
   onInput(newEggHeight) {
     // console.log("newEggHeight = ", newEggHeight);
+    if (this.state.trialStartTime === "") {
+      this.setState({ trialStartTime: new Date() });
+    }
+
     if (this.state.eggAnimation === "none") {
       this.setState({ eggAnimation: "shake 0.5s infinite" });
     }
@@ -70,10 +75,13 @@ class Trial extends Component {
     this.setState({ eggHeight: newEggHeight });
 
     if (!this.state.eggFalling && newEggHeight > this.props.eggFallPercentage) {
+      // done with trial, note the trial length to be saved in state
+      const trialLength = new Date() - this.state.trialStartTime;
+
       const { trial } = this.props;
       // egg needs to fall
       // if input is moved too quickly, the platform can be significantly above
-      // the expected fall percentage, so ensure right above right place
+      // the expected fall percentage, so ensure it's just above right place
       this.setState({
         eggHeight: this.props.eggFallPercentage + 1,
         eggFalling: true,
@@ -95,7 +103,7 @@ class Trial extends Component {
 
       setTimeout(() => {
         // this increases the trial count and adds the marker
-        this.props.completedTrial();
+        this.props.completedTrial(trialLength);
       }, 7000);
     }
 
@@ -142,6 +150,7 @@ class Trial extends Component {
 
       // reset state
       this.setState({
+        trialStartTime: "",
         eggHeight: 0,
         eggAnimation: "none",
         hasGuessed: false,
@@ -313,8 +322,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    completedTrial: () => {
-      experimentDispatchers.completedTrial();
+    completedTrial: trialLength => {
+      experimentDispatchers.completedTrial(trialLength);
     },
     advancePhase: nextPhase => {
       experimentDispatchers.advancePhase(nextPhase);

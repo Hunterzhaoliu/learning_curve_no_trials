@@ -19,6 +19,7 @@ let initialState = {
   phase: "preparation",
   trial: 1,
   guesses: [],
+  trialLengths: [],
   treeChoice: ""
 };
 
@@ -33,6 +34,7 @@ export default function(state = initialState, action) {
       return newState;
     case COMPLETED_TRIAL:
       newState.trial++;
+      newState.trialLengths.push(action.trialLength / 1000);
       return newState;
     case SAVE_TREE_CHOICE:
       newState.treeChoice = action.treeChoice;
