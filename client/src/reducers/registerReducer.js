@@ -9,11 +9,17 @@ let cloneObject = object => {
   return JSON.parse(JSON.stringify(object));
 };
 
+// let initialState = {
+//   step: 0,
+//   codeError: false,
+//   dBID: null,
+//   condition: ""
+// };
 let initialState = {
-  step: 2,
+  step: 0,
   codeError: false,
   dBID: null,
-  condition: "increasing"
+  condition: ""
 };
 
 export default function(state = initialState, action) {

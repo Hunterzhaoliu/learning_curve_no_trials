@@ -6,7 +6,7 @@
 
 - How to import data from a csv file: `mongoimport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve --collection subjects --type file_type --headerline --file file_name`
 
-- How to export data to a csv file: `mongoexport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve --collection subjects --type csv --fields _id,guess1,guess2,guess3,guess4,condition,code,reflection,treeChoice,feedback,interference,completedDate,deviceType,deviceModel,browser,windowWidth,windowHeight --out subjects.csv --forceTableScan`
+- How to export data to a csv file: `mongoexport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve --collection subjects --type csv --fields _id,guess1,guess2,guess3,guess4,condition,code,reflection,treeChoice,feedback,interference,completedDate,deviceType,deviceModel,browser,windowWidth,windowHeight,trial1Length,trial2Length,trial3Length,trial4Length --out subjects.csv --forceTableScan`
 
 ### Website
 
