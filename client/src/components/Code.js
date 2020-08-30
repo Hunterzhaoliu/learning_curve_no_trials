@@ -24,6 +24,13 @@ class Code extends Component {
     }
   }
 
+  onContextMenu(e) {
+    // stop the context menu from opening when tap and hold on image
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+
   onSubmitCode = e => {
     // prevent cleaning the form
     e.preventDefault();
@@ -43,6 +50,7 @@ class Code extends Component {
               className="img-lab-logo"
               src={labLogo}
               alt="Changing Brain Lab"
+              oncontextmenu={e => this.onContextMenu(e)}
             />
           </Col>
         </Row>
