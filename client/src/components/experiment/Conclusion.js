@@ -12,6 +12,8 @@ class Conclusion extends Component {
       interferenceAnswer: "",
       feedback: "",
       requireFeedback: true,
+      bystander: "",
+      requireBystander: true,
       windowWidth: window.innerWidth,
       windowHeight: window.innerHeight
     };
@@ -35,17 +37,26 @@ class Conclusion extends Component {
   }
 
   onClick = e => {
-    this.setState({ interferenceAnswer: e.target.value });
+    if (e.target.id === "interference") {
+      this.setState({ interferenceAnswer: e.target.value });
+    } else {
+      this.setState({ requireBystander: false });
+    }
   };
 
   onChange = e => {
-    this.setState({ feedback: e.target.value });
+    if (e.target.id === "feedback") {
+      this.setState({ feedback: e.target.value });
+    } else {
+      this.setState({ bystander: e.target.value });
+    }
   };
 
   onSubmit = () => {
     const conclusionData = {
       dBID: this.props.dBID,
       interferenceAnswer: this.state.interferenceAnswer,
+      bystander: this.state.bystander,
       feedback: this.state.feedback,
       deviceType: osName,
       deviceModel: mobileModel,
@@ -67,15 +78,47 @@ class Conclusion extends Component {
             <h3 className="h3-conclusion-question">
               Parent: Did another child or adult interfere with the game?
             </h3>
-            <button value="yes" onClick={this.onClick} className="button-main">
+            <button
+              id="interference"
+              value="yes"
+              onClick={this.onClick}
+              className="button-main"
+            >
               Yes
             </button>
             <button
+              id="interference"
               value="no"
               onClick={this.onClick}
               className="button-main button-right"
             >
               No
+            </button>
+          </div>
+        </div>
+      );
+    } else if (this.state.requireBystander) {
+      return (
+        <div className="div-absolute div-white">
+          <div className="div-absolute-white-child">
+            <h3 className="h3-conclusion-question text-align-left">
+              Did anyone else watch your child play? <br />
+              If so, what is the other person's relationship and age?
+            </h3>
+            <textarea
+              id="bystander"
+              value={this.state.bystander}
+              className="textarea"
+              placeholder=""
+              rows={5}
+              onChange={this.onChange}
+            />
+            <button
+              id="bystander"
+              onClick={this.onClick}
+              className="button-main"
+            >
+              Next
             </button>
           </div>
         </div>
@@ -86,7 +129,9 @@ class Conclusion extends Component {
           <div className="div-absolute-white-child">
             <h3 className="h3-conclusion-question">Anything we should know?</h3>
             <textarea
-              className="textarea-feedback"
+              id="feedback"
+              value={this.state.feedback}
+              className="textarea"
               placeholder="Feedback:"
               rows={5}
               onChange={this.onChange}

@@ -63,6 +63,7 @@ module.exports = app => {
         { _id: data.dBID },
         {
           interference: data.interferenceAnswer,
+          bystander: data.bystander,
           feedback: data.feedback,
           deviceType: data.deviceType,
           deviceModel: data.deviceModel,

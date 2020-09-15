@@ -16,6 +16,7 @@ const subjectSchema = new Schema(
     treeChoice: String,
     reflection: String,
     interference: String,
+    bystander: String,
     feedback: String,
     completedDate: Date,
     deviceType: String,
