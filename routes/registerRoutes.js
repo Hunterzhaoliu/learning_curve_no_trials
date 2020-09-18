@@ -30,7 +30,7 @@ module.exports = app => {
       //   newSubjectCondition = "increasing";
       // }
 
-      const newSubjectCondition = "increasing";
+      const newSubjectCondition = "constant";
 
       const newSubject = new SubjectCollection({
         condition: newSubjectCondition,
