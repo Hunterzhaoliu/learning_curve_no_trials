@@ -62,14 +62,26 @@ export const saveAudio = audioFile => async dispatch => {
   }
 };
 
-export const saveConclusion = conclusionData => async dispatch => {
-  const saveConclusionResponse = await axios.put(
-    "/api/save-conclusion",
-    conclusionData
+export const saveInitialConclusion = initialConclusionData => async dispatch => {
+  const saveInitialConclusionResponse = await axios.put(
+    "/api/save-initial-conclusion",
+    initialConclusionData
   );
-  if (saveConclusionResponse.status === 200) {
-    console.log("Successfully saved conclusion");
+  if (saveInitialConclusionResponse.status === 200) {
+    console.log("Successfully saved initial conclusion");
   } else {
-    console.log("Unable to save conclusion");
+    console.log("Unable to save initial conclusion");
+  }
+};
+
+export const saveFinalConclusion = finalConclusionData => async dispatch => {
+  const saveFinalConclusionResponse = await axios.put(
+    "/api/save-final-conclusion",
+    finalConclusionData
+  );
+  if (saveFinalConclusionResponse.status === 200) {
+    console.log("Successfully saved final conclusion");
+  } else {
+    console.log("Unable to save finalconclusion");
   }
 };

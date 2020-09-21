@@ -39,6 +39,17 @@ class Conclusion extends Component {
   onClick = e => {
     if (e.target.id === "interference") {
       this.setState({ interferenceAnswer: e.target.value });
+      const initialConclusionData = {
+        dBID: this.props.dBID,
+        interferenceAnswer: e.target.value,
+        deviceType: osName,
+        deviceModel: mobileModel,
+        browser: browserName,
+        windowWidth: this.state.windowWidth,
+        windowHeight: this.state.windowHeight
+      };
+
+      this.props.saveInitialConclusion(initialConclusionData);
     } else {
       this.setState({ requireBystander: false });
     }
@@ -53,19 +64,13 @@ class Conclusion extends Component {
   };
 
   onSubmit = () => {
-    const conclusionData = {
+    const finalConclusionData = {
       dBID: this.props.dBID,
-      interferenceAnswer: this.state.interferenceAnswer,
       bystander: this.state.bystander,
-      feedback: this.state.feedback,
-      deviceType: osName,
-      deviceModel: mobileModel,
-      browser: browserName,
-      windowWidth: this.state.windowWidth,
-      windowHeight: this.state.windowHeight
+      feedback: this.state.feedback
     };
 
-    this.props.saveConclusion(conclusionData);
+    this.props.saveFinalConclusion(finalConclusionData);
     this.setState({ requireFeedback: false });
   };
 
@@ -234,8 +239,11 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    saveConclusion: conclusionData => {
-      experimentDispatchers.saveConclusion(conclusionData);
+    saveInitialConclusion: initialConclusionData => {
+      experimentDispatchers.saveInitialConclusion(initialConclusionData);
+    },
+    saveFinalConclusion: finalConclusionData => {
+      experimentDispatchers.saveFinalConclusion(finalConclusionData);
     }
   };
 }
