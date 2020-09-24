@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./markers.css";
-import markTrialAudio from "../../audio/line11_12.mp3";
-import markFinalTrialAudio from "../../audio/line11.wav";
+import markTrialAudio from "../../audio/crack_line11_12.mp3";
+import markFinalTrialAudio from "../../audio/crack_line11.mp3";
 import one from "../../images/numbers/one.png";
 import two from "../../images/numbers/two.png";
 import three from "../../images/numbers/three.png";
@@ -73,7 +73,7 @@ class Markers extends Component {
           onEnded={e => this.props.onAudioEnded(e.target.id)}
           id="markFinalTrialAudio"
         >
-          <source src={markFinalTrialAudio} type="audio/wav" />
+          <source src={markFinalTrialAudio} type="audio/mpeg" />
         </audio>
         {this.renderMarkers()}
       </div>

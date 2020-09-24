@@ -111,7 +111,7 @@ class Trial extends Component {
       setTimeout(() => {
         // this increases the trial count and adds the marker
         this.props.completedTrial(trialLength);
-      }, 7000);
+      }, 11000);
     }
 
     const { treeChoice } = this.props;
