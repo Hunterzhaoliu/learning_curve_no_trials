@@ -14,7 +14,7 @@ import background from "../../images/background.png";
 
 import summaryAudio from "../../audio/line13_14.mp3";
 
-import { EGG_FALL_INCREASING } from "./constants";
+import { EGG_FALL_INCREASING, EGG_FALL_CONSTANT } from "./constants";
 
 class Experiment extends Component {
   renderExperiment() {
@@ -33,7 +33,7 @@ class Experiment extends Component {
         const { condition, trial } = this.props;
         let eggFallPercentage;
         if (condition === "constant") {
-          eggFallPercentage = EGG_FALL_INCREASING[3];
+          eggFallPercentage = EGG_FALL_CONSTANT[trial - 1];
         } else if (condition === "increasing") {
           eggFallPercentage = EGG_FALL_INCREASING[trial - 1];
         }

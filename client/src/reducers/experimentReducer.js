@@ -17,10 +17,10 @@ let cloneObject = object => {
 //   treeChoice: ""
 // };
 let initialState = {
-  phase: "preparation",
-  trial: 1,
-  guesses: [],
-  trialLengths: [],
+  phase: "trial",
+  trial: 4,
+  guesses: [10, 20, 30],
+  trialLengths: [5, 3, 2],
   treeChoice: ""
 };
 

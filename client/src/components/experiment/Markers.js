@@ -8,7 +8,7 @@ import two from "../../images/numbers/two.png";
 import three from "../../images/numbers/three.png";
 import four from "../../images/numbers/four.png";
 
-import { EGG_FALL_INCREASING } from "./constants";
+import { EGG_FALL_INCREASING, EGG_FALL_CONSTANT } from "./constants";
 
 class Markers extends Component {
   renderMarkers = () => {
@@ -28,7 +28,7 @@ class Markers extends Component {
 
       if (condition === "constant") {
         // Constant condition where egg gets to the last marker
-        eggFallPercentage = String(100 - EGG_FALL_INCREASING[3]);
+        eggFallPercentage = String(100 - EGG_FALL_CONSTANT[i]);
         markerLeft = "calc(110% + " + String(20 * i) + "px)";
       } else {
         eggFallPercentage = String(100 - EGG_FALL_INCREASING[i]);
