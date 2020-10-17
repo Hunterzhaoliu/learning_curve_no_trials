@@ -6,7 +6,31 @@ const SubjectCollection = mongoose.model("subjects");
 module.exports = app => {
   app.post("/api/submit-code", async (request, response) => {
     try {
-      const newSubjectCondition = "increasing";
+      // const newSubjectCondition = "increasing";
+
+      const previousSubjectConditions = await SubjectCollection.find(
+        {},
+        { condition: 1, _id: 0 }
+      );
+
+      let increasingCount = 0;
+      let constantCount = 0;
+
+      for (let i = 0; i < previousSubjectConditions.length; i++) {
+        if (previousSubjectConditions[i].condition === "increasing") {
+          increasingCount++;
+        } else {
+          constantCount++;
+        }
+      }
+
+      let newSubjectCondition;
+      if (increasingCount > constantCount) {
+        newSubjectCondition = "constant";
+      } else {
+        // when increasing <= constant, make this subject increasing
+        newSubjectCondition = "increasing";
+      }
 
       const newSubject = new SubjectCollection({
         condition: newSubjectCondition,
@@ -20,6 +44,7 @@ module.exports = app => {
         condition: newSubject.condition
       };
       response.send(subjectDBInfo);
+      response.send("done");
     } catch (error) {
       response.send(error);
     }

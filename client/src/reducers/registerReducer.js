@@ -16,10 +16,10 @@ let cloneObject = object => {
 //   condition: ""
 // };
 let initialState = {
-  step: 2,
+  step: 0,
   codeError: false,
   dBID: null,
-  condition: "constant"
+  condition: ""
 };
 
 export default function(state = initialState, action) {
