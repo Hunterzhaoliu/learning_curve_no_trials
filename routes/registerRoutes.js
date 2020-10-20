@@ -9,7 +9,7 @@ module.exports = app => {
       // const newSubjectCondition = "increasing";
       // new Date(2020, 9, 19) is the start date of the new experiment
       const previousSubjectConditions = await SubjectCollection.find(
-        { completedDate: { $gt: new Date(2020, 9, 18) } },
+        {},
         { condition: 1, _id: 0 }
       );
 

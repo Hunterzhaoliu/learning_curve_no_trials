@@ -5,3 +5,5 @@ config/dev.js
 
 client/.env.development
 client/.env.production
+
+subjects.csv
