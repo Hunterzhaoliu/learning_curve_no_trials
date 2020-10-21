@@ -7,9 +7,10 @@ module.exports = app => {
   app.post("/api/submit-code", async (request, response) => {
     try {
       // const newSubjectCondition = "increasing";
-      // new Date(2020, 9, 19) is the start date of the new experiment
+      // only count conditions of all the subjects who actually completed the
+      // full experiment
       const previousSubjectConditions = await SubjectCollection.find(
-        {},
+        { bystander: { $exists: true } },
         { condition: 1, _id: 0 }
       );
 
