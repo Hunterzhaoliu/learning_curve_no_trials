@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const subjectSchema = new Schema(
   {
     code: String,
+    childBirthDate: String,
     condition: String,
     guess1: Number,
     guess2: Number,

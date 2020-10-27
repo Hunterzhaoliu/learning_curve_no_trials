@@ -13,7 +13,7 @@ export const startExperiment = () => dispatch => {
   });
 };
 
-export const submitCode = code => async dispatch => {
+export const submitCode = (code, childBirthDate) => async dispatch => {
   if (code === "error") {
     dispatch({
       type: SUBMIT_CODE_ERROR
@@ -21,7 +21,8 @@ export const submitCode = code => async dispatch => {
   } else {
     // valid code
     const submitCodeResponse = await axios.post("/api/submit-code", {
-      code: code
+      code: code,
+      childBirthDate: childBirthDate
     });
 
     if (submitCodeResponse.status === 200) {

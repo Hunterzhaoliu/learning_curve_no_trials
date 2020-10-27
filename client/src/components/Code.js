@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as registerActionCreators from "../actions/register";
 import { bindActionCreators } from "redux";
-import { Row, Col } from "antd";
+import { Row, Col, DatePicker } from "antd";
 import InputField from "./input/InputField";
 import labLogo from "../images/lab_logo.png";
 import "./code.css";
@@ -12,6 +12,7 @@ class Code extends Component {
     super();
     this.state = {
       code: "",
+      childBirthDate: "",
       codeError: false
     };
   }
@@ -27,14 +28,25 @@ class Code extends Component {
   onSubmitCode = e => {
     // prevent cleaning the form
     e.preventDefault();
-    this.props.submitCode(this.state.code);
+    this.props.submitCode(this.state.code, this.state.childBirthDate);
   };
 
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  onChangeChildBirthDate = (_, dateString) => {
+    this.setState({
+      childBirthDate: dateString
+    });
+  };
+
   render() {
+    document.documentElement.style.setProperty(
+      "--window-width-minus-padding",
+      "calc(100% - 40px)"
+    );
+
     return (
       <div className="screen-edge-padding">
         <Row type="flex" justify="center">
@@ -65,6 +77,18 @@ class Code extends Component {
                 width={"100%"}
                 id="code"
                 type="text"
+              />
+            </Col>
+          </Row>
+          <Row className="row-upper-15-padding" type="flex" justify="start">
+            <Col span={24}>
+              <DatePicker
+                className="date-picker"
+                onChange={this.onChangeChildBirthDate}
+                allowClear={false}
+                format={"MM/DD/YYYY"}
+                size="large"
+                placeholder="Child's Birth Date"
               />
             </Col>
           </Row>
@@ -114,8 +138,8 @@ function mapDispatchToProps(dispatch) {
   );
 
   return {
-    submitCode: code => {
-      registerDispatchers.submitCode(code);
+    submitCode: (code, childBirthDate) => {
+      registerDispatchers.submitCode(code, childBirthDate);
     }
   };
 }

@@ -35,7 +35,8 @@ module.exports = app => {
 
       const newSubject = new SubjectCollection({
         condition: newSubjectCondition,
-        code: request.body.code
+        code: request.body.code,
+        childBirthDate: request.body.childBirthDate
       });
 
       await newSubject.save();

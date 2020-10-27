@@ -5,40 +5,49 @@ import Code from "./Code";
 import Start from "./Start";
 import Experiment from "./experiment/Experiment";
 import MicRecorder from "mic-recorder-to-mp3";
+import { osName } from "react-device-detect";
 
 const { Content } = Layout;
 
 class Landing extends Component {
   renderDisplay() {
-    const { step } = this.props;
+    if (osName === "Android" || osName === "iOS") {
+      const { step } = this.props;
 
-    switch (step) {
-      case 0:
-        return <Code />;
-      case 1:
-        return <Start />;
-      case 2:
-        const recorder = new MicRecorder({
-          bitRate: 128
-        });
+      switch (step) {
+        case 0:
+          return <Code />;
+        case 1:
+          return <Start />;
+        case 2:
+          const recorder = new MicRecorder({
+            bitRate: 128
+          });
 
-        try {
-          // start and stop recording to get user permission
-          recorder
-            .start()
-            .then(() => {
-              recorder.stop();
-            })
-            .catch(error => {
-              console.error("start blank recording error = ", error);
-            });
-        } catch (error) {
-          console.log("Blank recorder error = ", error);
-        }
+          try {
+            // start and stop recording to get user permission
+            recorder
+              .start()
+              .then(() => {
+                recorder.stop();
+              })
+              .catch(error => {
+                console.error("start blank recording error = ", error);
+              });
+          } catch (error) {
+            console.log("Blank recorder error = ", error);
+          }
 
-        return <Experiment recorder={recorder} />;
-      default:
-        return <Code />;
+          return <Experiment recorder={recorder} />;
+        default:
+          return <Code />;
+      }
+    } else {
+      return (
+        <h1 style={{ paddingTop: "60px" }}>
+          Please continue this experiment on a mobile device
+        </h1>
+      );
     }
     // Step 0: Code
     // Step 1: Consent
