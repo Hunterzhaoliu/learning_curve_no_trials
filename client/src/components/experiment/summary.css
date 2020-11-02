@@ -53,3 +53,20 @@
   padding-bottom: 15px;
   text-transform: uppercase;
 }
+
+.button-introduction {
+  position: absolute;
+  top: 30%;
+  left: calc(50% - 40px);
+  display: none;
+  z-index: 5;
+}
+
+/* subtract half of the width of the mic */
+.img-microphone {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 46px);
+  width: 92px;
+  display: none;
+}

@@ -41,7 +41,7 @@ class Experiment extends Component {
       case "summary":
         // subject finished experiment, need to go over results, ask for desired
         // tree, and ask tree choice reasoning
-        return <Summary />;
+        return <Summary recorder={this.props.recorder} />;
       case "success":
         return (
           <Trial eggFallPercentage={110} treeChoice={this.props.treeChoice} />

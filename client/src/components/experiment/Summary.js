@@ -6,11 +6,13 @@ import Markers from "./Markers";
 import "./summary.css";
 
 import hand from "../../images/hand.png";
+import microphone from "../../images/microphone.png";
 import same_2 from "../../images/same_2.png";
 import better_2 from "../../images/better_2.png";
 
-import reaskTreeAudio from "../../audio/line14_cut.wav";
 import confirmTreeAudio from "../../audio/line15_2.wav";
+import askWhyAudio from "../../audio/why_tree.wav";
+import reaskTreeAudio from "../../audio/line14_cut.wav";
 import questionSameAudio from "../../audio/line16_same_cut.wav";
 import questionBetterAudio from "../../audio/line16_better_cut.wav";
 import goTopAudio from "../../audio/line15_3.wav";
@@ -32,34 +34,6 @@ class Summary extends Component {
     };
   }
 
-  onClickConfirmation = e => {
-    // remove confirmation buttons
-    this.setState({
-      gavePotentialTreeChoice: false
-    });
-
-    if (this.state.treeChoice === "left") {
-      document.getElementById("handLeft").style.display = "none";
-    } else {
-      document.getElementById("handRight").style.display = "none";
-    }
-
-    if (e.target.value === "yes") {
-      // ask comprehension questions
-      if (this.state.topButton < 0.5) {
-        document.getElementById("questionSameAudio").play();
-        console.log("questionSameAudio");
-      } else {
-        document.getElementById("questionBetterAudio").play();
-        console.log("questionBetterAudio");
-      }
-    } else {
-      // reask which tree
-      document.getElementById("reaskTreeAudio").play();
-      console.log("reaskTreeAudio");
-    }
-  };
-
   onClickTree = e => {
     const chosenTree = e.target.value;
     this.setState({
@@ -73,6 +47,70 @@ class Summary extends Component {
     document.getElementById("confirmTreeAudio").play();
     console.log("confirmTreeAudio");
     // hand display is done in onTimeUpdate() function
+  };
+
+  onClickConfirmation = e => {
+    // remove confirmation buttons
+    this.setState({
+      gavePotentialTreeChoice: false
+    });
+
+    if (this.state.treeChoice === "left") {
+      document.getElementById("handLeft").style.display = "none";
+    } else {
+      document.getElementById("handRight").style.display = "none";
+    }
+
+    if (e.target.value === "yes") {
+      // ask why they picked that tree
+      document.getElementById("askWhyAudio").play();
+      console.log("askWhyAudio");
+    } else {
+      // reask which tree
+      document.getElementById("reaskTreeAudio").play();
+      console.log("reaskTreeAudio");
+    }
+  };
+
+  onClickDoneWhy = () => {
+    // confirmed why
+    try {
+      document.getElementById("microphone").style.display = "none";
+      document.getElementById("saidWhy").style.display = "none";
+
+      this.props.recorder
+        .stop()
+        .getMp3()
+        .then(([buffer, blob]) => {
+          const file = new File(
+            buffer,
+            "subject_" + this.props.dBID + "_why_tree.mp3",
+            {
+              type: blob.type,
+              lastModified: Date.now()
+            }
+          );
+
+          // file needs to be in this form in order to send to backend
+          // https://medium.com/@aresnik11/how-to-upload-a-file-on-the-frontend-and-send-it-using-js-to-a-rails-backend-29755afaad06
+          let formData = new FormData();
+          formData.append("file", file);
+
+          this.props.saveAudio(formData);
+        });
+    } catch (error) {
+      console.log("Stop why tree recorder error = ", error);
+      this.props.saveAudio("failed audio");
+    }
+
+    // ask comprehension questions
+    if (this.state.topButton < 0.5) {
+      document.getElementById("questionSameAudio").play();
+      console.log("questionSameAudio");
+    } else {
+      document.getElementById("questionBetterAudio").play();
+      console.log("questionBetterAudio");
+    }
   };
 
   onClickReflection = value => {
@@ -116,6 +154,23 @@ class Summary extends Component {
     if (audioId === "confirmTreeAudio") {
       document.getElementById("treeConfirmationButtonDiv").style.display =
         "block";
+    } else if (audioId === "askWhyAudio") {
+      this.props.recorder
+        .start()
+        .then(() => {
+          console.log("starting why recording");
+        })
+        .catch(error => {
+          console.error("start why recording error = ", error);
+        });
+
+      setTimeout(function() {
+        document.getElementById("microphone").style.display = "inline-block";
+      }, 2000);
+
+      setTimeout(function() {
+        document.getElementById("saidWhy").style.display = "inline-block";
+      }, 4000);
     } else if (audioId === "reaskTreeAudio") {
       document.getElementById("buttonLeftTree").style.display = "block";
       document.getElementById("buttonRightTree").style.display = "block";
@@ -211,6 +266,22 @@ class Summary extends Component {
           <source src={confirmTreeAudio} type="audio/wav" />
         </audio>
         {this.renderConfirmationButtons()}
+        <audio onEnded={e => this.onAudioEnded(e.target.id)} id="askWhyAudio">
+          <source src={askWhyAudio} type="audio/wav" />
+        </audio>
+        <button
+          onClick={this.onClickDoneWhy}
+          id="saidWhy"
+          className="button-main button-introduction"
+        >
+          Next
+        </button>
+        <img
+          className="img-microphone"
+          id="microphone"
+          src={microphone}
+          alt=""
+        />
         <audio
           onEnded={e => this.onAudioEnded(e.target.id)}
           id="reaskTreeAudio"
@@ -278,6 +349,9 @@ function mapDispatchToProps(dispatch) {
   return {
     saveData: data => {
       experimentDispatchers.saveData(data);
+    },
+    saveAudio: audiofile => {
+      experimentDispatchers.saveAudio(audiofile);
     }
   };
 }

@@ -5,13 +5,35 @@ import Code from "./Code";
 import Start from "./Start";
 import Experiment from "./experiment/Experiment";
 import MicRecorder from "mic-recorder-to-mp3";
-import { osName } from "react-device-detect";
 
 const { Content } = Layout;
 
 class Landing extends Component {
+  constructor() {
+    super();
+    this.state = {
+      windowWidth: window.innerWidth
+    };
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({
+      windowWidth: window.innerWidth
+    });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowDimensions);
+  }
+
   renderDisplay() {
-    if (osName === "Android" || osName === "iOS") {
+    if (this.state.windowWidth < 1400) {
       const { step } = this.props;
 
       switch (step) {
@@ -45,7 +67,7 @@ class Landing extends Component {
     } else {
       return (
         <h1 style={{ paddingTop: "60px" }}>
-          Please continue this experiment on a mobile device
+          Please continue this experiment on a mobile device or tablet
         </h1>
       );
     }
