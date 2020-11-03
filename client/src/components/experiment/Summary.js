@@ -272,7 +272,7 @@ class Summary extends Component {
         <button
           onClick={this.onClickDoneWhy}
           id="saidWhy"
-          className="button-main button-introduction"
+          className="button-main button-said-why"
         >
           Next
         </button>
