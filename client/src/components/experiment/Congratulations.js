@@ -7,9 +7,9 @@ import "./conclusion.css";
 
 import point from "../../images/point.png";
 import microphone from "../../images/microphone.png";
-import artQAudio from "../../audio/art.wav";
-import mathQAudio from "../../audio/mathQ.wav";
-import puzzleQAudio from "../../audio/puzzleQ.wav";
+import artAudio from "../../audio/art.wav";
+import mathAudio from "../../audio/math.wav";
+import puzzleAudio from "../../audio/puzzle.wav";
 
 class Congratulations extends Component {
   constructor() {
@@ -82,14 +82,14 @@ class Congratulations extends Component {
       // still have the next question to ask
       const nextQuestion = this.state.questionOrder[currentQuestionIndex + 1];
       if (nextQuestion === "math") {
-        document.getElementById("mathQAudio").play();
-        console.log("mathQAudio");
+        document.getElementById("mathAudio").play();
+        console.log("mathAudio");
       } else if (nextQuestion === "art") {
-        document.getElementById("artQAudio").play();
-        console.log("artQAudio");
+        document.getElementById("artAudio").play();
+        console.log("artAudio");
       } else {
-        document.getElementById("puzzleQAudio").play();
-        console.log("puzzleQAudio");
+        document.getElementById("puzzleAudio").play();
+        console.log("puzzleAudio");
       }
     } else {
       // done asking questions
@@ -184,20 +184,17 @@ class Congratulations extends Component {
             >
               Next
             </button>
-            <audio
-              onEnded={e => this.onAudioEnded(e.target.id)}
-              id="mathQAudio"
-            >
-              <source src={mathQAudio} type="audio/wav" />
+            <audio onEnded={e => this.onAudioEnded(e.target.id)} id="mathAudio">
+              <source src={mathAudio} type="audio/wav" />
             </audio>
-            <audio onEnded={e => this.onAudioEnded(e.target.id)} id="artQAudio">
-              <source src={artQAudio} type="audio/wav" />
+            <audio onEnded={e => this.onAudioEnded(e.target.id)} id="artAudio">
+              <source src={artAudio} type="audio/wav" />
             </audio>
             <audio
               onEnded={e => this.onAudioEnded(e.target.id)}
-              id="puzzleQAudio"
+              id="puzzleAudio"
             >
-              <source src={puzzleQAudio} type="audio/wav" />
+              <source src={puzzleAudio} type="audio/wav" />
             </audio>
           </div>
         </div>
