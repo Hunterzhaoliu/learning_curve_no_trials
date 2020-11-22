@@ -44,7 +44,11 @@ class Experiment extends Component {
         return <Summary recorder={this.props.recorder} />;
       case "success":
         return (
-          <Trial eggFallPercentage={110} treeChoice={this.props.treeChoice} />
+          <Trial
+            recorder={this.props.recorder}
+            eggFallPercentage={110}
+            treeChoice={this.props.treeChoice}
+          />
         );
       case "conclusion":
         return <Conclusion />;

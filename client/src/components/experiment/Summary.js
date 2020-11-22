@@ -41,12 +41,15 @@ class Summary extends Component {
       treeChoice: chosenTree
     });
 
-    document.getElementById("buttonLeftTree").style.display = "none";
-    document.getElementById("buttonRightTree").style.display = "none";
-
-    document.getElementById("confirmTreeAudio").play();
-    console.log("confirmTreeAudio");
-    // hand display is done in onTimeUpdate() function
+    // TODO
+    document.getElementById("goTopAudio").play();
+    console.log("goTopAudio");
+    // document.getElementById("buttonLeftTree").style.display = "none";
+    // document.getElementById("buttonRightTree").style.display = "none";
+    //
+    // document.getElementById("confirmTreeAudio").play();
+    // console.log("confirmTreeAudio");
+    // // hand display is done in onTimeUpdate() function
   };
 
   onClickConfirmation = e => {

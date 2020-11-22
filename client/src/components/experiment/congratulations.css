@@ -14,6 +14,10 @@
   z-index: 5;
 }
 
+.div-congratulations-q {
+  z-index: 5;
+}
+
 .confetti-piece {
   position: absolute;
   width: 8px;

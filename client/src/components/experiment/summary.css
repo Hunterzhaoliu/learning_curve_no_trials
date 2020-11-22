@@ -6,7 +6,7 @@
   width: 50vw;
   padding: 0;
   border: none;
-  display: none;
+  /* TODO display: none; */
 }
 
 .left-tree {

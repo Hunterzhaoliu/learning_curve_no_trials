@@ -14,7 +14,9 @@ import background_egg_right from "../../images/background_egg_right.png";
 
 import startTrialAudio from "../../audio/line9.wav";
 import startTopTrialAudio from "../../audio/line10.wav";
-import congratulationsAudio from "../../audio/congratulations.wav";
+import congratulationsMathAudio from "../../audio/congratulationsMath.mp3";
+import congratulationsPuzzleAudio from "../../audio/congratulationsPuzzle.mp3";
+import congratulationsArtAudio from "../../audio/congratulationsArt.mp3";
 
 import {
   SCREEN_TO_LADDER_BOTTOM_PERCENT,
@@ -36,7 +38,9 @@ class Trial extends Component {
       hasGuessed: false,
       trialReady: false,
       eggFalling: false,
-      showCongratulations: false
+      showCongratulations: false,
+      firstQuestion: "",
+      isConfettiDone: false
     };
   }
 
@@ -120,8 +124,22 @@ class Trial extends Component {
       ((treeChoice === "left" && this.state.eggHeight > 75) ||
         (treeChoice === "right" && this.state.eggHeight > 95))
     ) {
-      document.getElementById("congratulationsAudio").play();
-      console.log("congratulationsAudio");
+      // < 1/3 is math, between 1/3 and 2/3 is puzzle, and last 1/3 is art
+      let firstQuestion = Math.random();
+      // ask comprehension questions
+      if (firstQuestion < 1 / 3) {
+        firstQuestion = "math";
+        document.getElementById("congratulationsMathAudio").play();
+        console.log("congratulationsMathAudio");
+      } else if (firstQuestion < 2 / 3) {
+        firstQuestion = "puzzle";
+        document.getElementById("congratulationsPuzzleAudio").play();
+        console.log("congratulationsPuzzleAudio");
+      } else {
+        firstQuestion = "art";
+        document.getElementById("congratulationsArtAudio").play();
+        console.log("congratulationsArtAudio");
+      }
 
       // child successfully brought egg up tree; need to show egg in nest
       document.getElementById("egg").style.display = "none";
@@ -132,7 +150,8 @@ class Trial extends Component {
       }
 
       this.setState({
-        showCongratulations: true
+        showCongratulations: true,
+        firstQuestion: firstQuestion
       });
     }
   }
@@ -145,6 +164,7 @@ class Trial extends Component {
   };
 
   onAudioEnded = elementId => {
+    console.log("elementId = ", elementId);
     if (elementId === "startTrialAudio" || elementId === "startTopTrialAudio") {
       // allow subject to manipulate egg
       this.setState({ trialReady: true });
@@ -163,12 +183,31 @@ class Trial extends Component {
         hasGuessed: false,
         trialReady: false,
         eggFalling: false,
-        showCongratulations: false
+        showCongratulations: false,
+        firstQuestion: "",
+        isConfettiDone: false
       });
     } else if (elementId === "markFinalTrialAudio") {
       // the button is in Trial.js and the audio element is in Experiment
       document.getElementById("summaryAudioButton").click();
       this.props.advancePhase("summary");
+    } else if (elementId.substring(0, 7) === "congrat") {
+      this.props.recorder
+        .start()
+        .then(() => {
+          console.log("starting question recording");
+        })
+        .catch(error => {
+          console.error("start question recording error = ", error);
+        });
+
+      // setTimeout(function() {
+      //   document.getElementById("microphone").style.display = "inline-block";
+      // }, 2000);
+      //
+      // setTimeout(function() {
+      //   document.getElementById("saidWhy").style.display = "inline-block";
+      // }, 4000);
     }
   };
 
@@ -188,7 +227,19 @@ class Trial extends Component {
 
   renderCongratulations() {
     if (this.state.showCongratulations) {
-      return <Congratulations />;
+      return (
+        <Congratulations
+          firstQuestion={this.state.firstQuestion}
+          isConfettiDone={this.state.isConfettiDone}
+        />
+      );
+    }
+  }
+
+  onTimeUpdate(currentTime) {
+    // only for the congratulations audio switch from confetti to actual question
+    if (currentTime > 3) {
+      this.setState({ isConfettiDone: true });
     }
   }
 
@@ -294,9 +345,24 @@ class Trial extends Component {
         {this.renderCongratulations()}
         <audio
           onEnded={e => this.onAudioEnded(e.target.id)}
-          id="congratulationsAudio"
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="congratulationsMathAudio"
         >
-          <source src={congratulationsAudio} type="audio/wav" />
+          <source src={congratulationsMathAudio} type="audio/mpeg" />
+        </audio>
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="congratulationsPuzzleAudio"
+        >
+          <source src={congratulationsPuzzleAudio} type="audio/mpeg" />
+        </audio>
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
+          id="congratulationsArtAudio"
+        >
+          <source src={congratulationsArtAudio} type="audio/mpeg" />
         </audio>
         <img
           className="img-background img-none"
