@@ -28,9 +28,6 @@ class Test extends Component {
           alt=""
         />
         <div>
-          <button className="button-main button-confirm-guess">Yes</button>
-        </div>
-        <div>
           <button className="button-main button-confirm-guess">No</button>
         </div>
       </div>
