@@ -18,6 +18,15 @@
   z-index: 5;
 }
 
+/* subtract half of the width of the mic */
+/* mic and next button have css as summary */
+.button-next-question {
+  position: absolute;
+  top: 35%;
+  left: calc(50% - 40px);
+  display: none;
+}
+
 .confetti-piece {
   position: absolute;
   width: 8px;

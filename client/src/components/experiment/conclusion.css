@@ -5,6 +5,7 @@
 .div-white .div-absolute-white-child {
   position: relative;
   padding: 0px 20px;
+  height: 100%;
 }
 
 .div-credits {

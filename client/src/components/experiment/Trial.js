@@ -40,7 +40,8 @@ class Trial extends Component {
       eggFalling: false,
       showCongratulations: false,
       firstQuestion: "",
-      isConfettiDone: false
+      isConfettiDone: false,
+      micReady: false
     };
   }
 
@@ -103,7 +104,7 @@ class Trial extends Component {
         document.getElementById("markTrialAudio").play();
         console.log("markTrialAudio");
 
-        setTimeout(() => {
+        setTimeout(function() {
           // need to remove the egg or else it will make the page longer
           document.getElementById("egg").style.display = "none";
         }, 2000);
@@ -164,7 +165,6 @@ class Trial extends Component {
   };
 
   onAudioEnded = elementId => {
-    console.log("elementId = ", elementId);
     if (elementId === "startTrialAudio" || elementId === "startTopTrialAudio") {
       // allow subject to manipulate egg
       this.setState({ trialReady: true });
@@ -183,9 +183,7 @@ class Trial extends Component {
         hasGuessed: false,
         trialReady: false,
         eggFalling: false,
-        showCongratulations: false,
-        firstQuestion: "",
-        isConfettiDone: false
+        showCongratulations: false
       });
     } else if (elementId === "markFinalTrialAudio") {
       // the button is in Trial.js and the audio element is in Experiment
@@ -201,13 +199,9 @@ class Trial extends Component {
           console.error("start question recording error = ", error);
         });
 
-      // setTimeout(function() {
-      //   document.getElementById("microphone").style.display = "inline-block";
-      // }, 2000);
-      //
-      // setTimeout(function() {
-      //   document.getElementById("saidWhy").style.display = "inline-block";
-      // }, 4000);
+      setTimeout(() => {
+        this.setState({ micReady: true });
+      }, 2000);
     }
   };
 
@@ -231,6 +225,8 @@ class Trial extends Component {
         <Congratulations
           firstQuestion={this.state.firstQuestion}
           isConfettiDone={this.state.isConfettiDone}
+          micReady={this.state.micReady}
+          recorder={this.props.recorder}
         />
       );
     }
