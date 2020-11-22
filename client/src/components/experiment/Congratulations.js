@@ -7,7 +7,7 @@ import "./conclusion.css";
 
 import point from "../../images/point.png";
 import microphone from "../../images/microphone.png";
-import artQAudio from "../../audio/artQ.wav";
+import artQAudio from "../../audio/art.wav";
 import mathQAudio from "../../audio/mathQ.wav";
 import puzzleQAudio from "../../audio/puzzleQ.wav";
 
