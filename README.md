@@ -32,3 +32,16 @@
 3.  Push to Github: `git push origin master`
 4.  Push to Heroku: `git push heroku master`
 5.  Check deployment at
+
+### Frontend Structure
+
+Found under client/src/components
+
+1. Verification: Code.js asks for specific ID and child's birth date
+2. Instructions: Start.js lists initial instructions
+3. Experiment: Five main parts:
+   a. Introduction: animated instructions
+   b. Practice: Same code as trial without image of egg
+   c. Trial: Broken down into guess and attempt
+   d. Summary: Highlights trial results and collects data
+   e. Conclusion: Success condition that uses Trial code again
