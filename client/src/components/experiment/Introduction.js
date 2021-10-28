@@ -8,6 +8,7 @@ import line1 from "../../audio/line1.wav";
 import getParentAudio from "../../audio/get_parent.mp3";
 import line2_and_name from "../../audio/line2_and_name.mp3";
 import line2_age from "../../audio/line2_age.wav";
+import child_assent from "../../audio/congratulations.wav";
 import line3_thank_you from "../../audio/line3_thank_you.wav";
 import introductionVideo from "../../audio/intro.mp4";
 
@@ -15,11 +16,13 @@ import parentChild from "../../images/parent_child.png";
 import buttonPress from "../../images/button_press.png";
 import child from "../../images/child.png";
 import microphone from "../../images/microphone.png";
+import thumbUp from "../../images/thumb_up.png";
+import thumbDown from "../../images/thumb_down.png";
 import handsOnLap from "../../images/hands_on_lap.png";
 
 class Introduction extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       introductionStep: 0
     };
@@ -109,10 +112,16 @@ class Introduction extends Component {
         }
 
         this.setState({ introductionStep: 3 });
+        document.getElementById("child_assent").play();
+        console.log("child_assent");
+        break;
+      case 3:
+        // confirm assent
+        this.setState({ introductionStep: 4 });
         document.getElementById("line3_thank_you").play();
         console.log("line3_thank_you");
         break;
-      case 3:
+      case 4:
         // understands button press; display and play video
         document.getElementById("buttonIntroduction30").style.display = "none";
         const video = document.getElementById("introductionVideo");
@@ -124,10 +133,19 @@ class Introduction extends Component {
   };
 
   onClickNo = () => {
-    document.getElementById("buttonIntroduction00").style.display = "none";
-    document.getElementById("buttonIntroduction01").style.display = "none";
-    document.getElementById("getParentAudio").play();
-    console.log("getParentAudio");
+    switch (this.state.introductionStep) {
+      case 0:
+        document.getElementById("buttonIntroduction00").style.display = "none";
+        document.getElementById("buttonIntroduction01").style.display = "none";
+        document.getElementById("getParentAudio").play();
+        console.log("getParentAudio");
+        break;
+      case 3:
+        // Child does not want to play
+        this.setState({ introductionStep: 5 });
+        break;
+      default:
+    }
   };
 
   onTimeUpdate(currentTime, audioId) {
@@ -186,6 +204,13 @@ class Introduction extends Component {
         document.getElementById("buttonIntroduction20").style.display =
           "inline-block";
       }, 4000);
+    } else if (elementId === "child_assent") {
+      document.getElementById("child").style.display =
+        "none";
+        document.getElementById("thumbUp").style.display =
+        "inline-block";
+        document.getElementById("thumbDown").style.display =
+        "inline-block";
     } else if (elementId === "line3_thank_you") {
       document.getElementById("buttonIntroduction30").style.display =
         "inline-block";
@@ -278,6 +303,37 @@ class Introduction extends Component {
       case 3:
         return (
           <div className="div-absolute">
+            <div className="div-absolute">
+              <button
+                onClick={this.onClickContinue}
+                id="buttonThumbUp"
+                className="button-thumb button-thumb-up"
+              >
+                <img
+                  className="img-thumb"
+                  src={thumbUp}
+                  alt=""
+                  id="thumbUp"
+                />
+              </button>
+              <button
+                onClick={this.onClickNo}
+                id="buttonThumbDown"
+                className="button-thumb button-thumb-down"
+              >
+                <img
+                  className="img-thumb"
+                  src={thumbDown}
+                  alt=""
+                  id="thumbDown"
+                />
+              </button>
+            </div>
+          </div>
+        );
+      case 4:
+        return (
+          <div className="div-absolute">
             <video
               id="introductionVideo"
               className="video-introduction"
@@ -303,6 +359,28 @@ class Introduction extends Component {
             </div>
           </div>
         );
+      case 5:
+        return (
+          <div className="div-absolute">
+            <div className="div-absolute content screen-edge-padding">
+              <h3 className="row-upper-30-padding">
+                Thank you! If you do want to play the game later, revisit the link!
+              </h3>
+              <button
+                onClick={() => window.location.reload()}
+                id="reload"
+                className="button-reload"
+              >
+                <img
+                  className="img-reload"
+                  src={thumbUp}
+                  alt=""
+                  id="reload"
+                />
+              </button>
+            </div>
+          </div>
+        );
       default:
         return <div />;
     }
@@ -322,6 +400,9 @@ class Introduction extends Component {
         </audio>
         <audio onEnded={e => this.onAudioEnded(e.target.id)} id="line2_age">
           <source src={line2_age} type="audio/wav" />
+        </audio>
+        <audio onEnded={e => this.onAudioEnded(e.target.id)} id="child_assent">
+          <source src={child_assent} type="audio/wav" />
         </audio>
         <audio
           onTimeUpdate={e =>

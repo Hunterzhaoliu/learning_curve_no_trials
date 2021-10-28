@@ -30,3 +30,34 @@
   height: 200px;
   display: none;
 }
+
+.button-thumb {
+  position: relative;
+  top: 30%;
+  background-color: transparent;
+  border: none;
+}
+
+.button-thumb-up {
+  left: 40%;
+}
+
+.button-thumb-down {
+  right: 40%;
+}
+
+.img-thumb {
+  position: relative;
+  height: 100px;
+  display: none;
+}
+
+.button-reload {
+  padding-top: 60px;
+  background-color: transparent;
+  border: none;
+}
+
+.img-reload {
+  height: 100px;
+}

@@ -17,7 +17,7 @@ let cloneObject = object => {
 //   treeChoice: ""
 // };
 let initialState = {
-  phase: "practice",
+  phase: "preparation",
   trial: 1,
   guesses: [],
   trialLengths: [],
