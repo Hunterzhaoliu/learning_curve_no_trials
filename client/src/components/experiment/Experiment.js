@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Preparation from "./Preparation";
+import Expectation from "./Expectation";
 import Introduction from "./Introduction";
 import Practice from "./Practice";
 import Instruction from "./Instruction";
@@ -10,7 +11,8 @@ import Conclusion from "./Conclusion";
 
 import "./experiment.css";
 
-import background from "../../images/background.png";
+import background_tall_left from "../../images/background_tall_left.png";
+import background_tall_right from "../../images/background_tall_right.png";
 
 import summaryAudio from "../../audio/line13_14.mp3";
 
@@ -27,6 +29,8 @@ class Experiment extends Component {
         return <Introduction recorder={this.props.recorder} />;
       case "practice":
         return <Practice />;
+      case "expectation":
+        return <Expectation />;
       case "instruction":
         return <Instruction />;
       case "trial":
@@ -98,6 +102,14 @@ class Experiment extends Component {
   }
 
   render() {
+    const {condition} = this.props;
+    
+    let background = background_tall_left;
+
+    if (condition === "tallRightExpectHigh" || condition === "tallRightExpectLow") {
+      background = background_tall_right
+    }
+
     return (
       <div>
         <img className="img-background" src={background} alt="" />

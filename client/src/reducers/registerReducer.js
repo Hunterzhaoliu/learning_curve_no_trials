@@ -16,10 +16,10 @@ let cloneObject = object => {
 //   condition: ""
 // };
 let initialState = {
-  step: 1,
+  step: 2,
   codeError: false,
   dBID: null,
-  condition: ""
+  condition: "tallLeftExpectHigh"
 };
 
 export default function(state = initialState, action) {

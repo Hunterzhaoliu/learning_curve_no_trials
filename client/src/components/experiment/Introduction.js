@@ -116,7 +116,7 @@ class Introduction extends Component {
         console.log("child_assent");
         break;
       case 3:
-        // confirm assent
+        // confirm child assent
         this.setState({ introductionStep: 4 });
         document.getElementById("line3_thank_you").play();
         console.log("line3_thank_you");
@@ -127,6 +127,12 @@ class Introduction extends Component {
         const video = document.getElementById("introductionVideo");
         video.style.display = "inline-block";
         video.play();
+        break;
+      case 5:
+        // didn't initially confirm child assent, but then confirmed
+        this.setState({ introductionStep: 4 });
+        document.getElementById("line3_thank_you").play();
+        console.log("line3_thank_you");
         break;
       default:
     }
@@ -367,7 +373,7 @@ class Introduction extends Component {
                 Thank you! If you do want to play the game later, revisit the link!
               </h3>
               <button
-                onClick={() => window.location.reload()}
+                onClick={this.onClickContinue}
                 id="reload"
                 className="button-reload"
               >
