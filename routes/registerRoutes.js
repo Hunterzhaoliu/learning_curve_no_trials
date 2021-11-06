@@ -13,28 +13,27 @@ module.exports = app => {
         // don't get the egg to the top on the first try
         // tallRightExpectHigh: tall tree on the right side and most children
         // get the egg to the top on the first try
-        // tallRightExpectLow: tall tree on the right side and most children
-        // don't get the egg to the top on the first try
-        // baseline: 
-
-      // change background
-      // change video
-      // change which side is associated with the tall/short tree
-      // rerecord instruction
+        // tallLeftBaseline: tall tree on the left side and no substantial
+        // message from the squirrel
+        // tallRightBaseline: tall tree on the right side and no substantial
+        // message from the squirrel
 
       // only count conditions of all the subjects who actually completed the
       // full experiment
       const previousSubjectConditions = await SubjectCollection.find(
-        { code: { $exists: true } },
+        { completedDate: {
+          $gte: new Date(2021, 11, 04),
+        }},
         { condition: 1, _id: 0 }
       );
-
+      
       let conditionsCount = {
         tallLeftExpectHigh: 0,
         tallLeftExpectLow: 0,
         tallRightExpectHigh: 0,
         tallRightExpectLow: 0,
-        baseline: 0
+        tallLeftBaseline: 0,
+        tallRightBaseline: 0
       }
 
       for (let i = 0; i < previousSubjectConditions.length; i++) {

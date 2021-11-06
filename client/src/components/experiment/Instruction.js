@@ -68,9 +68,20 @@ class Instruction extends Component {
       String(SCREEN_TO_LADDER_BOTTOM_PERCENT - 100) + "vh"
     );
 
+    const {condition } = this.props;
+
+    let handClassName = "img-hand img-hand-left";
+
+    const showTallTreeOnRight = condition === "tallRightExpectHigh" || +
+      condition === "tallRightExpectLow" || condition === "tallRightBaseline"
+        
+    if (showTallTreeOnRight) {
+      handClassName = "img-hand img-hand-right"
+    }
+
     return (
       <div className="div-absolute">
-        <img className="img-hand img-hand-right" src={hand} id="hand" alt="" />
+        <img className={handClassName} src={hand} id="hand" alt="" />
         <audio
           onEnded={this.onAudioEnded}
           onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
@@ -111,6 +122,12 @@ class Instruction extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    condition: state.register.condition,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   const experimentDispatchers = bindActionCreators(
     experimentActionCreators,
@@ -125,6 +142,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Instruction);

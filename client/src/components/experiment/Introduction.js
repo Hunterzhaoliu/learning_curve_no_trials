@@ -8,9 +8,10 @@ import line1 from "../../audio/line1.wav";
 import getParentAudio from "../../audio/get_parent.mp3";
 import line2_and_name from "../../audio/line2_and_name.mp3";
 import line2_age from "../../audio/line2_age.wav";
-import child_assent from "../../audio/congratulations.wav";
+import child_assent from "../../audio/child_assent.mp3";
 import line3_thank_you from "../../audio/line3_thank_you.wav";
-import introductionVideo from "../../audio/intro.mp4";
+import introductionVideoTallRight from "../../audio/intro_tall_right.mp4";
+import introductionVideoTallLeft from "../../audio/intro_tall_left.mp4";
 
 import parentChild from "../../images/parent_child.png";
 import buttonPress from "../../images/button_press.png";
@@ -338,6 +339,15 @@ class Introduction extends Component {
           </div>
         );
       case 4:
+        const {condition} = this.props;
+    
+        let introductionVideo = introductionVideoTallLeft;
+
+        const showTallTreeOnRight = condition === "tallRightExpectHigh" || +
+          condition === "tallRightExpectLow" || condition === "tallRightBaseline"
+        if (showTallTreeOnRight) {
+          introductionVideo = introductionVideoTallRight;
+        }
         return (
           <div className="div-absolute">
             <video
@@ -408,7 +418,7 @@ class Introduction extends Component {
           <source src={line2_age} type="audio/wav" />
         </audio>
         <audio onEnded={e => this.onAudioEnded(e.target.id)} id="child_assent">
-          <source src={child_assent} type="audio/wav" />
+          <source src={child_assent} type="audio/mpeg" />
         </audio>
         <audio
           onTimeUpdate={e =>
@@ -433,7 +443,8 @@ class Introduction extends Component {
 
 function mapStateToProps(state) {
   return {
-    dBID: state.register.dBID
+    dBID: state.register.dBID,
+    condition: state.register.condition
   };
 }
 

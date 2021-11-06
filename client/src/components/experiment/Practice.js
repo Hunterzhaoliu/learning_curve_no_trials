@@ -8,12 +8,8 @@ import "./practice.css";
 
 class Practice extends Component {
   componentDidMount() {
-    // TODO: uncomment
-    // document.getElementById("line4").play();
+    document.getElementById("line4").play();
     console.log("line4");
-
-    // TODO: delete
-    document.getElementById("buttonPractice").style.display = "inline-block";
 
     // don't want to display egg while in practice
     document.getElementById("egg").style.display = "none";

@@ -1,4 +1,6 @@
+/* box-sizing is to make the marker stay the same size when highlighted in
+the summary */
 .img-number {
   position: absolute;
-  box-sizing: content-box;
+  box-sizing: content-box; 
 }

@@ -17,12 +17,6 @@ import questionSameAudio from "../../audio/line16_same_cut.wav";
 import questionBetterAudio from "../../audio/line16_better_cut.wav";
 import goTopAudio from "../../audio/line15_3.wav";
 
-import {
-  SLIDER_TOP_PERCENT,
-  SCREEN_TO_LADDER_BOTTOM_PERCENT,
-  EGG_PLATFORM_WIDTH
-} from "./constants";
-
 class Summary extends Component {
   constructor() {
     super();
@@ -204,13 +198,6 @@ class Summary extends Component {
   }
 
   render() {
-    const ladderHeightPercent =
-      SCREEN_TO_LADDER_BOTTOM_PERCENT - SLIDER_TOP_PERCENT;
-
-    // marker left is 110% of eggPlatformWidth in Markers.js
-    // after reaching half screen, add an additional 60% of eggPlatformWidth
-    const sliderLeft = "calc(50% + " + String(EGG_PLATFORM_WIDTH * 0.6) + "px)";
-
     // need to decide which reflection button display on left vs. right
     let sameTop;
     let betterTop;
@@ -224,16 +211,7 @@ class Summary extends Component {
 
     return (
       <div className="div-absolute">
-        <div
-          style={{
-            position: "absolute",
-            left: sliderLeft,
-            top: String(SLIDER_TOP_PERCENT) + "%",
-            height: String(ladderHeightPercent) + "%"
-          }}
-        >
           <Markers />
-        </div>
         <img
           className="img-hand img-hand-left"
           src={hand}

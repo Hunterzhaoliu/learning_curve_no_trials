@@ -120,6 +120,11 @@ class Trial extends Component {
     }
 
     const { treeChoice } = this.props;
+
+    // Choose left tree and condition is tallLeft, then > 95
+    // Choose left tree and condition is tallRight, then >75
+    // Choose right tree and condition is tallLeft, then > 75
+    // Choose right tree and condition is tallRight, then > 95
     if (
       !this.state.showCongratulations &&
       ((treeChoice === "left" && this.state.eggHeight > 75) ||
@@ -330,13 +335,13 @@ class Trial extends Component {
             src={egg}
             alt=""
           />
-          <Markers onAudioEnded={this.onAudioEnded} />
           <button
             onClick={this.playAudio}
             id="summaryAudioButton"
             className="button-audio"
           />
         </div>
+        <Markers onAudioEnded={this.onAudioEnded} />
         {this.renderGuess()}
         {this.renderCongratulations()}
         <audio

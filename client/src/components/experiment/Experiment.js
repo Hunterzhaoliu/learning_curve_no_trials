@@ -11,12 +11,12 @@ import Conclusion from "./Conclusion";
 
 import "./experiment.css";
 
-import background_tall_left from "../../images/background_tall_left.png";
-import background_tall_right from "../../images/background_tall_right.png";
+import backgroundTallLeft from "../../images/background_tall_left.png";
+import backgroundTallRight from "../../images/background_tall_right.png";
 
 import summaryAudio from "../../audio/line13_14.mp3";
 
-import { EGG_FALL_INCREASING, EGG_FALL_CONSTANT } from "./constants";
+import { EGG_FALL_INCREASING } from "./constants";
 
 class Experiment extends Component {
   renderExperiment() {
@@ -30,17 +30,12 @@ class Experiment extends Component {
       case "practice":
         return <Practice />;
       case "expectation":
-        return <Expectation />;
+        return <Expectation recorder={this.props.recorder}/>;
       case "instruction":
         return <Instruction />;
       case "trial":
-        const { condition, trial } = this.props;
-        let eggFallPercentage;
-        if (condition === "constant") {
-          eggFallPercentage = EGG_FALL_CONSTANT[trial - 1];
-        } else if (condition === "increasing") {
-          eggFallPercentage = EGG_FALL_INCREASING[trial - 1];
-        }
+        const { trial } = this.props;
+        const eggFallPercentage = EGG_FALL_INCREASING[trial - 1];
         return <Trial eggFallPercentage={eggFallPercentage} treeChoice={""} />;
       case "summary":
         // subject finished experiment, need to go over results, ask for desired
@@ -103,11 +98,14 @@ class Experiment extends Component {
 
   render() {
     const {condition} = this.props;
-    
-    let background = background_tall_left;
 
-    if (condition === "tallRightExpectHigh" || condition === "tallRightExpectLow") {
-      background = background_tall_right
+    let background = backgroundTallLeft;
+
+    const showTallTreeOnRight = condition === "tallRightExpectHigh" || +
+      condition === "tallRightExpectLow" || condition === "tallRightBaseline"
+        
+    if (showTallTreeOnRight) {
+      background = backgroundTallRight
     }
 
     return (

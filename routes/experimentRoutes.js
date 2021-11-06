@@ -77,29 +77,6 @@ module.exports = app => {
     }
   });
 
-  app.put("/api/save-conclusion", async (request, response) => {
-    const data = request.body;
-    try {
-      await SubjectCollection.findOneAndUpdate(
-        { _id: data.dBID },
-        {
-          interference: data.interferenceAnswer,
-          bystander: data.bystander,
-          feedback: data.feedback,
-          deviceType: data.deviceType,
-          deviceModel: data.deviceModel,
-          browser: data.browser,
-          windowWidth: data.windowWidth,
-          windowHeight: data.windowHeight
-        },
-        { upsert: true }
-      );
-      response.send("successfully saved data");
-    } catch (error) {
-      response.status(422).send(error);
-    }
-  });
-
   app.put("/api/save-final-conclusion", async (request, response) => {
     const data = request.body;
     try {

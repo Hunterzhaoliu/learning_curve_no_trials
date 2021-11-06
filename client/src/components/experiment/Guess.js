@@ -123,8 +123,16 @@ class Guess extends Component {
   }
 
   render() {
-    const guessSliderLeft =
+    const {condition} = this.props;
+    let guessSliderLeft = 0;
+
+    const showTallTreeOnRight = condition === "tallRightExpectHigh" || +
+      condition === "tallRightExpectLow" || condition === "tallRightBaseline"
+       
+    if (showTallTreeOnRight) {
+      guessSliderLeft =
       "calc(50% + " + String(EGG_PLATFORM_WIDTH / 2) + "px)";
+    }
 
     return (
       <div style={{ left: guessSliderLeft }} className="slider-container">
@@ -132,6 +140,12 @@ class Guess extends Component {
       </div>
     );
   }
+}
+
+function mapStateToProps(state) {
+  return {
+    condition: state.register.condition,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -148,6 +162,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Guess);

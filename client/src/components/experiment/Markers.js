@@ -8,7 +8,7 @@ import two from "../../images/numbers/two.png";
 import three from "../../images/numbers/three.png";
 import four from "../../images/numbers/four.png";
 
-import { EGG_FALL_INCREASING, EGG_FALL_CONSTANT } from "./constants";
+import { EGG_PLATFORM_WIDTH, EGG_FALL_INCREASING } from "./constants";
 
 class Markers extends Component {
   renderMarkers = () => {
@@ -21,19 +21,22 @@ class Markers extends Component {
     // count in props gets incremented, so need to display markers for previous
     // trials and trial that just finished
 
-    let markerImages = [];
-    for (let i = 0; i < trial - 1; i++) {
-      let eggFallPercentage;
-      let markerLeft;
+    // -35% corresponds to the same amount of space between marker and ladder
+    // when displayed on left side compared to 110% space between marker and
+    // ladder when displayed on right side
+    let markerLeft = "-35%";
 
-      if (condition === "constant") {
-        // Constant condition where egg gets to the last marker
-        eggFallPercentage = String(100 - EGG_FALL_CONSTANT[i]);
-        markerLeft = "calc(110% + " + String(20 * i) + "px)";
-      } else {
-        eggFallPercentage = String(100 - EGG_FALL_INCREASING[i]);
-        markerLeft = "110%";
-      }
+    const showTallTreeOnRight = condition === "tallRightExpectHigh" || +
+      condition === "tallRightExpectLow" || condition === "tallRightBaseline"
+       
+    if (showTallTreeOnRight) {
+      markerLeft = "110%"
+    }
+
+    let markerImages = [];
+    
+    for (let i = 0; i < trial - 1; i++) {
+      const eggFallPercentage = String(100 - EGG_FALL_INCREASING[i]);
 
       const markerTop =
         "calc(" +
@@ -61,8 +64,11 @@ class Markers extends Component {
   };
 
   render() {
+    const markersLeft =
+      "calc(50% - " + String(EGG_PLATFORM_WIDTH / 2) + "px)";
+
     return (
-      <div>
+      <div style={{ left: markersLeft, zIndex: 2 }} className="slider-container">
         <audio
           onEnded={e => this.props.onAudioEnded(e.target.id)}
           id="markTrialAudio"

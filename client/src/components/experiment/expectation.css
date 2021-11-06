@@ -1,0 +1,19 @@
+.video-expectation {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-size: cover;
+}
+
+.img-none {
+  display: none;
+}
+
+/* .img-microphone {
+  position: relative;
+  top: 50%;
+  height: 200px;
+  display: none;
+} */

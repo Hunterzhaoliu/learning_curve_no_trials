@@ -19,7 +19,7 @@ let initialState = {
   step: 2,
   codeError: false,
   dBID: null,
-  condition: "tallLeftExpectHigh"
+  condition: "tallLeftBaseline"
 };
 
 export default function(state = initialState, action) {

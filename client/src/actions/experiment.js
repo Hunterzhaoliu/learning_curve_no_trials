@@ -12,6 +12,7 @@ export const advancePhase = nextPhase => dispatch => {
     nextPhase: nextPhase
   });
 };
+
 export const saveGuess = guessHeight => dispatch => {
   dispatch({
     type: SAVE_GUESS,
@@ -40,10 +41,6 @@ export const saveData = data => async dispatch => {
   const saveDataResponse = await axios.put("/api/save-data", data);
 
   if (saveDataResponse.status === 200) {
-    dispatch({
-      type: ADVANCE_PHASE,
-      nextPhase: "success"
-    });
   } else {
     console.log("Unable to Save Data");
   }
