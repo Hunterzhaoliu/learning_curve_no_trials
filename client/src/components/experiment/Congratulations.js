@@ -5,6 +5,11 @@ import { bindActionCreators } from "redux";
 import "./congratulations.css";
 import "./conclusion.css";
 
+import successBackgroundEggHighLeft from "../../images/success_background_egg_high_left.png";
+import successBackgroundEggLowLeft from "../../images/success_background_egg_low_left.png";
+import successBackgroundEggHighRight from "../../images/success_background_egg_high_right.png";
+import successBackgroundEggLowRight from "../../images/success_background_egg_low_right.png";
+
 import point from "../../images/point.png";
 import microphone from "../../images/microphone.png";
 import artAudio from "../../audio/art.wav";
@@ -118,8 +123,31 @@ class Congratulations extends Component {
 
   render() {
     if (!this.props.isConfettiDone) {
+      const {condition, treeChoice } = this.props;
+      let success_background;
+
+      // four cases
+      if (treeChoice === "left" && (condition === "tallLeftExpectHigh" ||
+        condition === "tallLeftExpectLow" || condition === "tallLeftBaseline")) {
+          success_background = successBackgroundEggHighLeft
+      } else if (treeChoice === "left" && (condition === "tallRightExpectHigh" ||
+        condition === "tallRightExpectLow" || condition === "tallRightBaseline")) {
+        success_background = successBackgroundEggLowLeft
+      } else if (treeChoice === "right" && (condition === "tallRightExpectHigh" ||
+        condition === "tallRightExpectLow" || condition === "tallRightBaseline")) {
+        success_background = successBackgroundEggHighRight
+      } else {
+        success_background = successBackgroundEggLowRight
+      }
+
       return (
         <div className="div-absolute confetti">
+          <img
+            className="img-background"
+            src={success_background}
+            alt=""
+            id="success_background"
+          />
           <img className="img-point" src={point} alt="" />
           <div className="confetti-piece" />
           <div className="confetti-piece" />
@@ -205,7 +233,9 @@ class Congratulations extends Component {
 
 function mapStateToProps(state) {
   return {
-    dBID: state.register.dBID
+    dBID: state.register.dBID,
+    condition: state.register.condition,
+    treeChoice: state.experiment.treeChoice
   };
 }
 

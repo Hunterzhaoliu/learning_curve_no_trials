@@ -9,8 +9,6 @@ import "./trial.css";
 
 import egg_platform from "../../images/egg_platform.png";
 import egg from "../../images/egg.png";
-import background_egg_left from "../../images/background_egg_left.png";
-import background_egg_right from "../../images/background_egg_right.png";
 
 import startTrialAudio from "../../audio/line9.wav";
 import startTopTrialAudio from "../../audio/line10.wav";
@@ -121,44 +119,45 @@ class Trial extends Component {
 
     const { treeChoice } = this.props;
 
-    // Choose left tree and condition is tallLeft, then > 95
-    // Choose left tree and condition is tallRight, then >75
-    // Choose right tree and condition is tallLeft, then > 75
-    // Choose right tree and condition is tallRight, then > 95
-    if (
-      !this.state.showCongratulations &&
-      ((treeChoice === "left" && this.state.eggHeight > 75) ||
-        (treeChoice === "right" && this.state.eggHeight > 95))
-    ) {
-      // < 1/3 is math, between 1/3 and 2/3 is puzzle, and last 1/3 is art
-      let firstQuestion = Math.random();
-      // ask comprehension questions
-      if (firstQuestion < 1 / 3) {
-        firstQuestion = "math";
-        document.getElementById("congratulationsMathAudio").play();
-        console.log("congratulationsMathAudio");
-      } else if (firstQuestion < 2 / 3) {
-        firstQuestion = "puzzle";
-        document.getElementById("congratulationsPuzzleAudio").play();
-        console.log("congratulationsPuzzleAudio");
-      } else {
-        firstQuestion = "art";
-        document.getElementById("congratulationsArtAudio").play();
-        console.log("congratulationsArtAudio");
-      }
+    if (!this.state.showCongratulations && treeChoice) {
+      const {condition} = this.props;
+      const choseLeftTallTree =  treeChoice === "left" &&
+        (condition === "tallLeftExpectHigh" || 
+        condition === "tallLeftExpectLow" ||
+        condition === "tallLeftBaseline")
+      const choseRightTallTree =  treeChoice === "right" &&
+        (condition === "tallRightExpectHigh" || 
+        condition === "tallRightExpectLow" ||
+        condition === "tallRightBaseline")
+      const choseTallTree = choseLeftTallTree || choseRightTallTree;
+      
+      if ((!choseTallTree && this.state.eggHeight > 75) ||
+        (choseTallTree && this.state.eggHeight > 95)) {
+        // < 1/3 is math, between 1/3 and 2/3 is puzzle, and last 1/3 is art
+        let firstQuestion = Math.random();
+        // ask comprehension questions
+        if (firstQuestion < 1 / 3) {
+          firstQuestion = "math";
+          document.getElementById("congratulationsMathAudio").play();
+          console.log("congratulationsMathAudio");
+        } else if (firstQuestion < 2 / 3) {
+          firstQuestion = "puzzle";
+          document.getElementById("congratulationsPuzzleAudio").play();
+          console.log("congratulationsPuzzleAudio");
+        } else {
+          firstQuestion = "art";
+          document.getElementById("congratulationsArtAudio").play();
+          console.log("congratulationsArtAudio");
+        }
 
-      // child successfully brought egg up tree; need to show egg in nest
-      document.getElementById("egg").style.display = "none";
-      if (treeChoice === "left") {
-        document.getElementById("backgroundEggLeft").style.display = "block";
-      } else {
-        document.getElementById("backgroundEggRight").style.display = "block";
-      }
+        // child successfully brought egg up tree; need to show egg in nest
+        document.getElementById("egg").style.display = "none";
 
-      this.setState({
-        showCongratulations: true,
-        firstQuestion: firstQuestion
-      });
+        this.setState({
+          showCongratulations: true,
+          firstQuestion: firstQuestion
+        });
+      }
     }
   }
 
@@ -365,18 +364,6 @@ class Trial extends Component {
         >
           <source src={congratulationsArtAudio} type="audio/mpeg" />
         </audio>
-        <img
-          className="img-background img-none"
-          src={background_egg_left}
-          alt=""
-          id="backgroundEggLeft"
-        />
-        <img
-          className="img-background img-none"
-          src={background_egg_right}
-          alt=""
-          id="backgroundEggRight"
-        />
       </div>
     );
   }
@@ -384,6 +371,7 @@ class Trial extends Component {
 
 function mapStateToProps(state) {
   return {
+    condition: state.register.condition,
     trial: state.experiment.trial,
     guesses: state.experiment.guesses
   };
