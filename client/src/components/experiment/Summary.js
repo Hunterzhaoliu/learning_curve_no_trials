@@ -7,14 +7,10 @@ import "./summary.css";
 
 import hand from "../../images/hand.png";
 import microphone from "../../images/microphone.png";
-import same_2 from "../../images/same_2.png";
-import better_2 from "../../images/better_2.png";
 
 import confirmTreeAudio from "../../audio/line15_2.wav";
 import askWhyAudio from "../../audio/why_tree.wav";
 import reaskTreeAudio from "../../audio/line14_cut.wav";
-import questionSameAudio from "../../audio/line16_same_cut.wav";
-import questionBetterAudio from "../../audio/line16_better_cut.wav";
 import goTopAudio from "../../audio/line15_3.wav";
 
 class Summary extends Component {
@@ -23,8 +19,7 @@ class Summary extends Component {
     this.state = {
       topButton: Math.random(), // < .5 means same goes on top
       gavePotentialTreeChoice: false,
-      treeChoice: "",
-      reflection: ""
+      treeChoice: ""
     };
   }
 
@@ -40,7 +35,7 @@ class Summary extends Component {
 
     document.getElementById("confirmTreeAudio").play();
     console.log("confirmTreeAudio");
-    // // hand display is done in onTimeUpdate() function
+    // hand display is done in onTimeUpdate() function
   };
 
   onClickConfirmation = e => {
@@ -97,23 +92,6 @@ class Summary extends Component {
       this.props.saveAudio("failed audio");
     }
 
-    // ask comprehension questions
-    if (this.state.topButton < 0.5) {
-      document.getElementById("questionSameAudio").play();
-      console.log("questionSameAudio");
-    } else {
-      document.getElementById("questionBetterAudio").play();
-      console.log("questionBetterAudio");
-    }
-  };
-
-  onClickReflection = value => {
-    this.setState({ reflection: value });
-
-    // remove buttons
-    document.getElementById("better").style.display = "none";
-    document.getElementById("same").style.display = "none";
-
     // ensure success
     document.getElementById("goTopAudio").play();
     console.log("goTopAudio");
@@ -168,20 +146,12 @@ class Summary extends Component {
     } else if (audioId === "reaskTreeAudio") {
       document.getElementById("buttonLeftTree").style.display = "block";
       document.getElementById("buttonRightTree").style.display = "block";
-    } else if (
-      audioId === "questionSameAudio" ||
-      audioId === "questionBetterAudio"
-    ) {
-      // display both reflection buttons
-      document.getElementById("better").style.display = "block";
-      document.getElementById("same").style.display = "block";
     } else if (audioId === "goTopAudio") {
       const data = {
         dBID: this.props.dBID,
         guesses: this.props.guesses,
         trialLengths: this.props.trialLengths,
-        treeChoice: this.state.treeChoice,
-        reflection: this.state.reflection
+        treeChoice: this.state.treeChoice
       };
       this.props.saveData(data);
     }
@@ -198,17 +168,6 @@ class Summary extends Component {
   }
 
   render() {
-    // need to decide which reflection button display on left vs. right
-    let sameTop;
-    let betterTop;
-    if (this.state.topButton < 0.5) {
-      betterTop = "45%"; // same as height of the reflection buttons
-      sameTop = 0;
-    } else {
-      betterTop = 0;
-      sameTop = "45%";
-    }
-
     return (
       <div className="div-absolute">
           <Markers />
@@ -265,38 +224,6 @@ class Summary extends Component {
           id="reaskTreeAudio"
         >
           <source src={reaskTreeAudio} type="audio/wav" />
-        </audio>
-        <img
-          style={{
-            top: sameTop
-          }}
-          onClick={e => this.onClickReflection(e.target.id)}
-          id="same"
-          className="img-plants"
-          src={same_2}
-          alt=""
-        />
-        <img
-          style={{
-            top: betterTop
-          }}
-          onClick={e => this.onClickReflection(e.target.id)}
-          id="better"
-          className="img-plants"
-          src={better_2}
-          alt=""
-        />
-        <audio
-          onEnded={e => this.onAudioEnded(e.target.id)}
-          id="questionSameAudio"
-        >
-          <source src={questionSameAudio} type="audio/wav" />
-        </audio>
-        <audio
-          onEnded={e => this.onAudioEnded(e.target.id)}
-          id="questionBetterAudio"
-        >
-          <source src={questionBetterAudio} type="audio/wav" />
         </audio>
         <audio
           onEnded={e => this.onAudioEnded(e.target.id)}

@@ -15,7 +15,6 @@ const subjectSchema = new Schema(
     trial3Length: Number,
     trial4Length: Number,
     treeChoice: String,
-    reflection: String,
     interference: String,
     bystander: String,
     feedback: String,

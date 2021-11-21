@@ -45,7 +45,6 @@ module.exports = app => {
           trial3Length: data.trialLengths[2],
           trial4Length: data.trialLengths[3],
           treeChoice: data.treeChoice,
-          reflection: data.reflection,
           completedDate: date
         },
         { upsert: true }

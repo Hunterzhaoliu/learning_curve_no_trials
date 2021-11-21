@@ -6,3 +6,8 @@
   /* needs to be in front of background */
   z-index: 1;
 }
+
+.div-egg-and-platform {
+  position: absolute;
+  display: none;
+}
