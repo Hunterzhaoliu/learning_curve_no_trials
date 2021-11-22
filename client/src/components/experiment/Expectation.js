@@ -6,12 +6,12 @@ import { bindActionCreators } from "redux";
 import "./expectation.css"
 
 import microphone from "../../images/microphone.png";
-import tallLeftExpectHighVideo from "../../audio/tall_left_expect_high.mp4";
-import tallLeftExpectLowVideo from "../../audio/tall_left_expect_high.mp4";
-import tallRightExpectHighVideo from "../../audio/tall_right_expect_high.mp4";
-import tallRightExpectLowVideo from "../../audio/tall_left_expect_high.mp4";
-import tallLeftBaselineVideo from "../../audio/tall_left_baseline.mp4";
-import tallRightBaselineVideo from "../../audio/tall_right_baseline.mp4";
+import tallLeftExpectHighVideo from "../../audio/egg_drop_tall_left_expect_high.mp4";
+import tallLeftExpectLowVideo from "../../audio/egg_drop_tall_left_expect_high.mp4";
+import tallRightExpectHighVideo from "../../audio/egg_drop_tall_right_expect_high.mp4";
+import tallRightExpectLowVideo from "../../audio/egg_drop_tall_left_expect_high.mp4";
+import tallLeftBaselineVideo from "../../audio/egg_drop_tall_left_baseline.mp4";
+import tallRightBaselineVideo from "../../audio/egg_drop_tall_right_baseline.mp4";
 
 class Expectation extends Component {
   componentDidMount() {

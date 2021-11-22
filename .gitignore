@@ -7,3 +7,5 @@ client/.env.development
 client/.env.production
 
 subjects.csv
+
+client/src/audio/egg_drop_expectation.cmproj
