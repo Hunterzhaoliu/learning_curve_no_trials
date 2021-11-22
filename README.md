@@ -4,9 +4,9 @@
 
 - Setup: `brew install mongo`
 
-- How to import data from a csv file: `mongoimport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve --collection subjects --type file_type --headerline --file file_name`
+- How to import data from a csv file: `mongoimport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve_no_trials --collection subjects --type file_type --headerline --file file_name`
 
-- How to export data to a csv file: `mongoexport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve --collection subjects --type csv --fields _id,childBirthDate,guess1,guess2,guess3,guess4,condition,code,treeChoice,bystander,feedback,interference,completedDate,deviceType,deviceModel,browser,windowWidth,windowHeight,trial1Length,trial2Length,trial3Length,trial4Length --out subjects.csv --forceTableScan`
+- How to export data to a csv file: `mongoexport --host Cluster0-shard-0/cluster0-shard-00-00-gaqbs.mongodb.net:27017,cluster0-shard-00-01-gaqbs.mongodb.net:27017,cluster0-shard-00-02-gaqbs.mongodb.net:27017 --ssl --username changing_brain_lab --password <PASSWORD> --authenticationDatabase admin --db learning_curve_no_trials --collection subjects --type csv --fields _id,childBirthDate,guess1,guess2,guess3,guess4,condition,code,treeChoice,bystander,feedback,interference,completedDate,deviceType,deviceModel,browser,windowWidth,windowHeight,trial1Length,trial2Length,trial3Length,trial4Length --out subjects.csv --forceTableScan`
 
 ### Website
 
@@ -41,7 +41,7 @@ Found under client/src/components
 2. Instructions: Start.js lists initial instructions
 3. Experiment: Five main parts:  
    a. Introduction: animated instructions  
-   b. Practice: Same code as trial without image of egg  
-   c. Trial: Broken down into guess and attempt  
+   b. Practice: Same code as trial without image of egg
+   c. Expectation: Set child expectation through dialogue 
    d. Summary: Highlights trial results and collects data  
    e. Conclusion: Success condition that uses Trial code again
