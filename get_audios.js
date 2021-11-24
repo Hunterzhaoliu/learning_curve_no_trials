@@ -2,6 +2,7 @@ const MongoClient = require("mongodb");
 const fs = require("fs");
 const keys = require("./config/dev");
 
+console.log('keys.mongoURI = ', keys.mongoURI)
 // https://medium.com/@kavitanambissan/uploading-and-retrieving-a-file-from-gridfs-using-multer-958dfc9255e8
 MongoClient.connect(
   keys.mongoURI,
@@ -14,7 +15,7 @@ MongoClient.connect(
       );
       return;
     } else {
-      const db = client.db("learning_curve");
+      const db = client.db("learning_curve_no_trials");
       const audioFilesCollection = db.collection("audios.files");
       const audioChuncksCollection = db.collection("audios.chunks");
       // console.log("got collections");
