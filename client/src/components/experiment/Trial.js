@@ -209,12 +209,6 @@ class Trial extends Component {
     }
   };
 
-  playAudio() {
-    // only being used to simulate summaryAudioButton click for now
-    document.getElementById("summaryAudio").play();
-    console.log("summaryAudio");
-  }
-
   renderGuess() {
     // don't need the Guess component for last trial when subject is
     // guaranteed success
@@ -333,11 +327,6 @@ class Trial extends Component {
             id="egg"
             src={egg}
             alt=""
-          />
-          <button
-            onClick={this.playAudio}
-            id="summaryAudioButton"
-            className="button-audio"
           />
         </div>
         <Markers onAudioEnded={this.onAudioEnded} />

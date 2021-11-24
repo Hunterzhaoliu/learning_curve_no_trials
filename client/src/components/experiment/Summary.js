@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as experimentActionCreators from "../../actions/experiment";
 import { bindActionCreators } from "redux";
-import Markers from "./Markers";
 import "./summary.css";
 
 import hand from "../../images/hand.png";
 import microphone from "../../images/microphone.png";
 
+import whichTreeAudio from "../../audio/line14_cut.wav";
 import confirmTreeAudio from "../../audio/line15_2.wav";
 import askWhyAudio from "../../audio/why_tree.wav";
 import reaskTreeAudio from "../../audio/line14_cut.wav";
@@ -17,10 +17,13 @@ class Summary extends Component {
   constructor() {
     super();
     this.state = {
-      topButton: Math.random(), // < .5 means same goes on top
       gavePotentialTreeChoice: false,
       treeChoice: ""
     };
+  }
+
+  componentDidMount() {
+    document.getElementById("whichTreeAudio").play();
   }
 
   onClickTree = e => {
@@ -123,7 +126,10 @@ class Summary extends Component {
   }
 
   onAudioEnded(audioId) {
-    if (audioId === "confirmTreeAudio") {
+    if (audioId === "whichTreeAudio") {
+      document.getElementById("buttonLeftTree").style.display = "block";
+      document.getElementById("buttonRightTree").style.display = "block";
+    } else if (audioId === "confirmTreeAudio") {
       document.getElementById("treeConfirmationButtonDiv").style.display =
         "block";
     } else if (audioId === "askWhyAudio") {
@@ -153,6 +159,8 @@ class Summary extends Component {
         trialLengths: this.props.trialLengths,
         treeChoice: this.state.treeChoice
       };
+
+      // advance to next phase in the action
       this.props.saveData(data);
     }
   }
@@ -170,19 +178,12 @@ class Summary extends Component {
   render() {
     return (
       <div className="div-absolute">
-          <Markers />
-        <img
-          className="img-hand img-hand-left"
-          src={hand}
-          id="handLeft"
-          alt=""
-        />
-        <img
-          className="img-hand img-hand-right"
-          src={hand}
-          id="handRight"
-          alt=""
-        />
+        <audio
+          onEnded={e => this.onAudioEnded(e.target.id)}
+          id="whichTreeAudio"
+        >
+          <source src={whichTreeAudio} type="audio/wav" />
+        </audio>
         <button
           value="left"
           onClick={this.onClickTree}
@@ -194,6 +195,18 @@ class Summary extends Component {
           onClick={this.onClickTree}
           className="button-tree right-tree"
           id="buttonRightTree"
+        />
+        <img
+          className="img-hand img-hand-left"
+          src={hand}
+          id="handLeft"
+          alt=""
+        />
+        <img
+          className="img-hand img-hand-right"
+          src={hand}
+          id="handRight"
+          alt=""
         />
         <audio
           onEnded={e => this.onAudioEnded(e.target.id)}

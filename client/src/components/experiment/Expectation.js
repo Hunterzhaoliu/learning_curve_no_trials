@@ -66,7 +66,7 @@ class Expectation extends Component {
       this.props.saveAudio("failed audio");
     }
 
-    this.props.advancePhase("instruction");
+    this.props.advancePhase("summary");
   };
 
   render() {

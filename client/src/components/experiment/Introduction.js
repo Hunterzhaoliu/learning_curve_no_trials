@@ -10,8 +10,8 @@ import line2_and_name from "../../audio/line2_and_name.mp3";
 import line2_age from "../../audio/line2_age.wav";
 import child_assent from "../../audio/child_assent.mp3";
 import line3_thank_you from "../../audio/line3_thank_you.wav";
-import introductionVideoTallRight from "../../audio/intro_tall_right.mp4";
-import introductionVideoTallLeft from "../../audio/intro_tall_left.mp4";
+import introductionVideoTallRight from "../../audio/intro_tall_right_no_trials.mp4";
+import introductionVideoTallLeft from "../../audio/intro_tall_left_no_trials.mp4";
 
 import parentChild from "../../images/parent_child.png";
 import buttonPress from "../../images/button_press.png";

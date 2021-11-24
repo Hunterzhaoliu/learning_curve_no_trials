@@ -14,8 +14,6 @@ import "./experiment.css";
 import backgroundTallLeft from "../../images/background_tall_left.png";
 import backgroundTallRight from "../../images/background_tall_right.png";
 
-import summaryAudio from "../../audio/line13_14.mp3";
-
 import { EGG_FALL_INCREASING } from "./constants";
 
 class Experiment extends Component {
@@ -38,8 +36,7 @@ class Experiment extends Component {
         const eggFallPercentage = EGG_FALL_INCREASING[trial - 1];
         return <Trial eggFallPercentage={eggFallPercentage} treeChoice={""} />;
       case "summary":
-        // subject finished experiment, need to go over results, ask for desired
-        // tree, and ask tree choice reasoning
+        // ask for desired tree, and ask tree choice reasoning
         return <Summary recorder={this.props.recorder} />;
       case "success":
         return (
@@ -53,46 +50,6 @@ class Experiment extends Component {
         return <Conclusion />;
       default:
         return <Introduction />;
-    }
-  }
-
-  onAudioEnded() {
-    // Only for summmaryAudio; display both tree buttons
-    document.getElementById("buttonLeftTree").style.display = "block";
-    document.getElementById("buttonRightTree").style.display = "block";
-  }
-
-  onTimeUpdate(currentTime) {
-    if (currentTime > 25) {
-      // remove the left pointing hand
-      document.getElementById("handLeft").style.display = "none";
-    } else if (currentTime > 23) {
-      // remove the right pointing hand
-      document.getElementById("handRight").style.display = "none";
-      // display the left pointing hand
-      document.getElementById("handLeft").style.display = "block";
-    } else if (currentTime > 21) {
-      // unhighlight the last marker
-      document.getElementById("marker3").style.border = "none";
-      // display the right pointing hand
-      document.getElementById("handRight").style.display = "block";
-    } else if (currentTime > 15) {
-      document.getElementById("marker2").style.border = "none";
-      document.getElementById("marker3").style.zIndex = 5;
-      document.getElementById("marker3").style.border = "3px solid yellow";
-    } else if (currentTime > 12) {
-      document.getElementById("marker1").style.border = "none";
-      document.getElementById("marker2").style.zIndex = 4;
-      document.getElementById("marker2").style.border = "3px solid yellow";
-    } else if (currentTime > 8) {
-      // need to highlight each marker as the audio walks through them and
-      // unhighlight the previous marker
-      document.getElementById("marker0").style.border = "none";
-      document.getElementById("marker1").style.zIndex = 3;
-      document.getElementById("marker1").style.border = "3px solid yellow";
-    } else if (currentTime > 5) {
-      document.getElementById("marker0").style.zIndex = 2;
-      document.getElementById("marker0").style.border = "3px solid yellow";
     }
   }
 
@@ -111,13 +68,6 @@ class Experiment extends Component {
     return (
       <div>
         <img className="img-background" src={background} alt="" />
-        <audio
-          onEnded={this.onAudioEnded}
-          onTimeUpdate={e => this.onTimeUpdate(e.target.currentTime)}
-          id="summaryAudio"
-        >
-          <source src={summaryAudio} type="audio/mpeg" />
-        </audio>
         {this.renderExperiment()}
       </div>
     );
